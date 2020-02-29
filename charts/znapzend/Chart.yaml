@@ -10,12 +10,14 @@ description: Znapzend Helm Chart for automated ZFS snapshot & replication
 # Library charts provide useful utilities or functions for the chart developer. They're included as
 # a dependency of application charts to inject those utilities and functions into the rendering
 # pipeline. Library charts do not define any templates and therefore cannot be deployed.
-type: application
+# type: application # Only viable in v2
 
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
-version: 0.1.2
+version: 0.2.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application.
 appVersion: v0.19.1
+# Licensing of https://commons.wikimedia.org/wiki/File:Openzfs.svg applies
+icon: https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Openzfs.svg/257px-Openzfs.svg.png
