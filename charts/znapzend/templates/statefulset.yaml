@@ -94,6 +94,7 @@ spec:
           hostPath:
             path: "{{ .Values.host.zfsDevice }}"
             type: CharDevice
+        {{ $secretName := include "znapzend.fullname" . }}
         {{- with .Values.ssh }}
         {{- if or .identities .externalSecretName }}
         - name: ssh
@@ -101,7 +102,7 @@ spec:
             {{- if .externalSecretName }}
             secretName: {{ .externalSecretName }}
             {{- else }}
-            secretName: {{ include "znapzend.fullname" . }}
+            secretName: {{ $secretName }}
             {{- end }}
             defaultMode: 0600
         {{- end }}
