@@ -1,7 +1,0 @@
-= charts
-ccremer's Helm charts repository
-:toc:
-
-toc::[]
-
-include::charts/znapzend/README.adoc[]
