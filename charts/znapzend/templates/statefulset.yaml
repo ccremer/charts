@@ -1,0 +1,108 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "znapzend.fullname" . }}
+  labels:
+    {{- include "znapzend.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "znapzend.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "znapzend.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          livenessProbe:
+            exec:
+              command:
+              - pidof
+              - znapzend
+            periodSeconds: 30
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: zfs
+              mountPath: /dev/zfs
+            {{- if or .Values.ssh.identities .Values.ssh.externalSecretName }}
+            - name: ssh
+              mountPath: {{ .Values.ssh.path }}
+            {{- end }}
+
+        {{- if .Values.metrics.enabled }}
+        {{- with .Values.metrics }}
+        - name: exporter
+          image: "{{ .image.repository }}:{{ .image.tag }}"
+          imagePullPolicy: {{ .image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+          {{- if .jobs.register }}
+            - name: JOBS_REGISTER
+              value: "{{ .jobs.register | join "," }}"
+          {{- end }}
+          {{- range $key, $value := .env }}
+            - name: {{ $key }}
+              value: {{ $value }}
+          {{- end }}
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: http
+            failureThreshold: 1
+            successThreshold: 1
+            initialDelaySeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health/alive
+              port: http
+            failureThreshold: 1
+            successThreshold: 1
+            initialDelaySeconds: 5
+          resources:
+            {{- toYaml .resources | nindent 12 }}
+        {{- end }}
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+        - name: zfs
+          hostPath:
+            path: "{{ .Values.host.zfsDevice }}"
+            type: CharDevice
+        {{- with .Values.ssh }}
+        {{- if or .identities .externalSecretName }}
+        - name: ssh
+          secret:
+            {{- if .externalSecretName }}
+            secretName: {{ .externalSecretName }}
+            {{- else }}
+            secretName: {{ include "znapzend.fullname" . }}
+            {{- end }}
+            defaultMode: 0600
+        {{- end }}
+        {{- end }}
