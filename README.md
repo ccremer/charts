@@ -1,2 +1,0 @@
-# charts
-Helm charts repository
