@@ -6,6 +6,7 @@ metadata:
     {{- include "znapzend.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  serviceName: {{ include "znapzend.serviceAccountName" . }}
   selector:
     matchLabels:
       {{- include "znapzend.selectorLabels" . | nindent 6 }}
@@ -20,7 +21,6 @@ spec:
     {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      serviceAccountName: {{ include "znapzend.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
