@@ -6,12 +6,17 @@ metadata:
   labels:
     {{- include "znapzend.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.metrics.service.type }}
+  {{- with .Values.metrics.service }}
+  type: {{ .type }}
   ports:
-    - port: {{ .Values.metrics.service.port }}
+    - port: {{ .port }}
       targetPort: http
       protocol: TCP
       name: http
+      {{- with .nodePort }}
+      nodePort: {{ . }}
+      {{- end }}
+  {{- end }}
   selector:
     {{- include "znapzend.selectorLabels" . | nindent 4 }}
 {{- end }}

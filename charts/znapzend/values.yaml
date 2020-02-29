@@ -53,8 +53,10 @@ metrics:
   imagePullSecrets: []
 
   service:
+    enabled: true
     type: ClusterIP
     port: 8080
+#   nodePort: 30090
 
   ingress:
     enabled: false
