@@ -1,12 +1,14 @@
-name: Release Charts
+name: Test
 
 on:
   push:
-    branches:
+    branches-ignore:
     - master
+    pull_request:
+      types: [opened, reopened]
 
 jobs:
-  gh-pages:
+  unit:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -21,18 +23,6 @@ jobs:
         path: /home/runner/go/pkg/mod
         key: go-mod
 
-    - name: Configure Git
-      run: |
-        git config user.name "$GITHUB_ACTOR"
-        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-
     - name: Run Chart unit tests
       run: |
         find . -type f -name go.mod | xargs -I % bash -c 'cd "$(dirname %)" && go test ./...'
-
-    - name: Run chart-releaser
-      uses: helm/chart-releaser-action@v1.0.0-alpha.2
-      env:
-        CR_TOKEN: "${{ secrets.CR_TOKEN }}"
-      with:
-        charts_dir: .
