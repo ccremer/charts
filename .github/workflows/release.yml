@@ -16,6 +16,10 @@ jobs:
       with:
         go-version: '^1.13.8'
 
+    - uses: azure/setup-helm@v1
+      with:
+        version: v3.1.1
+
     - uses: actions/cache@v1
       with:
         path: /home/runner/go/pkg/mod
@@ -29,6 +33,11 @@ jobs:
     - name: Run Chart unit tests
       run: |
         find . -type f -name go.mod | xargs -I % bash -c 'cd "$(dirname %)" && go test ./...'
+
+    # We need to downgrade, as long as https://github.com/helm/chart-releaser isn't released yet.
+    - uses: azure/setup-helm@v1
+      with:
+        version: v2.16.3
 
     - name: Run chart-releaser
       uses: helm/chart-releaser-action@v1.0.0-alpha.2
