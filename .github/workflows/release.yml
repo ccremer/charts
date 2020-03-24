@@ -34,12 +34,9 @@ jobs:
       run: |
         find . -type f -name go.mod | xargs -I % bash -c 'cd "$(dirname %)" && go test ./...'
 
-    # We need to downgrade, as long as https://github.com/helm/chart-releaser isn't released yet.
-    - uses: azure/setup-helm@v1
-      with:
-        version: v2.16.3
-
     - name: Run chart-releaser
-      uses: helm/chart-releaser-action@v1.0.0-alpha.2
+      uses: ccremer/chart-releaser-action@ignore-dirs
       env:
         CR_TOKEN: "${{ secrets.CR_TOKEN }}"
+      with:
+        charts_dir: .
