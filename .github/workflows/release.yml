@@ -30,9 +30,10 @@ jobs:
         git config user.name "$GITHUB_ACTOR"
         git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-    - name: Run Chart unit tests
-      run: |
-        find . -type f -name go.mod | xargs -I % bash -c 'cd "$(dirname %)" && go test ./...'
+    # temporarility ignoring to trigger a git diff for this file
+    # - name: Run Chart unit tests
+    #   run: |
+    #     find . -type f -name go.mod | xargs -I % bash -c 'cd "$(dirname %)" && go test ./...'
 
     - name: Run chart-releaser
       uses: ccremer/chart-releaser-action@ignore-dirs
