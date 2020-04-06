@@ -14,11 +14,11 @@ jobs:
 
     - uses: actions/setup-go@v2-beta
       with:
-        go-version: '^1.13.8'
+        go-version: '^1.14.1'
 
     - uses: azure/setup-helm@v1
       with:
-        version: v3.1.1
+        version: v3.1.2
 
     - uses: actions/cache@v1
       with:
@@ -30,13 +30,12 @@ jobs:
         git config user.name "$GITHUB_ACTOR"
         git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-    # temporarility ignoring to trigger a git diff for this file
-    # - name: Run Chart unit tests
-    #   run: |
-    #     find . -type f -name go.mod | xargs -I % bash -c 'cd "$(dirname %)" && go test ./...'
+    - name: Run Chart unit tests
+      run: |
+        find . -type f -name go.mod | xargs -I % bash -c 'cd "$(dirname %)" && go test ./...'
 
     - name: Run chart-releaser
-      uses: ccremer/chart-releaser-action@ignore-dirs
+      uses: helm/chart-releaser-action@master
       env:
         CR_TOKEN: "${{ secrets.CR_TOKEN }}"
       with:
