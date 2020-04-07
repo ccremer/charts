@@ -30,3 +30,11 @@ jobs:
     - name: Run Chart unit tests
       run: |
         find . -type f -name go.mod | xargs -I % bash -c 'cd "$(dirname %)" && go test ./...'
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Check if documentation is on par with Chart changes
+        run: .ci/helm-docs.sh
