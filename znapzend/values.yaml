@@ -1,82 +1,106 @@
 # Default values for znapzend.
 
+# replicaCount -- Only increase if you have multiple Nodes with AntiAffinity,
+# otherwise it does not make sense to run > 1 replicas on the same node
 replicaCount: 1
 
 image:
+  # image.repository -- Znapzend image repository
   repository: docker.io/oetiker/znapzend
+  # image.tag -- Znapzend image tag (version)
   tag: master
+  # image.pullPolicy --
   pullPolicy: IfNotPresent
+# imagePullSecrets -- List of image pull secrets if you use a privately hosted image
 imagePullSecrets: []
 
 nameOverride: ""
 fullnameOverride: ""
 
 podSecurityContext: {}
-  # fsGroup: 2000
 
+# securityContext -- The current image requires to run privileged in order to access ZFS
 securityContext:
-  # The current image requires to run privileged in order to access ZFS
   allowPrivilegeEscalation: true
   privileged: true
 
 resources: {}
 
 serviceAccount:
-  # Specifies whether a service account should be created
+  # serviceAccount.create -- Specifies whether a service account should be created
   create: true
-  # Annotations to add to the service account
+  # serviceAccount.annotations -- Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
+  # serviceAccount.name -- If not set and create is true, a name is generated using the fullname template
   name:
 
+# env -- A dict with KEY: VALUE pairs
 env: {}
 
 host:
+  # host.zfsDevice -- The device on the host which is used by the 'zfs' binary within the container
   zfsDevice: /dev/zfs
 
 ssh:
+  # ssh.path -- Path where your SSH config and identities get mounted in the container
   path: /root/.ssh
+  # ssh.config -- ssh_config(5)-compatible file content to configure SSH options when connecting
+  config:
 # config: |
 #   Host my-host
 #     IdentityFile ~/.ssh/my-id
 #     User myuser
-# externalSecretName: my-own-ssh-secret
+  # ssh.externalSecretName -- Set this value if you provide your own secret with SSH config
+  externalSecretName:
+  # ssh.identities -- Provide a private key for each SSH identity, see values.yaml for an example
   identities: {}
 #   id_ed25519: |
 #     -----BEGIN OPENSSH PRIVATE KEY-----
 #     ...
 #     -----END OPENSSH PRIVATE KEY-----
-# knownHosts:
+  # ssh.knownHosts -- List of {host, pubKey} dicts where the public key of each host is configured
+  knownHosts:
 #   - host: my-host
 #     pubKey: ssh-ed25519 AAAAC3NzaC...
 
 metrics:
+  # metrics.enabled -- Enable the znapzend metrics exporter for Prometheus
   enabled: true
   jobs:
+    # metrics.jobs.register -- String list of datasets that should be registered right at startup
     register: []
+  # metrics.env -- A dict with KEY: VALUE pairs as environment variables for the exporter
   env: {}
 
   image:
+    # metrics.image.repository -- Exporter image repository
     repository: docker.io/braindoctor/znapzend-exporter
+    # metrics.image.tag -- Exporter image tag
     tag: v0.1.0
     pullPolicy: IfNotPresent
-  imagePullSecrets: []
 
   service:
+    # metrics.service.enabled -- Whether to enable a Service object for metrics endpoint
+    # if metrics.enabled is true
     enabled: true
     type: ClusterIP
+    # metrics.service.port -- Port on which the service is reachable
     port: 8080
-#   nodePort: 30090
+    # metrics.service.nodePort -- NodePort if service type is not ClusterIP
+    nodePort: 0
 
   ingress:
+    # metrics.ingress.enabled -- Useful if your Prometheus is outside of the cluster
     enabled: false
     annotations: {}
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
+    # metrics.ingress.hosts -- See Kubernetes Docs for a guide to setup Ingress hosts
     hosts:
-      - host: chart-example.local
+      - host:
         paths: []
+    # metrics.ingress.hosts -- See Kubernetes Docs for a guide to setup TLS on Ingress
     tls: []
     #  - secretName: chart-example-tls
     #    hosts:
