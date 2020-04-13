@@ -3,13 +3,18 @@ set -euo pipefail
 
 
 gh_pages_worktree=$(mktemp -d)
-git worktree add "$gh_pages_worktree" gh-pages
+git worktree add "${gh_pages_worktree}" gh-pages
 
-find . -type f -name Chart.yaml | \
-cut -s -f 2 -d / - | \
-xargs -I % cp --force "%/README.md" "$gh_pages_worktree/%/README.md"
+copy_documentation() {
+    while read chart; do
+        [[ -d "${chart}" ]] || mkdir "${gh_pages_worktree}/${chart}"
+        cp --force "${chart}/README.md" "${gh_pages_worktree}/${chart}/README.md"
+    done
+}
 
-pushd "$gh_pages_worktree" > /dev/null
+find . -type f -name Chart.yaml | cut -s -f 2 -d / - | copy_documentation
+
+pushd "${gh_pages_worktree}" > /dev/null
 
 echo "Finding changed READMEs..."
 if git diff --name-only --find-renames --exit-code HEAD; then
