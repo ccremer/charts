@@ -1,4 +1,4 @@
-# charts
+# Charts
 
 ![License](https://img.shields.io/github/license/ccremer/charts)
 
@@ -7,7 +7,7 @@
 All Charts can be installed with
 ```
 helm repo add ccremer https://ccremer.github.io/charts
-helm install ccremer/<chart name>
+helm install ccremer/<chart_name>
 ```
 
 ## List of Charts
