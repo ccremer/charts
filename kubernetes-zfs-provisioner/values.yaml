@@ -20,8 +20,26 @@ provisioner:
   # provisioner.instance -- Provisoner instance name if multiple are running (multiple
   # instances are not required for managing multiple ZFS hosts)
   instance: pv.kubernetes.io/zfs
-  # provisioner.externalSecretName -- If SSH secrets are managed externally, specify the name
-  externalSecretName: ""
+
+storageClass:
+  # storageClass.create -- Whether to create storage classes for this provisioner. One example is given
+  # in the `classes` array
+  create: false
+  classes:
+  - name: zfs
+    # storageClass.classes[0].hostName -- The provisioners connects through SSH to this ZFS host
+    hostName: storage-1.domain.tld
+    # storageClass.classes[0].parentDataset -- Existing dataset on the target ZFS host
+    parentDataset: tank/kubernetes
+    # storageClass.classes[0].policy -- The reclaim policy supported by the provisioner
+    policy: "Delete"
+    # storageClass.classes[0].shareProperties -- NFS export properties (see `exports(5)`)
+    shareProperties: ""
+    # storageClass.classes[0].type -- Provision type, one of [`nfs`, `hostpath`]
+    type: "nfs"
+    # storageClass.classes[0].node -- Override `kubernetes.io/hostname` from `hostName` parameter for
+    # `HostPath` node affinity
+    node: ""
 
 ssh:
   # ssh.externalSecretName -- If SSH secrets are managed externally, specify the name
@@ -41,7 +59,7 @@ ssh:
 #     ...
 #     -----END OPENSSH PRIVATE KEY-----
   # ssh.knownHosts -- **Required.** List of {host, pubKey} dicts where the public key of each host is configured
-  knownHosts:
+  knownHosts: []
 #   - host: my-host
 #     pubKey: ssh-ed25519 AAAAC3NzaC...
 
