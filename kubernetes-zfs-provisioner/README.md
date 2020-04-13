@@ -2,7 +2,7 @@ kubernetes-zfs-provisioner
 ==========================
 Dynamic ZFS persistent volume provisioner for Kubernetes
 
-Current chart version is `0.1.0`
+Current chart version is `0.2.0`
 
 
 
@@ -22,7 +22,6 @@ Current chart version is `0.1.0`
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` | Reminder: This has no effect on any PVs, but maybe you want the provisioner pod running on certain nodes. |
 | podSecurityContext | object | `{}` |  |
-| provisioner.externalSecretName | string | `""` | If SSH secrets are managed externally, specify the name |
 | provisioner.instance | string | `"pv.kubernetes.io/zfs"` | Provisoner instance name if multiple are running (multiple instances are not required for managing multiple ZFS hosts) |
 | rbac.create | bool | `false` | **Required for first time deployments** Grant the service account the necessary permissions, |
 | replicaCount | int | `1` | Usually `1` is fine |
@@ -36,6 +35,14 @@ Current chart version is `0.1.0`
 | ssh.config | string | `""` | **Required.** ssh_config(5)-compatible file content to configure SSH options when connecting |
 | ssh.externalSecretName | string | `""` | If SSH secrets are managed externally, specify the name |
 | ssh.identities | object | `{}` | **Required.** Provide a private key for each SSH identity, see values.yaml for an example |
-| ssh.knownHosts | string | `nil` | **Required.** List of {host, pubKey} dicts where the public key of each host is configured |
+| ssh.knownHosts | list | `[]` | **Required.** List of {host, pubKey} dicts where the public key of each host is configured |
 | ssh.mountPath | string | `"/home/zfs/.ssh"` | The path where the SSH config and identities are mounted |
+| storageClass.classes[0].hostName | string | `"storage-1.domain.tld"` | The provisioners connects through SSH to this ZFS host |
+| storageClass.classes[0].name | string | `"zfs"` |  |
+| storageClass.classes[0].node | string | `""` | Override `kubernetes.io/hostname` from `hostName` parameter for `HostPath` node affinity |
+| storageClass.classes[0].parentDataset | string | `"tank/kubernetes"` | Existing dataset on the target ZFS host |
+| storageClass.classes[0].policy | string | `"Delete"` | The reclaim policy supported by the provisioner |
+| storageClass.classes[0].shareProperties | string | `""` | NFS export properties (see `exports(5)`) |
+| storageClass.classes[0].type | string | `"nfs"` | Provision type, one of [`nfs`, `hostpath`] |
+| storageClass.create | bool | `false` | Whether to create storage classes for this provisioner. One example is given in the `classes` array |
 | tolerations | list | `[]` |  |
