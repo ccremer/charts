@@ -1,0 +1,89 @@
+# Default values for kubernetes-zfs-provisioner.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# replicaCount -- Usually `1` is fine
+replicaCount: 1
+
+image:
+  # image.repository -- Location of the container image
+  repository: docker.io/ccremer/zfs-provisioner
+  # image.tag -- Container image tag
+  tag: v0.1.0
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+provisioner:
+  # provisioner.instance -- Provisoner instance name if multiple are running (multiple
+  # instances are not required for managing multiple ZFS hosts)
+  instance: pv.kubernetes.io/zfs
+  # provisioner.externalSecretName -- If SSH secrets are managed externally, specify the name
+  externalSecretName: ""
+
+ssh:
+  # ssh.externalSecretName -- If SSH secrets are managed externally, specify the name
+  externalSecretName: ""
+  # ssh.mountPath -- The path where the SSH config and identities are mounted
+  mountPath: "/home/zfs/.ssh"
+  # ssh.config -- **Required.** ssh_config(5)-compatible file content to configure SSH options when connecting
+  config: ""
+    # config: |
+    #   Host my-host
+    #     IdentityFile ~/.ssh/id_ed25519
+    #     User zfs
+  # ssh.identities -- **Required.** Provide a private key for each SSH identity, see values.yaml for an example
+  identities: {}
+#   id_ed25519: |
+#     -----BEGIN OPENSSH PRIVATE KEY-----
+#     ...
+#     -----END OPENSSH PRIVATE KEY-----
+  # ssh.knownHosts -- **Required.** List of {host, pubKey} dicts where the public key of each host is configured
+  knownHosts:
+#   - host: my-host
+#     pubKey: ssh-ed25519 AAAAC3NzaC...
+
+# env -- A dict with KEY: VALUE pairs
+env: {}
+
+serviceAccount:
+  # serviceAccount.create -- Specifies whether a service account should be created
+  create: true
+  # serviceAccount.annotations -- Annotations to add to the service account
+  annotations: {}
+  # serviceAccount.name -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+rbac:
+  # rbac.create -- **Required for first time deployments** Grant the service account
+  # the necessary permissions,
+  create: false
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 100
+
+resources:
+  limits:
+    memory: 100Mi
+  requests:
+    cpu: 10m
+    memory: 20Mi
+
+# nodeSelector -- Reminder: This has no effect on any PVs, but maybe you want the provisioner pod running
+# on certain nodes.
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
