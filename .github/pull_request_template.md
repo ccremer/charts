@@ -8,9 +8,9 @@ make sure you are aware of our technical requirements and best practices:
 Please make sure that you let https://github.com/norwoodj/helm-docs generate the
 documentation. You can do that by running
 
-    docker run --rm -v $(pwd):/src -w /src -u $(id -u) jnorwood/helm-docs
+    make docs
 
-This will create a README.md based on the values.yaml file.
+This will create README.md files based on the values.yaml file.
 -->
 
 #### What this PR does / why we need it:
@@ -20,8 +20,5 @@ This will create a README.md based on the values.yaml file.
 #### Checklist
 <!-- Place an '[x]' (no spaces) in all applicable fields. Please remove unrelated fields. -->
 - [ ] Chart Version bumped
-- [ ] Variables are documented in the values.yaml as required in [Helm-Docs](https://github.com/norwoodj/helm-docs#valuesyaml-metadata)
-
-  Run `docker run --rm -v $(pwd):/src -w /src -u $(id -u) jnorwood/helm-docs` to generate the README.md
-
+- [ ] Variables are documented in the values.yaml as required in [Helm-Docs](https://github.com/norwoodj/helm-docs#valuesyaml-metadata). Run `make docs` to generate the README.md.
 - [ ] Title of the PR contains starts with chart name e.g. `[chart]`

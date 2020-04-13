@@ -11,9 +11,11 @@ helm install ccremer/<chart_name>
 ```
 
 ## List of Charts
+{{ range .charts }}
+* [{{ . }}]({{ . }}/README.md)
+{{- end -}}
 
-* [kubernetes-zfs-provisioner](kubernetes-zfs-provisioner/README.md)
-* [znapzend](znapzend/README.md)
+{{ if .masterBranch }}
 
 ## Development
 
@@ -46,3 +48,4 @@ The root README is also generated so that it links to the new chart.
 You can generate the chart README.md with `make helm-docs`.
 
 To generate all documentations, run `make docs`
+{{- end }}
