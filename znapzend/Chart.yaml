@@ -14,10 +14,10 @@ description: Znapzend Helm Chart for automated ZFS snapshot & replication
 
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
-version: 0.3.2
+version: 0.3.3
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application.
-appVersion: v0.19.1
+appVersion: v0.20.0
 # Licensing of https://commons.wikimedia.org/wiki/File:Openzfs.svg applies
 icon: https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Openzfs.svg/257px-Openzfs.svg.png
