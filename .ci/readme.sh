@@ -16,15 +16,15 @@ find . -type f -name Chart.yaml | cut -s -f 2 -d / - | copy_documentation
 
 pushd "${gh_pages_worktree}" > /dev/null
 
+git add \*/README.md
 echo "Finding changed READMEs..."
-if git diff --name-only --find-renames --exit-code HEAD; then
-    echo "No READMEs to update."
-else
-    git add \*/README.md
+if [[ -n "$(git status --porcelain)" ]]; then
     git commit --message="Update documentation" --signoff
 
     repo_url="https://x-access-token:$CR_TOKEN@github.com/$REPOSITORY"
     git push "$repo_url" gh-pages
 
-    popd > /dev/null
+else
+    echo "No READMEs to update."
 fi
+popd > /dev/null
