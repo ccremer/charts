@@ -36,5 +36,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Generate Chart documentation
+        run: docker run --rm -v ${{github.workspace}}:/src -w /src -u $(id -u) jnorwood/helm-docs:${VERSION}
+        env:
+          VERSION: v0.12.0
       - name: Check if documentation is on par with Chart changes
-        run: .ci/helm-docs.sh
+        run: git diff --exit-code
