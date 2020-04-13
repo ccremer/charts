@@ -14,9 +14,14 @@ copy_documentation() {
 
 find . -type f -name Chart.yaml | cut -s -f 2 -d / - | copy_documentation
 
+# Copy root README
+cp --force "README.md" "${gh_pages_worktree}/README.md"
+
 pushd "${gh_pages_worktree}" > /dev/null
 
 git add \*/README.md
+git add README.md
+
 echo "Finding changed READMEs..."
 if [[ -n "$(git status --porcelain)" ]]; then
     git commit --message="Update documentation" --signoff
