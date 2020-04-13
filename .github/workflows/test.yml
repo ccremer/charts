@@ -20,7 +20,7 @@ jobs:
 
     - uses: actions/setup-go@v2-beta
       with:
-        go-version: '^1.14.1'
+        go-version: '^1.14.2'
 
     - uses: actions/cache@v1
       with:
@@ -28,8 +28,7 @@ jobs:
         key: go-mod
 
     - name: Run Chart unit tests
-      run: |
-        find . -type f -name go.mod | xargs -I % bash -c 'cd "$(dirname %)" && go test ./...'
+      run: make tests
 
   docs:
     runs-on: ubuntu-latest
@@ -37,8 +36,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Generate Chart documentation
-        run: docker run --rm -v ${{github.workspace}}:/src -w /src -u $(id -u) jnorwood/helm-docs:${VERSION}
-        env:
-          VERSION: v0.12.0
+        run: make docs
       - name: Check if documentation is on par with Chart changes
         run: git diff --exit-code
