@@ -13,6 +13,16 @@ entries:
     version: 0.1.0
   znapzend:
   - apiVersion: v1
+    appVersion: v0.20.0
+    created: "2020-04-13T12:42:48.890056943Z"
+    description: Znapzend Helm Chart for automated ZFS snapshot & replication
+    digest: 359457e06944bc275677aba0306db83665b08af79353b45b948682c42bf588ef
+    icon: https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Openzfs.svg/257px-Openzfs.svg.png
+    name: znapzend
+    urls:
+    - https://github.com/ccremer/charts/releases/download/znapzend-0.3.3/znapzend-0.3.3.tgz
+    version: 0.3.3
+  - apiVersion: v1
     appVersion: v0.19.1
     created: "2020-04-07T18:11:17.30644782Z"
     description: Znapzend Helm Chart for automated ZFS snapshot & replication
