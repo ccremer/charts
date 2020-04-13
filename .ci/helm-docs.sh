@@ -1,12 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-HELM_DOCS_VERSION="0.11.1"
-
-# install helm-docs
-curl --silent --show-error --fail --location --output /tmp/helm-docs.tar.gz https://github.com/norwoodj/helm-docs/releases/download/v"${HELM_DOCS_VERSION}"/helm-docs_"${HELM_DOCS_VERSION}"_Linux_x86_64.tar.gz
-tar -xf /tmp/helm-docs.tar.gz helm-docs
+HELM_DOCS_VERSION="v0.12.0"
 
 # validate docs
-./helm-docs
+docker run --rm -v $(pwd):/src -w /src -u $(id -u) jnorwood/helm-docs:${HELM_DOCS_VERSION}
 git diff --exit-code
