@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/github/license/ccremer/charts)
 
-ccremer's Helm charts repository
+[ccremer](https://github.com/ccremer)'s Helm charts repository
 
 ## List of Charts
 
