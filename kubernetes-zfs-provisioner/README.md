@@ -2,7 +2,7 @@ kubernetes-zfs-provisioner
 ==========================
 Dynamic ZFS persistent volume provisioner for Kubernetes
 
-Current chart version is `0.2.0`
+Current chart version is `0.2.1`
 
 
 
@@ -21,7 +21,7 @@ Current chart version is `0.2.0`
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` | Reminder: This has no effect on any PVs, but maybe you want the provisioner pod running on certain nodes. |
-| podSecurityContext | object | `{}` |  |
+| podSecurityContext | object | `{}` | If you encounter **issues with SSH, set `podSecurityContext.fsGroup=100`**, as the SSH files might not be readable to the container user `zfs` with uid 100. |
 | provisioner.instance | string | `"pv.kubernetes.io/zfs"` | Provisoner instance name if multiple are running (multiple instances are not required for managing multiple ZFS hosts) |
 | rbac.create | bool | `false` | **Required for first time deployments** Grant the service account the necessary permissions, |
 | replicaCount | int | `1` | Usually `1` is fine |
