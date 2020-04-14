@@ -80,8 +80,10 @@ rbac:
   # the necessary permissions,
   create: false
 
+# podSecurityContext -- If you encounter **issues with SSH, set `podSecurityContext.fsGroup=100`**, as the SSH
+# files might not be readable to the container user `zfs` with uid 100.
 podSecurityContext: {}
-  # fsGroup: 2000
+  # fsGroup: 100
 
 securityContext: {}
   # capabilities:
