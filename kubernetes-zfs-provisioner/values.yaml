@@ -9,7 +9,7 @@ image:
   # image.repository -- Location of the container image
   repository: docker.io/ccremer/zfs-provisioner
   # image.tag -- Container image tag
-  tag: v0.1.0
+  tag: v0.2.1
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []

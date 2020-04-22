@@ -2,7 +2,7 @@ kubernetes-zfs-provisioner
 ==========================
 Dynamic ZFS persistent volume provisioner for Kubernetes
 
-Current chart version is `0.2.1`
+Current chart version is `0.2.2`
 
 
 
@@ -17,7 +17,7 @@ Current chart version is `0.2.1`
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"docker.io/ccremer/zfs-provisioner"` | Location of the container image |
-| image.tag | string | `"v0.1.0"` | Container image tag |
+| image.tag | string | `"v0.2.1"` | Container image tag |
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` | Reminder: This has no effect on any PVs, but maybe you want the provisioner pod running on certain nodes. |
