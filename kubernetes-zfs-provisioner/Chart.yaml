@@ -14,10 +14,10 @@ description: Dynamic ZFS persistent volume provisioner for Kubernetes
 
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
-version: 0.2.1
+version: 0.2.2
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application.
-appVersion: 0.1.0
+appVersion: 0.2.1
 # Licensing of https://commons.wikimedia.org/wiki/File:Openzfs.svg applies
 icon: https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Openzfs.svg/257px-Openzfs.svg.png
