@@ -95,9 +95,9 @@ securityContext: {}
 
 resources:
   limits:
-    memory: 100Mi
+    memory: 40Mi
   requests:
-    cpu: 10m
+    cpu: 50m
     memory: 20Mi
 
 # nodeSelector -- Reminder: This has no effect on any PVs, but maybe you want the provisioner pod running

@@ -2,7 +2,7 @@ znapzend
 ========
 Znapzend Helm Chart for automated ZFS snapshot & replication
 
-Current chart version is `0.3.3`
+Current chart version is `0.3.4`
 
 
 
@@ -30,7 +30,9 @@ Current chart version is `0.3.3`
 | metrics.ingress.hosts | list | `[{"host":null,"paths":[]}]` | See Kubernetes Docs for a guide to setup TLS on Ingress |
 | metrics.ingress.tls | list | `[]` |  |
 | metrics.jobs.register | list | `[]` | String list of datasets that should be registered right at startup |
-| metrics.resources | object | `{}` |  |
+| metrics.resources.limits.memory | string | `"40Mi"` |  |
+| metrics.resources.requests.cpu | string | `"20m"` |  |
+| metrics.resources.requests.memory | string | `"20Mi"` |  |
 | metrics.service.enabled | bool | `true` | Whether to enable a Service object for metrics endpoint if metrics.enabled is true |
 | metrics.service.nodePort | int | `0` | NodePort if service type is not ClusterIP |
 | metrics.service.port | int | `8080` | Port on which the service is reachable |
@@ -39,7 +41,9 @@ Current chart version is `0.3.3`
 | nodeSelector | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
 | replicaCount | int | `1` | Only increase if you have multiple Nodes with AntiAffinity, otherwise it does not make sense to run > 1 replicas on the same node |
-| resources | object | `{}` |  |
+| resources.limits.memory | string | `"70Mi"` |  |
+| resources.requests.cpu | string | `"30m"` |  |
+| resources.requests.memory | string | `"30Mi"` |  |
 | securityContext | object | `{"allowPrivilegeEscalation":true,"privileged":true}` | The current image requires to run privileged in order to access ZFS |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |

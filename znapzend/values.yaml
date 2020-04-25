@@ -24,7 +24,12 @@ securityContext:
   allowPrivilegeEscalation: true
   privileged: true
 
-resources: {}
+resources:
+  requests:
+    cpu: 30m
+    memory: 30Mi
+  limits:
+    memory: 70Mi
 
 serviceAccount:
   # serviceAccount.create -- Specifies whether a service account should be created
@@ -105,7 +110,12 @@ metrics:
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
-  resources: {}
+  resources:
+    requests:
+      cpu: 20m
+      memory: 20Mi
+    limits:
+      memory: 40Mi
 
 nodeSelector: {}
 
