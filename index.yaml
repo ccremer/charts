@@ -3,6 +3,16 @@ entries:
   kubernetes-zfs-provisioner:
   - apiVersion: v2
     appVersion: 0.2.1
+    created: "2020-04-25T15:17:06.006644507Z"
+    description: Dynamic ZFS persistent volume provisioner for Kubernetes
+    digest: e66653cd49dacb2b1f55ae1fe96c37ed912ff3e5803deb2c3c7938a02b2db3d7
+    icon: https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Openzfs.svg/257px-Openzfs.svg.png
+    name: kubernetes-zfs-provisioner
+    urls:
+    - https://github.com/ccremer/charts/releases/download/kubernetes-zfs-provisioner-0.2.3/kubernetes-zfs-provisioner-0.2.3.tgz
+    version: 0.2.3
+  - apiVersion: v2
+    appVersion: 0.2.1
     created: "2020-04-22T20:51:43.309394091Z"
     description: Dynamic ZFS persistent volume provisioner for Kubernetes
     digest: 8db76fe05d4d0647b3bfbfe84aa2ce97d0e5a70e80e2629177d19e9ad9d321c8
@@ -42,6 +52,16 @@ entries:
     - https://github.com/ccremer/charts/releases/download/kubernetes-zfs-provisioner-0.1.0/kubernetes-zfs-provisioner-0.1.0.tgz
     version: 0.1.0
   znapzend:
+  - apiVersion: v1
+    appVersion: v0.20.0
+    created: "2020-04-25T15:17:06.079252638Z"
+    description: Znapzend Helm Chart for automated ZFS snapshot & replication
+    digest: d94ad338e783f66eb6b05972aa75f05590c7efb5195e59950801e8b79feeb736
+    icon: https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Openzfs.svg/257px-Openzfs.svg.png
+    name: znapzend
+    urls:
+    - https://github.com/ccremer/charts/releases/download/znapzend-0.3.4/znapzend-0.3.4.tgz
+    version: 0.3.4
   - apiVersion: v1
     appVersion: v0.20.0
     created: "2020-04-13T12:42:48.890056943Z"
