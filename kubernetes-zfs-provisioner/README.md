@@ -2,7 +2,7 @@ kubernetes-zfs-provisioner
 ==========================
 Dynamic ZFS persistent volume provisioner for Kubernetes
 
-Current chart version is `0.2.2`
+Current chart version is `0.2.3`
 
 
 
@@ -25,8 +25,8 @@ Current chart version is `0.2.2`
 | provisioner.instance | string | `"pv.kubernetes.io/zfs"` | Provisoner instance name if multiple are running (multiple instances are not required for managing multiple ZFS hosts) |
 | rbac.create | bool | `false` | **Required for first time deployments** Grant the service account the necessary permissions, |
 | replicaCount | int | `1` | Usually `1` is fine |
-| resources.limits.memory | string | `"100Mi"` |  |
-| resources.requests.cpu | string | `"10m"` |  |
+| resources.limits.memory | string | `"40Mi"` |  |
+| resources.requests.cpu | string | `"50m"` |  |
 | resources.requests.memory | string | `"20Mi"` |  |
 | securityContext | object | `{}` |  |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
