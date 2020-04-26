@@ -1,0 +1,204 @@
+# Default values for nextcloud.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  # image.repository -- Location of the container image
+  repository: docker.io/library/nextcloud
+  # image.tag -- Container image tag
+  tag: 18.0.4-apache
+  pullPolicy: IfNotPresent
+
+# imagePullSecrets -- List of image pull secrets if you use a privately hosted image
+imagePullSecrets: []
+
+nameOverride: ""
+fullnameOverride: ""
+
+nextcloud:
+  # nextcloud.host -- Base URL of the nextcloud instance. **Required**
+  host: ""
+  # nextcloud.username -- Admin username to be created when initializing the instance
+  username: admin
+  # nextcloud.password -- Admin password, random password if left empty
+  password: ""
+  # nextcloud.update -- Whether a nextcloud update is required (e.g. if you upgrade nextcloud version)
+  update: 0
+  # nextcloud.datadir -- Location of the data directory
+  datadir: /var/www/html/data
+  mail:
+    # nextcloud.mail.enabled -- Whether to configure email notifications, password resets etc.
+    enabled: false
+    # nextcloud.mail.fromAddress -- Mail sender name
+    fromAddress: nextcloud
+    # nextcloud.mail.domain -- Mail sender domain, e.g. `domain.com`
+    domain: ""
+    smtp:
+      # nextcloud.mail.smtp.host -- SMTP server hostname, e.g. `smtp.domain.com`
+      host: ""
+      # nextcloud.mail.smtp.secure -- Enable SMTPS with `ssl` or more securely with TLS with `tls`
+      secure: ""
+      # nextcloud.mail.smtp.port -- SMTP server port
+      port: 465
+      # nextcloud.mail.smtp.authtype -- SMTP server authentication type, `LOGIN` or `PLAIN`
+      authtype: LOGIN
+      # nextcloud.mail.smtp.name -- Login name for SMTP
+      name: user
+      # nextcloud.mail.smtp.password -- Login password for SMTP
+      password: pass
+  # nextcloud.phpConfigs -- PHP Configuration files injected in /usr/local/etc/php/conf.d
+  phpConfigs: {}
+  # Default config files
+  # IMPORTANT: Will be used only if you put extra configs, otherwise default will come from nextcloud itself
+  # Default confgurations can be found here: https://github.com/nextcloud/docker/tree/master/18.0/apache/config
+  defaultConfigs:
+    # nextcloud.defaultConfigs.".htaccess" -- To protect /var/www/html/config
+    .htaccess: true
+    # nextcloud.defaultConfigs."redis.config.php" -- Redis default configuration
+    redis.config.php: true
+    # nextcloud.defaultConfigs."apache-pretty-urls.config.php" -- Apache configuration for rewrite urls
+    apache-pretty-urls.config.php: true
+    # nextcloud.defaultConfigs."apcu.config.php" -- Define APCu as local cache
+    apcu.config.php: true
+    # nextcloud.defaultConfigs."apps.config.php" -- Apps directory configs
+    apps.config.php: true
+    # nextcloud.defaultConfigs."autoconfig.php" -- Used for auto configure database
+    autoconfig.php: true
+    # nextcloud.defaultConfigs."smtp.config.php" -- SMTP default configuration
+    smtp.config.php: true
+  # nextcloud.configs -- Extra config files created in /var/www/html/config/, see
+  # https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html#multiple-config-php-file
+  configs: {}
+
+
+database:
+  # database.type -- One of `sqlite` (not recommended for production) `mysql` or `postgresql`
+  type: sqlite
+  # database.host -- Hostname of the database to connect to
+  host: ""
+  # database.name -- Database name
+  name: nextcloud
+  # database.user -- Username to connect
+  user: nextcloud
+  # database.password -- Password to connect
+  password: ""
+  # database.tableprefix -- Optionally use a database table prefix
+  tableprefix: ""
+
+persistence:
+  # persistence.enabled -- If disabled, an ephemeral `emptyDir` is used
+  enabled: false
+  # persistence.annotations -- Additional annotations for the PVC
+  annotations: {}
+  # persistence.storageClass -- Storage class name for dynamic provisioning. If empty, default
+  # provisioner is used
+  storageClass: ""
+
+  # persistence.existingClaim -- A manually managed Persistent Volume and Claim,
+  # requires `persistence.enabled: true`
+  existingClaim: ""
+  # persistence.subPath -- Optional subpath within the volume
+  subPath: ""
+  accessMode: ReadWriteOnce
+  size: 8Gi
+
+serviceAccount:
+  # serviceAccount.create -- Specifies whether a service account should be created
+  create: true
+  # serviceAccount.annotations -- Annotations to add to the service account
+  annotations: {}
+  # serviceAccount.name -- If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# podSecurityContext -- Additional annotations to add to the pod
+podAnnotations: {}
+
+# podSecurityContext -- Security context of the pod
+podSecurityContext: {}
+  # fsGroup: 33
+
+# securityContext -- Security context of the container
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  # service.type -- Type of the service
+  type: ClusterIP
+  # service.port -- Port on which the service is reachable
+  port: 80
+  # service.loadBalancerIP -- The IP of the service if type is `LoadBalancer`
+  loadBalancerIP: ""
+
+ingress:
+  enabled: false
+  # ingress.annotations -- Additional annotations for the Ingress
+  annotations: {}
+    # nginx.ingress.kubernetes.io/proxy-body-size: 4G
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  tls:
+    # Whether the ingress is secured with TLS
+    enabled: true
+    # ingress.tls.secretName -- Name of the secret where the certificate is stored
+    secretName: ""
+
+resources:
+  limits:
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Cronjob to execute Nextcloud background tasks
+# ref: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron-jobs
+cronjob:
+  # cronjob.enabled -- Deploy a CronJob for nextcloud background tasks
+  enabled: false
+  # cronjob.image -- Nexcloud image is used as default but only curl is needed
+  image:
+    repository: ""
+    tag: ""
+    pullPolicy: ""
+    pullSecrets: []
+  # cronjob.schedule -- Setting this to any any other value than 15 minutes might
+  # cause issues with how nextcloud background jobs are executed
+  schedule: "*/15 * * * *"
+  # cronjob.annotations -- Additional annotations for the CronJob
+  annotations: {}
+  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 1
+  resources:
+    limits:
+      memory: 64Mi
+    requests:
+      cpu: 20m
+      memory: 16Mi
+
+  # If not set, nextcloud deployment one will be set
+  nodeSelector: {}
+
+  # If not set, nextcloud deployment one will be set
+  tolerations: []
+
+  # If not set, nextcloud deployment one will be set
+  affinity: {}

@@ -13,6 +13,7 @@ helm install ccremer/<chart_name>
 ## List of Charts
 
 * [kubernetes-zfs-provisioner](kubernetes-zfs-provisioner/README.md)
+* [nextcloud](nextcloud/README.md)
 * [znapzend](znapzend/README.md)
 
 ## Development
