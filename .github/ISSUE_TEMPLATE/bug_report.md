@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: "[chart-name]"
+title: "[chart-name] SUMMARY"
 labels: bug
 assignees: ''
 
@@ -18,9 +18,10 @@ Steps to reproduce the behavior:
 A clear and concise description of what you expected to happen.
 
 **Versions used (please complete the following information):**
- - Helm
- - Kubernetes API
- - Distribution (Openshift, Rancher, etc.)
+ - Chart: latest
+ - Helm: v3
+ - Kubernetes API: v17
+ - Distribution (Openshift, Rancher, etc.): Plain K8s
 
 **Additional context**
 Add any other context about the problem here.
