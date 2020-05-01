@@ -80,9 +80,9 @@ metrics:
 
   image:
     # metrics.image.repository -- Exporter image repository
-    repository: docker.io/braindoctor/znapzend-exporter
+    repository: docker.io/ccremer/znapzend-exporter
     # metrics.image.tag -- Exporter image tag
-    tag: v0.1.0
+    tag: v0.2.2
     pullPolicy: IfNotPresent
 
   service:
