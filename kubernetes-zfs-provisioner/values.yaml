@@ -7,7 +7,9 @@ replicaCount: 1
 
 image:
   # image.repository -- Location of the container image
-  repository: docker.io/ccremer/zfs-provisioner
+  repository: ccremer/zfs-provisioner
+  # image.registry -- Container image registry
+  registry: docker.io
   # image.tag -- Container image tag
   tag: v0.2.1
   pullPolicy: IfNotPresent

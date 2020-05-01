@@ -2,7 +2,7 @@ znapzend
 ========
 Znapzend Helm Chart for automated ZFS snapshot & replication
 
-Current chart version is `0.4.0`
+Current chart version is `0.4.1`
 
 
 
@@ -17,7 +17,8 @@ Current chart version is `0.4.0`
 | fullnameOverride | string | `""` |  |
 | host.zfsDevice | string | `"/dev/zfs"` | The device on the host which is used by the 'zfs' binary within the container |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"docker.io/oetiker/znapzend"` | Znapzend image repository |
+| image.registry | string | `"docker.io"` | Znapzend image registry |
+| image.repository | string | `"oetiker/znapzend"` | Znapzend image repository |
 | image.tag | string | `"v0.20.0"` | Znapzend image tag (version) |
 | imagePullSecrets | list | `[]` | List of image pull secrets if you use a privately hosted image |
 | metrics.enabled | bool | `true` | Enable the znapzend metrics exporter for Prometheus |

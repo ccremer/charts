@@ -6,7 +6,9 @@ replicaCount: 1
 
 image:
   # image.repository -- Znapzend image repository
-  repository: docker.io/oetiker/znapzend
+  repository: oetiker/znapzend
+  # image.registry -- Znapzend image registry
+  registry: docker.io
   # image.tag -- Znapzend image tag (version)
   tag: v0.20.0
   # image.pullPolicy --
