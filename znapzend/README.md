@@ -2,7 +2,7 @@ znapzend
 ========
 Znapzend Helm Chart for automated ZFS snapshot & replication
 
-Current chart version is `0.3.6`
+Current chart version is `0.4.0`
 
 
 
@@ -54,3 +54,4 @@ Current chart version is `0.3.6`
 | ssh.knownHosts | string | `nil` | List of {host, pubKey} dicts where the public key of each host is configured |
 | ssh.path | string | `"/root/.ssh"` | Path where your SSH config and identities get mounted in the container |
 | tolerations | list | `[]` |  |
+| znapzend.args | list | `["znapzend","--logto=/dev/stdout","--autoCreation"]` | List of command arguments |

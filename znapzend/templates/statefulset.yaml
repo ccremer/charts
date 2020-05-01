@@ -34,6 +34,10 @@ spec:
               value: {{ $value }}
           {{- end }}
           {{- end }}
+          {{- with .Values.znapzend.args }}
+          args:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           livenessProbe:
             exec:
               command:
