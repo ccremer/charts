@@ -43,6 +43,13 @@ serviceAccount:
 # env -- A dict with KEY: VALUE pairs
 env: {}
 
+znapzend:
+  # znapzend.args -- List of command arguments
+  args:
+    - znapzend
+    - --logto=/dev/stdout
+    - --autoCreation
+
 host:
   # host.zfsDevice -- The device on the host which is used by the 'zfs' binary within the container
   zfsDevice: /dev/zfs
