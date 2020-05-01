@@ -8,7 +8,7 @@ image:
   # image.repository -- Znapzend image repository
   repository: docker.io/oetiker/znapzend
   # image.tag -- Znapzend image tag (version)
-  tag: master
+  tag: v0.20.0
   # image.pullPolicy --
   pullPolicy: IfNotPresent
 # imagePullSecrets -- List of image pull secrets if you use a privately hosted image
