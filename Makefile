@@ -4,26 +4,34 @@ MASTER_BRANCH=true
 SOURCE_README=README.gotmpl
 TARGET_README=README.md
 
+bump_cmd := git diff --exit-code --name-only | cut -d "/" -f 1 | uniq | xargs -L 1 go run bump.go
+bump_echo := echo --- Bumping chart versions
+
 docs: helm-docs readme
 
 bump-docs: bump helm-docs readme
 
 helm-docs:
-	docker run --rm -v $$(pwd):/src -w /src -u $$(id -u) docker.io/jnorwood/helm-docs:v0.12.0
+	@echo --- Generating Chart READMEs
+	@docker run --rm -v $$(pwd):/src -w /src -u $$(id -u) docker.io/jnorwood/helm-docs:v0.12.0
 
 readme:
-	go run readme.go $(SOURCE_README) $(TARGET_README) $(MASTER_BRANCH)
+	@go run readme.go $(SOURCE_README) $(TARGET_README) $(MASTER_BRANCH)
 
 bump: bump-patch
 
 bump-major:
-	git diff --exit-code --name-only | while read file; do dirname $$file; done | uniq | xargs -L 1 go run bump.go major
+	@${bump_echo}
+	@$(bump_cmd) major
 
 bump-minor:
-	git diff --exit-code --name-only | while read file; do dirname $$file; done | uniq | xargs -L 1 go run bump.go minor
+	@${bump_echo}
+	@$(bump_cmd) minor
 
 bump-patch:
-	git diff --exit-code --name-only | while read file; do dirname $$file; done | uniq | xargs -L 1 go run bump.go patch
+	@${bump_echo}
+	@$(bump_cmd) patch
 
 tests:
-	find . -type f -name go.mod | cut -s -f 2,3 -d / - | xargs -I % sh -c "cd % && go test ./..."
+	@echo --- Executing unit tests
+	@find . -type f -name go.mod | cut -s -f 2,3 -d / - | xargs -I % sh -c "cd % && go test ./..."
