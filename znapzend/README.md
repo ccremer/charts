@@ -2,7 +2,7 @@ znapzend
 ========
 Znapzend Helm Chart for automated ZFS snapshot & replication
 
-Current chart version is `0.4.1`
+Current chart version is `0.4.2`
 
 
 
