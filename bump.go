@@ -41,7 +41,14 @@ func main() {
 				}
 			}
 			// Lets increase it
-			paramsMap[level] = paramsMap[level] + 1
+			paramsMap[level] += 1
+			switch level {
+			case "minor":
+				paramsMap["patch"] = 0
+			case "major":
+				paramsMap["patch"] = 0
+				paramsMap["minor"] = 0
+			}
 			newVersion := fmt.Sprintf("version: %d.%d.%d", paramsMap["major"], paramsMap["minor"], paramsMap["patch"])
 			fmt.Fprintf(os.Stdout, "Increasing %s to %s\n", chart, newVersion)
 			lines = append(lines, newVersion)

@@ -13,7 +13,7 @@ bump-docs: bump helm-docs readme
 
 helm-docs:
 	@echo --- Generating Chart READMEs
-	@docker run --rm -v $$(pwd):/src -w /src -u $$(id -u) docker.io/jnorwood/helm-docs:v0.12.0
+	@docker run --rm -v $$(pwd):/helm-docs -u $$(id -u) docker.io/jnorwood/helm-docs:v0.13.0
 
 readme:
 	@go run readme.go $(SOURCE_README) $(TARGET_README) $(MASTER_BRANCH)
