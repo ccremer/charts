@@ -7,7 +7,7 @@ metadata:
     helm.sh/hook: post-install,post-upgrade
 spec:
   backoffLimit: 2
-  ttlSecondsAfterFinished: 172800 # After 2 days, nobody cares about the logs of the job anymore.
+  ttlSecondsAfterFinished: 172800 # 2 days
   template:
     spec:
       serviceAccountName: {{ include "znapzend.serviceAccountName" . }}
@@ -43,7 +43,7 @@ spec:
               mountPath: /etc/znapzend
             - name: success
               mountPath: /tmp/znapzend
-        {{- if .Values.znapzend.reloadPlans -}}
+        {{- if .Values.znapzend.reloadPlans }}
         - name: reload-znapzend
           image: "docker.io/bitnami/kubectl:1.17"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
