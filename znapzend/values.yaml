@@ -40,9 +40,9 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # serviceAccount.name -- If not set and create is true, a name is generated using the fullname template
-  name:
+  name: ""
 
-# env -- A dict with KEY: VALUE pairs
+# env -- A dict with `KEY: VALUE` pairs
 env: {}
 
 znapzend:
@@ -51,41 +51,69 @@ znapzend:
     - znapzend
     - --logto=/dev/stdout
     - --autoCreation
+  # znapzend.reloadPlans -- Whether znapzend should reload the `znapzend.backupPlans` after modifying
+  # them. Creates additional RBAC roles for the `serviceAccount.name`
+  reloadPlans: true
+  # znapzend.backupPlans -- List of backup plans to create/ensure on startup, see
+  # [values.yaml](./values.yaml) for an example
+  backupPlans: []
+  # - dataset: pool/dataset
+  ##  znapzend.backupPlans[].plan -- A backup plan object
+  #   plan:
+  #     selfResetAfter: 5m # Only effective when `metrics.enabled=true`, optional, default `1h`
+  #     delaySeconds: 600 # Optional, default `0`
+  #     source:
+  #       retention: 1days=>2hours,2weeks=>1days,6months=>1weeks
+  #       recursive: false # Optional, default `false`
+  #     targets:
+  #     - host: target.host
+  #       dataset: backup/dataset
+  #       retention: 1days=>2hours,2weeks=>1days,6months=>1weeks
+  #   custom: | # If you define this field, you can specify your own znapzend-compatible configuration
+  #     recursive=on
+  #     src_plan=1days=>2hours,2weeks=>1days,6months=>1weeks
+  #     tsformat=%Y-%m-%d-%H%M%S
+  #     mbuffer_size=1G
+  #     mbuffer=off
+  #     enabled=on
 
 host:
-  # host.zfsDevice -- The device on the host which is used by the 'zfs' binary within the container
+  # host.zfsDevice -- The device on the host which is used by the `zfs` binary within the container
   zfsDevice: /dev/zfs
 
 ssh:
   # ssh.path -- Path where your SSH config and identities get mounted in the container
   path: /root/.ssh
-  # ssh.config -- ssh_config(5)-compatible file content to configure SSH options when connecting
-  config:
+  # ssh.config -- `ssh_config(5)`-compatible file content to configure SSH options when connecting
+  config: ""
 # config: |
 #   Host my-host
 #     IdentityFile ~/.ssh/my-id
 #     User myuser
   # ssh.externalSecretName -- Set this value if you provide your own secret with SSH config
-  externalSecretName:
-  # ssh.identities -- Provide a private key for each SSH identity, see values.yaml for an example
+  externalSecretName: ""
+  # ssh.identities -- Provide a private key for each SSH identity, see
+  # [values.yaml](./values.yaml) for an example
   identities: {}
 #   id_ed25519: |
 #     -----BEGIN OPENSSH PRIVATE KEY-----
 #     ...
 #     -----END OPENSSH PRIVATE KEY-----
-  # ssh.knownHosts -- List of {host, pubKey} dicts where the public key of each host is configured
-  knownHosts:
+  # ssh.knownHosts -- List of `{host, pubKey}` dicts where the public key of each host is configured
+  knownHosts: []
 #   - host: my-host
 #     pubKey: ssh-ed25519 AAAAC3NzaC...
 
 metrics:
-  # metrics.enabled -- Enable the znapzend metrics exporter for Prometheus
+  # metrics.enabled -- Enable the metrics exporter for Prometheus
   enabled: true
   jobs:
     # metrics.jobs.register -- String list of datasets that should be registered right at startup
     register: []
-  # metrics.env -- A dict with KEY: VALUE pairs as environment variables for the exporter
+  # metrics.env -- A dict with `KEY: VALUE` pairs as environment variables for the exporter
   env: {}
+  # metrics.port -- Container port to bind
+  port: 8080
 
   image:
     # metrics.image.repository -- Exporter image repository
@@ -108,12 +136,11 @@ metrics:
     # metrics.ingress.enabled -- Useful if your Prometheus is outside of the cluster
     enabled: false
     annotations: {}
-      # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
     # metrics.ingress.hosts -- See Kubernetes Docs for a guide to setup Ingress hosts
-    hosts:
-      - host:
-        paths: []
+    hosts: []
+    # - host:
+    #   paths: []
     # metrics.ingress.hosts -- See Kubernetes Docs for a guide to setup TLS on Ingress
     tls: []
     #  - secretName: chart-example-tls

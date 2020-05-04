@@ -1,0 +1,12 @@
+znapzend:
+  backupPlans:
+  - dataset: tank/test/dataset
+    plan:
+      source:
+        retention: 1days=>2hours,2weeks=>1days,6months=>1weeks
+        recursive: true
+      targets:
+      - host: target.host
+        retention: 1days=>2hours
+        dataset: backup/target
+      delaySeconds: 600

@@ -61,7 +61,9 @@ spec:
           imagePullPolicy: {{ .image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: {{ .port }}
+          args:
+            - --bindAddr=:{{ .port }}
           env:
           {{- if .jobs.register }}
             - name: JOBS_REGISTER
@@ -102,20 +104,4 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       volumes:
-        - name: zfs
-          hostPath:
-            path: "{{ .Values.host.zfsDevice }}"
-            type: CharDevice
-        {{ $secretName := include "znapzend.fullname" . }}
-        {{- with .Values.ssh }}
-        {{- if or .identities .externalSecretName }}
-        - name: ssh
-          secret:
-            {{- if .externalSecretName }}
-            secretName: {{ .externalSecretName }}
-            {{- else }}
-            secretName: {{ $secretName }}
-            {{- end }}
-            defaultMode: 0600
-        {{- end }}
-        {{- end }}
+        {{- include "znapzend.volumes" . | nindent 8 -}}

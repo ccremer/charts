@@ -1,0 +1,32 @@
+{{- if .Values.znapzend.backupPlans -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "znapzend.fullname" . }}-backup-plans
+  labels:
+    {{- include "znapzend.labels" . | nindent 4 }}
+data:
+  {{- range $index, $plan := .Values.znapzend.backupPlans }}
+  plan{{ $index }}: {{ if $plan.custom }}{{ toYaml $plan.custom | indent 2 }}{{ else }}|
+    enabled={{ default "on" $plan.plan.enabled }}
+    src_plan={{ $plan.plan.source.retention }}
+    {{- range $index, $value := $plan.plan.targets }}
+    dst_{{ $index }}={{ $value.host }}:{{ $value.dataset }}
+    dst_{{ $index}}_plan={{ $value.retention }}
+    {{- if $.Values.metrics.enabled }}
+    dst_{{ $index }}_precmd=/usr/bin/curl -sS localhost:{{ $.Values.metrics.port }}/presend/{{ $plan.dataset }}
+    dst_{{ $index }}_pstcmd=/usr/bin/curl -sS localhost:{{ $.Values.metrics.port }}/postsend/{{ $plan.dataset }}?{{ include "metrics.selfReset" $plan.plan }}
+    {{- end }}
+    {{- end }}
+    {{- if $.Values.metrics.enabled }}
+    pre_znap_cmd=/usr/bin/curl -sS localhost:{{ $.Values.metrics.port }}/presnap/{{ $plan.dataset }}
+    post_znap_cmd=/usr/bin/curl -sS localhost:{{ $.Values.metrics.port }}/postsnap/{{ $plan.dataset }}{{- if not $plan.plan.targets }}?{{ include "metrics.selfReset" $plan.plan }}{{- end }}
+    {{- end }}
+    recursive={{- if $plan.plan.source.recursive }}on{{ else }}off{{- end }}
+    tsformat={{ default "%Y-%m-%d-%H%M%S" $plan.plan.tsFormat }}
+    mbuffer_size={{ default "1G" $plan.plan.mbufferSize }}
+    mbuffer={{ default "off" $plan.plan.mbuffer }}
+    zend_delay={{ default 0 $plan.plan.delaySeconds }}
+    {{- end }}
+  {{- end }}
+{{- end }}

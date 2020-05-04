@@ -61,3 +61,33 @@ Create the name of the service account to use
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Define SelfReset
+*/}}
+{{- define "metrics.selfReset" -}}
+SelfResetAfter={{ default "1h" .selfResetAfter }}
+{{- end -}}
+
+{{/*
+Common Volumes
+*/}}
+{{- define "znapzend.volumes" -}}
+- name: zfs
+  hostPath:
+    path: "{{ .Values.host.zfsDevice }}"
+    type: CharDevice
+{{ $secretName := include "znapzend.fullname" . }}
+{{- with .Values.ssh -}}
+{{- if or .identities .externalSecretName }}
+- name: ssh
+  secret:
+    {{- if .externalSecretName }}
+    secretName: {{ .externalSecretName }}
+    {{- else }}
+    secretName: {{ $secretName }}
+    {{- end }}
+    defaultMode: 0600
+{{- end }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,78 @@
+{{- if .Values.znapzend.backupPlans -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "znapzend.fullname" . }}-backup-plans
+  annotations:
+    helm.sh/hook: post-install,post-upgrade
+spec:
+  backoffLimit: 2
+  ttlSecondsAfterFinished: 172800 # 2 days
+  template:
+    spec:
+      serviceAccountName: {{ include "znapzend.serviceAccountName" . }}
+      restartPolicy: OnFailure
+      containers:
+        - name: znapzendzetup
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.env }}
+          env:
+          {{- range $key, $value := . }}
+            - name: {{ $key }}
+              value: {{ $value }}
+          {{- end }}
+          {{- end }}
+          args:
+            - |
+              set -e &&
+              {{- range $index, $plan := .Values.znapzend.backupPlans }}
+              znapzendzetup import --write {{ $plan.dataset }} /etc/znapzend/plan{{ $index }} &&
+              {{- end }}
+              echo "$?" > /tmp/znapzend/success
+          volumeMounts:
+            - name: zfs
+              mountPath: /dev/zfs
+            {{- if or .Values.ssh.identities .Values.ssh.externalSecretName }}
+            - name: ssh
+              mountPath: {{ .Values.ssh.path }}
+            {{- end }}
+            - name: backup-plans
+              mountPath: /etc/znapzend
+            - name: success
+              mountPath: /tmp/znapzend
+        {{- if .Values.znapzend.reloadPlans }}
+        - name: reload-znapzend
+          image: "docker.io/bitnami/kubectl:1.17"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/bash
+            - -c
+          args:
+            - |
+              set -e
+              echo "waiting until backup plans are imported..."
+              until [ -f /tmp/znapzend/success ]; do
+                printf . && sleep 2
+              done
+              if [ $(cat /tmp/znapzend/success) == "0" ]; then
+                pod=$(kubectl get pods -o name -l app.kubernetes.io/name={{ include "znapzend.name" . }} | head -n 1)
+                kubectl exec -c znapzend "$pod" -- pkill -HUP znapzend
+              else
+                echo "Import failed"
+                exit 1
+              fi
+          volumeMounts:
+            - name: success
+              mountPath: /tmp/znapzend
+        {{- end }}
+      volumes:
+        {{- include "znapzend.volumes" . | nindent 8 }}
+        - name: backup-plans
+          configMap:
+            name: {{ include "znapzend.fullname" . }}-backup-plans
+        - name: success
+          emptyDir: {}
+{{- end }}
