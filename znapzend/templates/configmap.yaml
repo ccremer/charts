@@ -14,8 +14,8 @@ data:
     dst_{{ $index }}={{ $value.host }}:{{ $value.dataset }}
     dst_{{ $index}}_plan={{ $value.retention }}
     {{- if $.Values.metrics.enabled }}
-    dst_{{ $index }}_precmd=/usr/bin/curl -sS localhost:{{ $.Values.metrics.port }}/presend/{{ $plan.dataset }}
-    dst_{{ $index }}_pstcmd=/usr/bin/curl -sS localhost:{{ $.Values.metrics.port }}/postsend/{{ $plan.dataset }}?{{ include "metrics.selfReset" $plan.plan }}
+    dst_{{ $index }}_precmd=/usr/bin/curl -sS localhost:{{ $.Values.metrics.port }}/presend/{{ $plan.dataset }}?TargetHost={{ $value.host }}
+    dst_{{ $index }}_pstcmd=/usr/bin/curl -sS localhost:{{ $.Values.metrics.port }}/postsend/{{ $plan.dataset }}?TargetHost={{ $value.host }}\&{{ include "metrics.selfReset" $plan.plan }}
     {{- end }}
     {{- end }}
     {{- if $.Values.metrics.enabled }}
