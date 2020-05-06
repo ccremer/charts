@@ -116,8 +116,8 @@ func Test_ConfigMap_GivenPlanField_WhenTargetsAndMetricsGiven_ThenRenderTargetsW
 src_plan=1days=>2hours,2weeks=>1days,6months=>1weeks
 dst_0=target.host:backup/target
 dst_0_plan=1days=>2hours
-dst_0_precmd=/usr/bin/curl -sS localhost:8080/presend/tank/test/dataset
-dst_0_pstcmd=/usr/bin/curl -sS localhost:8080/postsend/tank/test/dataset?SelfResetAfter=1h
+dst_0_precmd=/usr/bin/curl -sS localhost:8080/presend/tank/test/dataset?TargetHost=target.host
+dst_0_pstcmd=/usr/bin/curl -sS localhost:8080/postsend/tank/test/dataset?TargetHost=target.host\&SelfResetAfter=1h
 pre_znap_cmd=/usr/bin/curl -sS localhost:8080/presnap/tank/test/dataset
 post_znap_cmd=/usr/bin/curl -sS localhost:8080/postsnap/tank/test/dataset
 recursive=on
