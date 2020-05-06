@@ -2,7 +2,7 @@ znapzend
 ========
 Znapzend Helm Chart for automated ZFS snapshot & replication
 
-Current chart version is `0.5.0`
+Current chart version is `0.5.1`
 
 
 
@@ -24,8 +24,9 @@ Current chart version is `0.5.0`
 | metrics.enabled | bool | `true` | Enable the metrics exporter for Prometheus |
 | metrics.env | object | `{}` | A dict with `KEY: VALUE` pairs as environment variables for the exporter |
 | metrics.image.pullPolicy | string | `"IfNotPresent"` |  |
-| metrics.image.repository | string | `"docker.io/ccremer/znapzend-exporter"` | Exporter image repository |
-| metrics.image.tag | string | `"v0.2.2"` | Exporter image tag |
+| metrics.image.registry | string | `"docker.io"` | Image registry |
+| metrics.image.repository | string | `"ccremer/znapzend-exporter"` | Image repository |
+| metrics.image.tag | string | `"v0.3.0"` | Exporter image tag |
 | metrics.ingress.annotations | object | `{}` |  |
 | metrics.ingress.enabled | bool | `false` | Useful if your Prometheus is outside of the cluster |
 | metrics.ingress.hosts | list | `[]` | See Kubernetes Docs for a guide to setup TLS on Ingress |

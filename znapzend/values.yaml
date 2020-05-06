@@ -116,10 +116,12 @@ metrics:
   port: 8080
 
   image:
-    # metrics.image.repository -- Exporter image repository
-    repository: docker.io/ccremer/znapzend-exporter
+    # metrics.image.repository -- Image repository
+    repository: ccremer/znapzend-exporter
+    # metrics.image.registry -- Image registry
+    registry: docker.io
     # metrics.image.tag -- Exporter image tag
-    tag: v0.2.2
+    tag: v0.3.0
     pullPolicy: IfNotPresent
 
   service:

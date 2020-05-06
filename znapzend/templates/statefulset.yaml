@@ -57,7 +57,7 @@ spec:
         {{- if .Values.metrics.enabled }}
         {{- with .Values.metrics }}
         - name: exporter
-          image: "{{ .image.repository }}:{{ .image.tag }}"
+          image: "{{ .image.registry }}/{{ .image.repository }}:{{ .image.tag }}"
           imagePullPolicy: {{ .image.pullPolicy }}
           ports:
             - name: http
