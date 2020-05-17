@@ -1,0 +1,28 @@
+name: Lint
+
+on:
+  push:
+    branches-ignore:
+      - master
+    pull_request:
+      types: [opened, reopened]
+
+env:
+  GO_VERSION: "^1.14.3"
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - uses: actions/cache@v1
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      - name: Verify if Code needs formatting
+        run: make fmt

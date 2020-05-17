@@ -3,32 +3,37 @@ name: Test
 on:
   push:
     branches-ignore:
-    - master
+      - master
     pull_request:
       types: [opened, reopened]
+
+env:
+  GO_VERSION: "^1.14.3"
 
 jobs:
   unit:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
 
-    - uses: azure/setup-helm@v1
-      with:
-        version: v3.1.2
+      - uses: azure/setup-helm@v1
+        with:
+          version: v3.2.1
 
-    - uses: actions/setup-go@v2-beta
-      with:
-        go-version: '^1.14.2'
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GO_VERSION }}
 
-    - uses: actions/cache@v1
-      with:
-        path: /home/runner/go/pkg/mod
-        key: go-mod
+      - uses: actions/cache@v1
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
 
-    - name: Run Chart unit tests
-      run: make tests
+      - name: Run Chart unit tests
+        run: make tests
 
   docs:
     runs-on: ubuntu-latest
