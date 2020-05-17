@@ -34,4 +34,4 @@ bump-patch:
 
 tests:
 	@echo --- Executing unit tests
-	@find . -type f -name go.mod | cut -s -f 2,3 -d / - | xargs -I % sh -c "cd % && go test ./..."
+	@find . -type f -name go.mod | cut -s -f 2,3 -d / - | xargs -I % sh -c "cd % && echo % && go test ./..."
