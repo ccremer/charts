@@ -1,4 +1,4 @@
 fronius:
   additionalArgs:
-  - --arg1
-  - --arg2=key=value
+    - --arg1
+    - --arg2=key=value

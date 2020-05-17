@@ -8,7 +8,7 @@ import (
 
 var (
 	helmChartPath = ".."
-	releaseName = "test-release"
+	releaseName   = "test-release"
 )
 
 func assertSshVolume(t *testing.T, volumes []v1.Volume) {

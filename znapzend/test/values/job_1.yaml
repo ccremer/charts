@@ -3,6 +3,6 @@ env:
   ANOTHER_KEY: another value
 znapzend:
   backupPlans:
-  - dataset: pool/dataset
-    custom: |
-      a plan
+    - dataset: pool/dataset
+      custom: |
+        a plan

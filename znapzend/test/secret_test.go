@@ -53,5 +53,5 @@ func Test_Secret_GivenNoExternalSecret_WhenKnownHostsSet_ThenRenderHostKeys(t *t
 	expectedHost := "test"
 	expectedPubKey := "ssh-rsa asdf"
 
-	assert.Contains(t, secret.StringData["known_hosts"], expectedHost + " " + expectedPubKey)
+	assert.Contains(t, secret.StringData["known_hosts"], expectedHost+" "+expectedPubKey)
 }
