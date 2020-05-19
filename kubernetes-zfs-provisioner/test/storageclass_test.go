@@ -13,7 +13,7 @@ var tplStorageclass = []string{"templates/storageclass.yaml"}
 func Test_Storageclass_GivenClassesEnabled_WhenNoPolicyDefined_ThenRenderDefault(t *testing.T) {
 	options := &helm.Options{
 		SetValues: map[string]string{
-			"storageClass.create": "true",
+			"storageClass.create":            "true",
 			"storageClass.classes[0].policy": "",
 		},
 	}
@@ -30,7 +30,7 @@ func Test_Storageclass_GivenClassesEnabled_WhenNoPolicyDefined_ThenRenderDefault
 func Test_Secret_GivenClassesEnabled_WhenNoTypeDefined_ThenRenderDefault(t *testing.T) {
 	options := &helm.Options{
 		SetValues: map[string]string{
-			"storageClass.create": "true",
+			"storageClass.create":          "true",
 			"storageClass.classes[0].type": "",
 		},
 	}
@@ -46,8 +46,8 @@ func Test_Secret_GivenClassesEnabled_WhenNoTypeDefined_ThenRenderDefault(t *test
 func Test_Secret_GivenClassesEnabled_WhenAdditionalParametersUndefined_ThenRenderEmptyValues(t *testing.T) {
 	options := &helm.Options{
 		SetValues: map[string]string{
-			"storageClass.create": "true",
-			"storageClass.classes[0].node": "",
+			"storageClass.create":                     "true",
+			"storageClass.classes[0].node":            "",
 			"storageClass.classes[0].shareProperties": "",
 		},
 	}

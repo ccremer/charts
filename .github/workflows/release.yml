@@ -3,45 +3,45 @@ name: Release Charts
 on:
   push:
     branches:
-    - master
+      - master
 
 jobs:
   gh-pages:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
 
-    - name: Configure Git
-      run: |
-        git config user.name "$GITHUB_ACTOR"
-        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-    - name: Run chart-releaser
-      uses: helm/chart-releaser-action@master
-      env:
-        CR_TOKEN: "${{ secrets.CR_TOKEN }}"
-      with:
-        charts_dir: .
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@master
+        env:
+          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
+        with:
+          charts_dir: .
 
   readme:
     runs-on: ubuntu-latest
     needs:
-    - gh-pages
+      - gh-pages
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
 
-    - name: Configure Git
-      run: |
-        git config user.name "$GITHUB_ACTOR"
-        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-    - name: Generate Chart documentation
-      run: make docs
+      - name: Generate Chart documentation
+        run: make docs
 
-    - name: Update documentation for gh-pages
-      run: .ci/readme.sh
-      env:
-        CR_TOKEN: "${{ secrets.CR_TOKEN }}"
-        REPOSITORY: ${{ github.repository }}
+      - name: Update documentation for gh-pages
+        run: .ci/readme.sh
+        env:
+          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
+          REPOSITORY: ${{ github.repository }}

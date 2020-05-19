@@ -5,9 +5,9 @@ ssh:
       ----END----
 znapzend:
   backupPlans:
-  - dataset: pool/dataset1
-    custom: |
-      a plan
-  - dataset: pool/dataset2
-    custom: |
-      a plan
+    - dataset: pool/dataset1
+      custom: |
+        a plan
+    - dataset: pool/dataset2
+      custom: |
+        a plan
