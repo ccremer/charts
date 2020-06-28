@@ -121,7 +121,7 @@ metrics:
     # metrics.image.registry -- Image registry
     registry: docker.io
     # metrics.image.tag -- Exporter image tag
-    tag: v0.3.0
+    tag: v0.3.1
     pullPolicy: IfNotPresent
 
   service:
