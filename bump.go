@@ -12,10 +12,14 @@ import (
 
 func main() {
 	level := os.Args[1]
+	if len(os.Args) <= 2 {
+		log.Print("Chart argument not given, exiting.")
+		return
+	}
 	chart := os.Args[2]
 	chartFile := chart + "/Chart.yaml"
 	if !fileExists(chartFile) {
-		fmt.Fprintf(os.Stdout, "File %s does not exist, skipping\n", chartFile)
+		log.Printf("File %s does not exist, skipping", chartFile)
 		return
 	}
 	file, err := os.Open(chartFile)
@@ -50,7 +54,7 @@ func main() {
 				paramsMap["minor"] = 0
 			}
 			newVersion := fmt.Sprintf("version: %d.%d.%d", paramsMap["major"], paramsMap["minor"], paramsMap["patch"])
-			fmt.Fprintf(os.Stdout, "Increasing %s to %s\n", chart, newVersion)
+			log.Printf("Increasing %s to %s\n", chart, newVersion)
 			lines = append(lines, newVersion)
 		} else {
 			lines = append(lines, line)

@@ -27,7 +27,7 @@ func main() {
 	}
 	err = t.Execute(f, map[string]interface{}{
 		"charts":       charts,
-		"masterBranch": os.Args[3] == "true",
+		"masterBranch": os.Args[3] == "master" || os.Args[3] == "origin/master",
 	})
 	if err != nil {
 		fmt.Println(err)

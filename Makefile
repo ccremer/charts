@@ -1,11 +1,11 @@
 .PHONY: docs bump-docs tests readme helm-docs bump bump-patch bump-minor bump-major fmt lint-yaml
 SHELL := /usr/bin/env bash
 
-MASTER_BRANCH=true
+MASTER_BRANCH=master
 SOURCE_README=README.gotmpl
 TARGET_README=README.md
 
-bump_cmd := git diff --exit-code --name-only | cut -d "/" -f 1 | uniq | xargs -L 1 go run bump.go
+bump_cmd := git diff ${MASTER_BRANCH}..HEAD --name-only | cut -d "/" -f 1 | uniq | xargs -L 1 go run bump.go
 bump_echo := echo --- Bumping chart versions
 
 docs: helm-docs readme
@@ -31,7 +31,7 @@ bump-minor:
 
 bump-patch:
 	@${bump_echo}
-	@$(bump_cmd) patch
+	$(bump_cmd) patch
 
 tests:
 	@echo --- Executing unit tests
