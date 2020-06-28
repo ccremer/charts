@@ -64,10 +64,3 @@ jobs:
 
           # Optional options appended to `git-push`
           push_options: '--force'
-
-      - name: Comment PR # Since a new pushed commit from this workflow will remove the PR checks!
-        uses: unsplash/comment-on-pr@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          msg: ":tada: Chart version bumped"
