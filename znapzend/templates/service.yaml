@@ -1,0 +1,22 @@
+{{- if .Values.metrics.service.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "znapzend.fullname" . }}
+  labels:
+    {{- include "znapzend.labels" . | nindent 4 }}
+spec:
+  {{- with .Values.metrics.service }}
+  type: {{ .type }}
+  ports:
+    - port: {{ .port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+      {{- with .nodePort }}
+      nodePort: {{ . }}
+      {{- end }}
+  {{- end }}
+  selector:
+    {{- include "znapzend.selectorLabels" . | nindent 4 }}
+{{- end }}

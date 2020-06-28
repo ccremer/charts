@@ -1,0 +1,31 @@
+{{- if and .Values.znapzend.backupPlans .Values.znapzend.reloadPlans -}}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "znapzend.fullname" . }}-pod-exec-role
+  labels:
+    {{- include "znapzend.labels" . | nindent 4 }}
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "znapzend.fullname" . }}-pod-exec-binding
+  labels:
+    {{- include "znapzend.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "znapzend.fullname" . }}-pod-exec-role
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "znapzend.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+{{- end }}

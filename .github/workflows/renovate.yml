@@ -1,0 +1,57 @@
+name: Renovate
+
+on:
+  push:
+    branches:
+      - renovate/**
+
+env:
+  GO_VERSION: "^1.14.3"
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - uses: azure/setup-helm@v1
+        with:
+          version: v3.2.1
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - uses: actions/cache@v1
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Run Chart unit tests
+        run: make tests
+
+  docs:
+    runs-on: ubuntu-latest
+    #if: "!contains(github.event.head_commit.message, 'skip bump')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Bump Chart versions and documentation
+        run: make MASTER_BRANCH=origin/master bump-docs
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "${{ github.event.head_commit.message }}"
+
+          # Optional options appended to `git-commit`
+          commit_options: '--amend'
+
+          # Optional commit user and author settings
+          commit_user_name: Renovate Bot
+          commit_user_email: bot@renovateapp.com
+          commit_author: Renovate Bot <bot@renovateapp.com>
+
+          # Optional options appended to `git-push`
+          push_options: '--force'
