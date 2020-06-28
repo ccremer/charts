@@ -5,7 +5,7 @@ MASTER_BRANCH=master
 SOURCE_README=README.gotmpl
 TARGET_README=README.md
 
-bump_cmd := git diff ${MASTER_BRANCH}..HEAD --name-only | cut -d "/" -f 1 | uniq | xargs -L 1 go run bump.go
+bump_cmd := git diff --name-only | cut -d "/" -f 1 | uniq | xargs -L 1 go run bump.go
 bump_echo := echo --- Bumping chart versions
 
 docs: helm-docs readme
