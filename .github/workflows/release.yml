@@ -19,20 +19,6 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: Update chart versions
-        if: "!contains(github.event.head_commit.message, 'skip bump')"
-        run: make bump-docs
-
-      - name: Commit changes
-        if: "!contains(github.event.head_commit.message, 'skip bump')"
-        uses: EndBug/add-and-commit@v4
-        with:
-          author_name: "${{ github.actor }}"
-          author_email: "${{ github.actor }}@users.noreply.github.com"
-          message: "Update chart versions"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@master
         env:
