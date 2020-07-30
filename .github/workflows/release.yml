@@ -59,5 +59,5 @@ jobs:
       - name: Update documentation for gh-pages
         run: .ci/readme.sh
         env:
-          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           REPOSITORY: ${{ github.repository }}
