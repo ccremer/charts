@@ -2,7 +2,7 @@ kubernetes-zfs-provisioner
 ==========================
 Dynamic ZFS persistent volume provisioner for Kubernetes
 
-Current chart version is `0.2.6`
+Current chart version is `0.2.7`
 
 
 
