@@ -43,6 +43,24 @@ func Test_StorageClass_GivenClassesEnabled_WhenNoTypeDefined_ThenRenderDefault(t
 	assert.Equal(t, "nfs", class.Parameters["type"])
 }
 
+func Test_StorageClass_GivenClassesEnabled_WhenNodeDefined_ThenRenderNodeName(t *testing.T) {
+	options := &helm.Options{
+		SetValues: map[string]string{
+			"storageClass.create":          "true",
+			"storageClass.classes[0].node": "host",
+			"storageClass.classes[0].type": "hostpath",
+		},
+	}
+
+	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, tplStorageclass)
+
+	var class v1.StorageClass
+	helm.UnmarshalK8SYaml(t, output, &class)
+
+	assert.Equal(t, "host", class.Parameters["node"])
+	assert.Equal(t, "hostpath", class.Parameters["type"])
+}
+
 func Test_StorageClass_GivenClassesEnabled_WhenAdditionalParametersUndefined_ThenRenderEmptyValues(t *testing.T) {
 	options := &helm.Options{
 		SetValues: map[string]string{

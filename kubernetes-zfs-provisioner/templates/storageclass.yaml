@@ -13,7 +13,7 @@ parameters:
   parentDataset: {{ .parentDataset }}
   hostname: {{ .hostName }}
   type: {{ .type | default "nfs" }}
-  node: {{ .nodeName | default "''" }}
+  node: {{ .node | default "''" }}
   shareProperties: {{ .shareProperties | default "''" }}
 {{- end }}
 {{- end }}
