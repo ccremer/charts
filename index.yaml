@@ -24,6 +24,16 @@ entries:
   kubernetes-zfs-provisioner:
   - apiVersion: v2
     appVersion: 0.2.1
+    created: "2020-07-30T21:19:24.955754857Z"
+    description: Dynamic ZFS persistent volume provisioner for Kubernetes
+    digest: f8eccbfc1744fb4bd24ac989fd39b6433d50ab6c3b259e411dcbe68802267722
+    icon: https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Openzfs.svg/257px-Openzfs.svg.png
+    name: kubernetes-zfs-provisioner
+    urls:
+    - https://github.com/ccremer/charts/releases/download/kubernetes-zfs-provisioner-0.2.6/kubernetes-zfs-provisioner-0.2.6.tgz
+    version: 0.2.6
+  - apiVersion: v2
+    appVersion: 0.2.1
     created: "2020-05-01T20:14:39.399604937Z"
     description: Dynamic ZFS persistent volume provisioner for Kubernetes
     digest: ad56f971f3897bc74f656e2be60c8b24c49302e7f7c222d85c02d509cea4b21e
