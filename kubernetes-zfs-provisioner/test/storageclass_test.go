@@ -27,7 +27,7 @@ func Test_Storageclass_GivenClassesEnabled_WhenNoPolicyDefined_ThenRenderDefault
 	assert.Equal(t, &expectedPolicy, class.ReclaimPolicy)
 }
 
-func Test_Secret_GivenClassesEnabled_WhenNoTypeDefined_ThenRenderDefault(t *testing.T) {
+func Test_StorageClass_GivenClassesEnabled_WhenNoTypeDefined_ThenRenderDefault(t *testing.T) {
 	options := &helm.Options{
 		SetValues: map[string]string{
 			"storageClass.create":          "true",
@@ -43,7 +43,7 @@ func Test_Secret_GivenClassesEnabled_WhenNoTypeDefined_ThenRenderDefault(t *test
 	assert.Equal(t, "nfs", class.Parameters["type"])
 }
 
-func Test_Secret_GivenClassesEnabled_WhenAdditionalParametersUndefined_ThenRenderEmptyValues(t *testing.T) {
+func Test_StorageClass_GivenClassesEnabled_WhenAdditionalParametersUndefined_ThenRenderEmptyValues(t *testing.T) {
 	options := &helm.Options{
 		SetValues: map[string]string{
 			"storageClass.create":                     "true",

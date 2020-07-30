@@ -14,6 +14,6 @@ parameters:
   hostname: {{ .hostName }}
   type: {{ .type | default "nfs" }}
   node: {{ .nodeName | default "''" }}
-  shareProperties: {{ .shareProperties | default "" }}
+  shareProperties: {{ .shareProperties | default "''" }}
 {{- end }}
 {{- end }}
