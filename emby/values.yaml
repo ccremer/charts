@@ -58,6 +58,7 @@ persistence:
   enabled: false
   # persistence.size -- Requested storage size
   size: 3Gi
+  mountPath: /config
   # persistence.selector -- PV selector
   selector: {}
   # persistence.storageClass -- Storage Class name of the PV

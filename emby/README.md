@@ -30,6 +30,7 @@ Current chart version is `0.1.0`
 | nodeSelector | object | `{}` |  |
 | persistence.annotations | object | `{}` | Additional annotations to add to the PVC |
 | persistence.enabled | bool | `false` | Whether to enable the PVC and mount |
+| persistence.mountPath | string | `"/config"` |  |
 | persistence.selector | object | `{}` | PV selector |
 | persistence.size | string | `"3Gi"` | Requested storage size |
 | persistence.storageClass | string | `""` | Storage Class name of the PV |

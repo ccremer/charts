@@ -53,7 +53,7 @@ spec:
           {{- if or .Values.persistence.enabled .Values.additionalVolumeMounts }}
           volumeMounts:
             {{- if .Values.persistence.enabled }}
-            - mountPath: /config
+            - mountPath: {{ .Values.persistence.mountPath }}
               name: config
             {{- end }}
           {{- with .Values.additionalVolumeMounts }}
