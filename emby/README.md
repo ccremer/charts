@@ -2,7 +2,7 @@ emby
 ====
 A Helm chart for Emby media server
 
-Current chart version is `0.1.0`
+Current chart version is `0.1.1`
 
 
 
