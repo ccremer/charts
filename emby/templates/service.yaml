@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "emby.fullname" . }}
+  labels:
+    {{- include "emby.labels" . | nindent 4 }}
+spec:
+  {{- with .Values.service }}
+  type: {{ .type }}
+  ports:
+    - port: {{ .httpPort }}
+      targetPort: http
+      name: http
+      {{- with .httpNodePort }}
+      nodePort: {{ . }}
+      {{- end }}
+    - port: {{ .httpsPort }}
+      targetPort: https
+      name: https
+      {{- with .httpsNodePort }}
+      nodePort: {{ . }}
+      {{- end }}
+  {{- end }}
+  selector:
+    {{- include "emby.selectorLabels" . | nindent 4 }}
