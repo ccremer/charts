@@ -13,6 +13,7 @@ helm install ccremer/<chart_name>
 
 ## List of Charts
 
+* [emby](emby/README.md)
 * [fronius-exporter](fronius-exporter/README.md)
 * [kubernetes-zfs-provisioner](kubernetes-zfs-provisioner/README.md)
 * [znapzend](znapzend/README.md)
