@@ -1,9 +1,5 @@
 {
   "extends": [
     "config:base"
-  ],
-  "postUpgradeTasks": {
-    "commands": ["make bump-docs"],
-    "fileFilters": ["**/Chart.yaml", "**/README.md"]
-  }
+  ]
 }
