@@ -1,14 +1,15 @@
-emby
-====
+# emby
+
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square)
+
 A Helm chart for Emby media server
 
-Current chart version is `0.1.2`
+## Source Code
 
+* <https://github.com/MediaBrowser/Emby>
+* <https://github.com/MediaBrowser/Emby.Build>
 
-
-
-
-## Chart Values
+## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
