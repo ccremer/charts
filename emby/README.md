@@ -19,7 +19,7 @@ Current chart version is `0.1.2`
 | image.pullPolicy | string | `"IfNotPresent"` | Container image pull policy |
 | image.registry | string | `"docker.io"` | Container image registry |
 | image.repository | string | `"emby/embyserver"` | Location of the container image |
-| image.tag | string | `"4.6.0.6"` | Container image tag |
+| image.tag | string | `"4.6.0.7"` | Container image tag |
 | imagePullSecrets | list | `[]` | List of image pull secrets if you use a privately hosted image |
 | ingress.annotations | object | `{}` | Additional annotations for the Ingress object |
 | ingress.enabled | bool | `false` | Control whether ingress is created |
