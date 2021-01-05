@@ -1,14 +1,10 @@
-kubernetes-zfs-provisioner
-==========================
+# kubernetes-zfs-provisioner
+
+![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![AppVersion: 0.2.1](https://img.shields.io/badge/AppVersion-0.2.1-informational?style=flat-square)
+
 Dynamic ZFS persistent volume provisioner for Kubernetes
 
-Current chart version is `0.2.8`
-
-
-
-
-
-## Chart Values
+## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|

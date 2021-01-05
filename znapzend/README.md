@@ -1,14 +1,10 @@
-znapzend
-========
+# znapzend
+
+![Version: 0.5.2](https://img.shields.io/badge/Version-0.5.2-informational?style=flat-square) ![AppVersion: v0.20.0](https://img.shields.io/badge/AppVersion-v0.20.0-informational?style=flat-square)
+
 Znapzend Helm Chart for automated ZFS snapshot & replication
 
-Current chart version is `0.5.2`
-
-
-
-
-
-## Chart Values
+## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
