@@ -5,14 +5,9 @@
 
 [ccremer](https://github.com/ccremer)'s Helm charts repository
 
-All Charts can be installed with
-```
-helm repo add ccremer https://ccremer.github.io/charts
-helm install ccremer/<chart_name>
-```
-
 ## List of Charts
 
+* [clustercode](clustercode/README.md)
 * [emby](emby/README.md)
 * [fronius-exporter](fronius-exporter/README.md)
 * [kubernetes-zfs-provisioner](kubernetes-zfs-provisioner/README.md)

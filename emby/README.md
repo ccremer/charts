@@ -4,6 +4,13 @@
 
 A Helm chart for Emby media server
 
+## Installation
+
+```bash
+helm repo add ccremer https://ccremer.github.io/charts
+helm install emby ccremer/emby
+```
+
 ## Source Code
 
 * <https://github.com/MediaBrowser/Emby>

@@ -7,10 +7,9 @@
 
 {{ template "chart.homepageLine" . }}
 
-{{ template "chart.maintainersSection" . }}
+## Installation
 
-{{ template "chart.sourcesSection" . }}
-
-{{ template "chart.requirementsSection" . }}
-
-{{ template "chart.valuesSection" . }}
+```bash
+helm repo add ccremer https://ccremer.github.io/charts
+helm install {{ template "chart.name" . }} ccremer/{{ template "chart.name" . }}
+```
