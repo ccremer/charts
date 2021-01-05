@@ -44,7 +44,7 @@ jobs:
         run: make docs
 
       - name: Update documentation for gh-pages
-        run: .ci/readme.sh
+        run: .github/readme.sh
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           REPOSITORY: ${{ github.repository }}

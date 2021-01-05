@@ -1,14 +1,16 @@
-fronius-exporter
-================
+# fronius-exporter
+
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![AppVersion: 0.3.0](https://img.shields.io/badge/AppVersion-0.3.0-informational?style=flat-square)
+
 Prometheus Exporter for Fronius Symo Photovoltaics
 
-Current chart version is `0.1.0`
+**Homepage:** <https://github.com/ccremer/fronius-exporter>
 
-Source code can be found [here](https://github.com/ccremer/fronius-exporter)
+## Source Code
 
+* <https://github.com/ccremer/fronius-exporter>
 
-
-## Chart Values
+## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
