@@ -6,6 +6,13 @@ Prometheus Exporter for Fronius Symo Photovoltaics
 
 **Homepage:** <https://github.com/ccremer/fronius-exporter>
 
+## Installation
+
+```bash
+helm repo add ccremer https://ccremer.github.io/charts
+helm install fronius-exporter ccremer/fronius-exporter
+```
+
 ## Source Code
 
 * <https://github.com/ccremer/fronius-exporter>

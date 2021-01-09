@@ -4,6 +4,13 @@
 
 Znapzend Helm Chart for automated ZFS snapshot & replication
 
+## Installation
+
+```bash
+helm repo add ccremer https://ccremer.github.io/charts
+helm install znapzend ccremer/znapzend
+```
+
 ## Values
 
 | Key | Type | Default | Description |
