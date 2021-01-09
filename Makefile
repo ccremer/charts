@@ -14,7 +14,10 @@ bump-docs: bump helm-docs readme
 
 helm-docs:
 	@echo --- Generating Chart READMEs
-	@docker run --rm -v $$(pwd):/helm-docs -u $$(id -u) jnorwood/helm-docs:v1.4.0 --template-files .github/helm-docs-template.gotmpl.md
+	@docker run --rm -v $$(pwd):/helm-docs -u $$(id -u) jnorwood/helm-docs:v1.4.0 \
+		--template-files ./.github/helm-docs-header.gotmpl.md \
+		--template-files README.gotmpl.md \
+		--template-files ./.github/helm-docs-footer.gotmpl.md
 
 readme:
 	@go run readme.go $(SOURCE_README) $(TARGET_README) $(MASTER_BRANCH)

@@ -1,0 +1,222 @@
+{{- if .Values.rbac.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    {{- include "clustercode.staticLabels" . | nindent 4 }}
+  name: {{ include "clustercode.fullname" . }}-leader-election-role
+  namespace: '{{ .Release.Namespace }}'
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - configmaps/status
+  verbs:
+  - get
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    {{- include "clustercode.staticLabels" . | nindent 4 }}
+  name: {{ include "clustercode.fullname" . }}-clustercode-editor-role
+rules:
+- apiGroups:
+  - clustercode.github.io
+  resources:
+  - clustercodeplans
+  - clustercodetasks
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - clustercode.github.io
+  resources:
+  - clustercodeplans/status
+  - clustercodetasks/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  labels:
+    {{- include "clustercode.staticLabels" . | nindent 4 }}
+  name: {{ include "clustercode.fullname" . }}-manager-role
+rules:
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - clustercode.github.io
+  resources:
+  - clustercodeplans
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - clustercode.github.io
+  resources:
+  - clustercodeplans/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - clustercode.github.io
+  resources:
+  - clustercodetasks
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - clustercode.github.io
+  resources:
+  - clustercodetasks/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - serviceaccounts
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - rolebindings
+  - roles
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    {{- include "clustercode.staticLabels" . | nindent 4 }}
+  name: {{ include "clustercode.fullname" . }}-leader-election-rolebinding
+  namespace: '{{ .Release.Namespace }}'
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "clustercode.fullname" . }}-leader-election-role
+subjects:
+- kind: ServiceAccount
+  name: {{ include "clustercode.serviceAccountName" . }}
+  namespace: '{{ .Release.Namespace }}'
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    {{- include "clustercode.staticLabels" . | nindent 4 }}
+  name: {{ include "clustercode.fullname" . }}-manager-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "clustercode.fullname" . }}-manager-role
+subjects:
+- kind: ServiceAccount
+  name: {{ include "clustercode.serviceAccountName" . }}
+  namespace: '{{ .Release.Namespace }}'
+{{- end }}

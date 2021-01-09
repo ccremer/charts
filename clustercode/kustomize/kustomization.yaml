@@ -1,0 +1,10 @@
+kind: Kustomization
+
+resources:
+  - github.com/ccremer/clustercode/config/rbac?ref=master
+
+namePrefix: PREFIX-
+namespace: "{{ .Release.Namespace }}"
+
+commonLabels:
+  replace: LABELS

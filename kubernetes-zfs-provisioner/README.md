@@ -4,6 +4,13 @@
 
 Dynamic ZFS persistent volume provisioner for Kubernetes
 
+## Installation
+
+```bash
+helm repo add ccremer https://ccremer.github.io/charts
+helm install kubernetes-zfs-provisioner ccremer/kubernetes-zfs-provisioner
+```
+
 ## Values
 
 | Key | Type | Default | Description |
