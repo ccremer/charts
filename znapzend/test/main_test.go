@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	helmChartPath = ".."
+	helmChartPath = "znapzend"
 	releaseName   = "test-release"
 )
 

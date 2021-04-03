@@ -1,3 +1,5 @@
+// +build readme
+
 package main
 
 import (

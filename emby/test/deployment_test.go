@@ -1,10 +1,11 @@
 package test
 
 import (
+	"testing"
+
 	"github.com/gruntwork-io/terratest/modules/helm"
 	"github.com/stretchr/testify/assert"
 	appv1 "k8s.io/api/apps/v1"
-	"testing"
 )
 
 var tplDeployment = []string{"templates/deployment.yaml"}

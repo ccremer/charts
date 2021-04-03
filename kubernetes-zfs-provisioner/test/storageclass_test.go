@@ -1,11 +1,12 @@
 package test
 
 import (
+	"testing"
+
 	"github.com/gruntwork-io/terratest/modules/helm"
 	"github.com/stretchr/testify/assert"
 	core "k8s.io/api/core/v1"
 	v1 "k8s.io/api/storage/v1"
-	"testing"
 )
 
 var tplStorageclass = []string{"templates/storageclass.yaml"}

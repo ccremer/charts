@@ -1,11 +1,12 @@
 package test
 
 import (
+	"testing"
+	"unsafe"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	v1 "k8s.io/api/core/v1"
-	"testing"
-	"unsafe"
 
 	"github.com/gruntwork-io/terratest/modules/helm"
 	appv1 "k8s.io/api/apps/v1"

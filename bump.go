@@ -1,3 +1,5 @@
+// +build bump
+
 package main
 
 import (
