@@ -21,5 +21,5 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
-      - name: Verify if Code needs formatting
-        run: make fmt
+      - name: Lint unit tests
+        run: make lint
