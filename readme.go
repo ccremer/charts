@@ -1,3 +1,5 @@
+// +build readme
+
 package main
 
 import (
@@ -20,10 +22,10 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	files, _ := filepath.Glob("*/Chart.yaml")
+	files, _ := filepath.Glob("**/*/Chart.yaml")
 	var charts []string
 	for _, file := range files {
-		charts = append(charts, strings.Split(file, "/")[0])
+		charts = append(charts, strings.Split(file, "/")[1])
 	}
 	err = t.Execute(f, map[string]interface{}{
 		"charts":       charts,

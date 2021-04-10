@@ -7,40 +7,29 @@
 
 ## List of Charts
 {{ range .charts }}
-* [{{ . }}]({{ . }}/README.md)
+* [{{ . }}](charts/{{ . }}/README.md)
 {{- end -}}
 
 {{ if .masterBranch }}
 
 ## Development
 
-### New Charts:
-
-All Charts should created with API v1 (Helm 2 compatible), so be sure to delete
-the `type` key from `Chart.yaml`
-
-```
-helm create <chart_name>
-```
-
-Then create the Chart templates
-
 ### Testing
 
-Scaffold chart unit tests by copying an existing `go.mod`, e.g. from `znapzend/test/go.mod`
-and place it into a `test` dir. Develop your Go unit tests and make sure they run successfully.
+Scaffold chart unit tests by copying existing unit tests and place it into a `test` dir within your chart dir.
+Develop your Go unit tests and make sure they run successfully.
 
-To run all test, run `make tests`
+To run all test, run `make test`
 
 ### Documentation
 
 This chart repository generates READMEs from [Helm-Docs](https://github.com/norwoodj/helm-docs/).
-That means you have to format your `values.yaml` in a certain way. See link or existing charts
-for examples.
+That means you have to format your `values.yaml` in a certain way.
+See link or existing charts for examples.
 
 The root README is also generated so that it links to the new chart.
 
-You can generate the chart README.md with `make helm-docs`.
+You can generate the chart README.md with `make docs:helm`.
 
 To generate all documentations, run `make docs`
 {{- end }}

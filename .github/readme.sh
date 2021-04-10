@@ -7,12 +7,12 @@ git worktree add "${gh_pages_worktree}" gh-pages
 
 copy_documentation() {
     while read chart; do
-        [[ -d "${gh_pages_worktree}/${chart}" ]] || mkdir "${gh_pages_worktree}/${chart}"
-        cp --force "${chart}/README.md" "${gh_pages_worktree}/${chart}/README.md"
+        [[ -d "${gh_pages_worktree}/charts/${chart}" ]] || mkdir -p "${gh_pages_worktree}/charts/${chart}"
+        cp --force "charts/${chart}/README.md" "${gh_pages_worktree}/charts/${chart}/README.md"
     done
 }
 
-find . -type f -name Chart.yaml | cut -s -f 2 -d / - | copy_documentation
+find . -type f -name Chart.yaml | cut -s -f 3 -d / - | copy_documentation
 
 make readme TARGET_README="${gh_pages_worktree}/README.md" MASTER_BRANCH=false
 

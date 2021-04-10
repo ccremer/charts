@@ -1,15 +1,9 @@
 name: Test
 
 on:
-  push:
-    branches-ignore:
+  pull_request:
+    branches:
       - master
-      - renovate/**
-    pull_request:
-      types: [opened, reopened]
-
-env:
-  GO_VERSION: "^1.14.3"
 
 jobs:
   unit:
@@ -17,11 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
       - uses: azure/setup-helm@v1
-        with:
-          version: v3.2.1
-
+      - name: Determine Go version from go.mod
+        run: echo "GO_VERSION=$(grep "go 1." go.mod | cut -d " " -f 2)" >> $GITHUB_ENV
       - uses: actions/setup-go@v2
         with:
           go-version: ${{ env.GO_VERSION }}
@@ -34,7 +26,7 @@ jobs:
             ${{ runner.os }}-go-
 
       - name: Run Chart unit tests
-        run: make tests
+        run: make test
 
   docs:
     runs-on: ubuntu-latest
