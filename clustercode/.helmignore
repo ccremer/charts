@@ -26,3 +26,6 @@ kustomize/
 Makefile
 *gotmpl*
 .helmignore
+
+# Unit tests
+/test
