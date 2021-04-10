@@ -18,10 +18,9 @@ make docs:readme TARGET_README="${gh_pages_worktree}/README.md" MASTER_BRANCH=fa
 
 pushd "${gh_pages_worktree}" > /dev/null
 
-git add \*/README.md
-git add README.md
+git add \*/README.md \*/values.yaml README.md
 
-echo "Finding changed READMEs..."
+echo "Finding changes..."
 if [[ -n "$(git status --porcelain)" ]]; then
     git commit --message="Update documentation" --signoff
 
@@ -29,6 +28,6 @@ if [[ -n "$(git status --porcelain)" ]]; then
     git push "$repo_url" gh-pages
 
 else
-    echo "No READMEs to update."
+    echo "No documentation to update."
 fi
 popd > /dev/null
