@@ -7,7 +7,7 @@
 
 ## List of Charts
 {{ range .charts }}
-* [{{ . }}](charts/{{ . }}/README.md)
+* [{{ .name }}]({{ .dir }}{{ .name }}/README.md)
 {{- end -}}
 
 {{ if .masterBranch }}

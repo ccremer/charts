@@ -3,6 +3,7 @@ SHELL := /usr/bin/env bash
 MASTER_BRANCH=master
 SOURCE_README=README.gotmpl
 TARGET_README=README.md
+CHARTS_DIR=charts/
 
 .PHONY: help
 help: ## Show this help
@@ -21,7 +22,7 @@ docs\:helm: ## Creates the Chart READMEs from template and values.yaml files
 
 .PHONY: docs\:readme
 docs\:readme: ## Creates the root README from template
-	@go run readme.go $(SOURCE_README) $(TARGET_README) $(MASTER_BRANCH)
+	@go run readme.go $(SOURCE_README) $(TARGET_README) $(MASTER_BRANCH) $(CHARTS_DIR)
 
 .PHONY: test
 test: ## Run Chart unit tests
