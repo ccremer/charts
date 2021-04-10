@@ -33,8 +33,8 @@ helm install fronius-exporter ccremer/fronius-exporter
 | imagePullSecrets | list | `[]` | List of image pull secrets if you use a privately hosted image |
 | ingress.annotations | object | `{}` | Additional annotations for the Ingress object |
 | ingress.enabled | bool | `false` | Useful if your Prometheus is outside of the cluster |
-| ingress.hosts | list | `[]` | See Kubernetes Docs for a guide to setup TLS on Ingress |
-| ingress.tls | list | `[]` |  |
+| ingress.hosts | list | `[]` | See Kubernetes Docs for a guide to setup Ingress hosts |
+| ingress.tls | list | `[]` | See Kubernetes Docs for a guide to setup TLS on Ingress |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |

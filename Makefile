@@ -14,7 +14,7 @@ docs: docs\:helm docs\:readme
 .PHONY: docs\:helm
 docs\:helm: ## Creates the Chart READMEs from template and values.yaml files
 	@echo --- Generating Chart READMEs
-	@docker run --rm -v $$(pwd):/helm-docs -u $$(id -u) jnorwood/helm-docs:v1.4.0 \
+	@docker run --rm -v $$(pwd):/helm-docs -u $$(id -u) jnorwood/helm-docs:v1.5.0 \
 		--template-files ./.github/helm-docs-header.gotmpl.md \
 		--template-files README.gotmpl.md \
 		--template-files ./.github/helm-docs-footer.gotmpl.md

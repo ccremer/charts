@@ -2,15 +2,15 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# replicaCount -- Usually `1` is fine
+# -- Usually `1` is fine
 replicaCount: 1
 
 image:
-  # image.repository -- Location of the container image
+  # -- Location of the container image
   repository: ccremer/zfs-provisioner
-  # image.registry -- Container image registry
+  # -- Container image registry
   registry: docker.io
-  # image.tag -- Container image tag
+  # -- Container image tag
   tag: v0.3.0
   pullPolicy: IfNotPresent
 
@@ -19,70 +19,72 @@ nameOverride: ""
 fullnameOverride: ""
 
 provisioner:
-  # provisioner.instance -- Provisoner instance name if multiple are running (multiple
+  # -- Provisoner instance name if multiple are running (multiple
   # instances are not required for managing multiple ZFS hosts)
   instance: pv.kubernetes.io/zfs
 
 storageClass:
-  # storageClass.create -- Whether to create storage classes for this provisioner. One example is given
+  # -- Whether to create storage classes for this provisioner. One example is given
   # in the `classes` array
   create: false
   classes:
     - name: zfs
-      # storageClass.classes[0].hostName -- The provisioners connects through SSH to this ZFS host
+      # -- The provisioners connects through SSH to this ZFS host
       hostName: storage-1.domain.tld
-      # storageClass.classes[0].parentDataset -- Existing dataset on the target ZFS host
+      # -- Existing dataset on the target ZFS host
       parentDataset: tank/kubernetes
-      # storageClass.classes[0].policy -- The reclaim policy supported by the provisioner
+      # -- The reclaim policy supported by the provisioner
       policy: "Delete"
-      # storageClass.classes[0].shareProperties -- NFS export properties (see `exports(5)`)
+      # -- NFS export properties (see `exports(5)`)
       shareProperties: ""
-      # storageClass.classes[0].type -- Provision type, one of [`nfs`, `hostpath`]
+      # -- Provision type, one of [`nfs`, `hostpath`]
       type: "nfs"
-      # storageClass.classes[0].node -- Override `kubernetes.io/hostname` from `hostName` parameter for
+      # -- Override `kubernetes.io/hostname` from `hostName` parameter for
       # `HostPath` node affinity
       node: ""
 
 ssh:
-  # ssh.externalSecretName -- If SSH secrets are managed externally, specify the name
+  # -- If SSH secrets are managed externally, specify the name
   externalSecretName: ""
-  # ssh.mountPath -- The path where the SSH config and identities are mounted
+  # -- The path where the SSH config and identities are mounted
   mountPath: "/home/zfs/.ssh"
-  # ssh.config -- **Required.** ssh_config(5)-compatible file content to configure SSH options when connecting
+  # -- **Required.** ssh_config(5)-compatible file content to configure SSH options when connecting
   config: ""
     # config: |
     #   Host my-host
     #     IdentityFile ~/.ssh/id_ed25519
     #     User zfs
-  # ssh.identities -- **Required.** Provide a private key for each SSH identity, see values.yaml for an example
+
+  # -- **Required.** Provide a private key for each SSH identity, see values.yaml for an example
   identities: {}
 #   id_ed25519: |
 #     -----BEGIN OPENSSH PRIVATE KEY-----
 #     ...
 #     -----END OPENSSH PRIVATE KEY-----
-  # ssh.knownHosts -- **Required.** List of {host, pubKey} dicts where the public key of each host is configured
+
+  # -- **Required.** List of {host, pubKey} dicts where the public key of each host is configured
   knownHosts: []
 #   - host: my-host
 #     pubKey: ssh-ed25519 AAAAC3NzaC...
 
-# env -- A dict with KEY: VALUE pairs
+# -- A dict with KEY: VALUE pairs
 env: {}
 
 serviceAccount:
-  # serviceAccount.create -- Specifies whether a service account should be created
+  # -- Specifies whether a service account should be created
   create: true
-  # serviceAccount.annotations -- Annotations to add to the service account
+  # -- Annotations to add to the service account
   annotations: {}
-  # serviceAccount.name -- The name of the service account to use.
+  # -- The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
 rbac:
-  # rbac.create -- **Required for first time deployments** Grant the service account
+  # -- **Required for first time deployments** Grant the service account
   # the necessary permissions,
   create: false
 
-# podSecurityContext -- If you encounter **issues with SSH, set `podSecurityContext.fsGroup=100`**, as the SSH
+# -- If you encounter **issues with SSH, set `podSecurityContext.fsGroup=100`**, as the SSH
 # files might not be readable to the container user `zfs` with uid 100.
 podSecurityContext: {}
   # fsGroup: 100
@@ -102,7 +104,7 @@ resources:
     cpu: 50m
     memory: 20Mi
 
-# nodeSelector -- Reminder: This has no effect on any PVs, but maybe you want the provisioner pod running
+# -- Reminder: This has no effect on any PVs, but maybe you want the provisioner pod running
 # on certain nodes.
 nodeSelector: {}
 

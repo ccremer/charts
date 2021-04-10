@@ -31,8 +31,8 @@ helm install emby ccremer/emby
 | imagePullSecrets | list | `[]` | List of image pull secrets if you use a privately hosted image |
 | ingress.annotations | object | `{}` | Additional annotations for the Ingress object |
 | ingress.enabled | bool | `false` | Control whether ingress is created |
-| ingress.hosts | list | `[]` | See Kubernetes Docs for a guide to setup TLS on Ingress |
-| ingress.tls | list | `[]` |  |
+| ingress.hosts | list | `[]` | See Kubernetes Docs for a guide to setup Ingress hosts |
+| ingress.tls | list | `[]` | See Kubernetes Docs for a guide to setup TLS on Ingress |
 | livenessProbe.enabled | bool | `true` | Whether to enable the liveness probe |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
