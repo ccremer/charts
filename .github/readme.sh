@@ -14,7 +14,7 @@ copy_documentation() {
 
 find . -type f -name Chart.yaml | cut -s -f 3 -d / - | copy_documentation
 
-make readme TARGET_README="${gh_pages_worktree}/README.md" MASTER_BRANCH=false
+make docs:readme TARGET_README="${gh_pages_worktree}/README.md" MASTER_BRANCH=false
 
 pushd "${gh_pages_worktree}" > /dev/null
 

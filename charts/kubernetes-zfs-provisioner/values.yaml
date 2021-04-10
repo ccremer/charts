@@ -9,9 +9,9 @@ image:
   # -- Location of the container image
   repository: ccremer/zfs-provisioner
   # -- Container image registry
-  registry: docker.io
+  registry: quay.io
   # -- Container image tag
-  tag: v0.3.0
+  tag: v1.0.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -24,24 +24,24 @@ provisioner:
   instance: pv.kubernetes.io/zfs
 
 storageClass:
-  # -- Whether to create storage classes for this provisioner. One example is given
-  # in the `classes` array
+  # -- Whether to create storage classes for this provisioner.
   create: false
-  classes:
-    - name: zfs
-      # -- The provisioners connects through SSH to this ZFS host
-      hostName: storage-1.domain.tld
-      # -- Existing dataset on the target ZFS host
-      parentDataset: tank/kubernetes
-      # -- The reclaim policy supported by the provisioner
-      policy: "Delete"
-      # -- NFS export properties (see `exports(5)`)
-      shareProperties: ""
-      # -- Provision type, one of [`nfs`, `hostpath`]
-      type: "nfs"
-      # -- Override `kubernetes.io/hostname` from `hostName` parameter for
-      # `HostPath` node affinity
-      node: ""
+  # -- Storage classes to create. See [values.yaml](values.yaml) for an example.
+  classes: []
+    # - name: zfs
+    #   # -- The provisioners connects through SSH to this ZFS host
+    #   hostName: storage-1.domain.tld
+    #   # -- Existing dataset on the target ZFS host
+    #   parentDataset: tank/kubernetes
+    #   # -- The reclaim policy supported by the provisioner
+    #   policy: "Delete"
+    #   # -- NFS export properties (see `exports(5)`)
+    #   shareProperties: ""
+    #   # -- Provision type, one of [`nfs`, `hostpath`]
+    #   type: "nfs"
+    #   # -- Override `kubernetes.io/hostname` from `hostName` parameter for
+    #   # `HostPath` node affinity
+    #   node: ""
 
 ssh:
   # -- If SSH secrets are managed externally, specify the name

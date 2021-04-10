@@ -1,6 +1,6 @@
 # kubernetes-zfs-provisioner
 
-![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![AppVersion: 0.2.1](https://img.shields.io/badge/AppVersion-0.2.1-informational?style=flat-square)
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square)
 
 Dynamic ZFS persistent volume provisioner for Kubernetes
 
@@ -10,6 +10,15 @@ Dynamic ZFS persistent volume provisioner for Kubernetes
 helm repo add ccremer https://ccremer.github.io/charts
 helm install kubernetes-zfs-provisioner ccremer/kubernetes-zfs-provisioner
 ```
+## Upgrading from 0.x charts
+
+There are some breaking changes from 0.x to 1.x versions.
+
+* The `storageclass.classes` array is now empty.
+  Where it previously contained an example, the example is removed as a default value.
+  The example is still in `values.yaml` in form of YAML comments.
+* The `image.registry` has changed from `docker.io` to `quay.io` due to Docker Hub's pull limit.
+* Bumped `image.tag` to `v1.0.0`
 
 ## Values
 
@@ -19,9 +28,9 @@ helm install kubernetes-zfs-provisioner ccremer/kubernetes-zfs-provisioner
 | env | object | `{}` | A dict with KEY: VALUE pairs |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.registry | string | `"docker.io"` | Container image registry |
+| image.registry | string | `"quay.io"` | Container image registry |
 | image.repository | string | `"ccremer/zfs-provisioner"` | Location of the container image |
-| image.tag | string | `"v0.3.0"` | Container image tag |
+| image.tag | string | `"v1.0.0"` | Container image tag |
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` | Reminder: This has no effect on any PVs, but maybe you want the provisioner pod running on certain nodes. |
@@ -41,12 +50,6 @@ helm install kubernetes-zfs-provisioner ccremer/kubernetes-zfs-provisioner
 | ssh.identities | object | `{}` | **Required.** Provide a private key for each SSH identity, see values.yaml for an example |
 | ssh.knownHosts | list | `[]` | **Required.** List of {host, pubKey} dicts where the public key of each host is configured |
 | ssh.mountPath | string | `"/home/zfs/.ssh"` | The path where the SSH config and identities are mounted |
-| storageClass.classes[0].hostName | string | `"storage-1.domain.tld"` | The provisioners connects through SSH to this ZFS host |
-| storageClass.classes[0].name | string | `"zfs"` |  |
-| storageClass.classes[0].node | string | `""` | Override `kubernetes.io/hostname` from `hostName` parameter for `HostPath` node affinity |
-| storageClass.classes[0].parentDataset | string | `"tank/kubernetes"` | Existing dataset on the target ZFS host |
-| storageClass.classes[0].policy | string | `"Delete"` | The reclaim policy supported by the provisioner |
-| storageClass.classes[0].shareProperties | string | `""` | NFS export properties (see `exports(5)`) |
-| storageClass.classes[0].type | string | `"nfs"` | Provision type, one of [`nfs`, `hostpath`] |
-| storageClass.create | bool | `false` | Whether to create storage classes for this provisioner. One example is given in the `classes` array |
+| storageClass.classes | list | `[]` | Storage classes to create. See [values.yaml](values.yaml) for an example. |
+| storageClass.create | bool | `false` | Whether to create storage classes for this provisioner. |
 | tolerations | list | `[]` |  |

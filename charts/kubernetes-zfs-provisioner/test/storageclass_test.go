@@ -12,10 +12,9 @@ import (
 var tplStorageclass = []string{"templates/storageclass.yaml"}
 
 func Test_Storageclass_GivenClassesEnabled_WhenNoPolicyDefined_ThenRenderDefault(t *testing.T) {
-	t.Skipf("Skipping for now. Chart is due for breaking changes")
 	options := &helm.Options{
+		ValuesFiles: []string{"values/storageclass_1.yaml"},
 		SetValues: map[string]string{
-			"storageClass.create":            "true",
 			"storageClass.classes[0].policy": "",
 		},
 	}
@@ -30,12 +29,8 @@ func Test_Storageclass_GivenClassesEnabled_WhenNoPolicyDefined_ThenRenderDefault
 }
 
 func Test_StorageClass_GivenClassesEnabled_WhenNoTypeDefined_ThenRenderDefault(t *testing.T) {
-	t.Skipf("Skipping for now. Chart is due for breaking changes")
 	options := &helm.Options{
-		SetValues: map[string]string{
-			"storageClass.create":          "true",
-			"storageClass.classes[0].type": "",
-		},
+		ValuesFiles: []string{"values/storageclass_1.yaml"},
 	}
 
 	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, tplStorageclass)
@@ -65,10 +60,9 @@ func Test_StorageClass_GivenClassesEnabled_WhenNodeDefined_ThenRenderNodeName(t 
 }
 
 func Test_StorageClass_GivenClassesEnabled_WhenAdditionalParametersUndefined_ThenRenderEmptyValues(t *testing.T) {
-	t.Skipf("Skipping for now. Chart is due for breaking changes")
 	options := &helm.Options{
+		ValuesFiles: []string{"values/storageclass_1.yaml"},
 		SetValues: map[string]string{
-			"storageClass.create":                     "true",
 			"storageClass.classes[0].node":            "",
 			"storageClass.classes[0].shareProperties": "",
 		},
