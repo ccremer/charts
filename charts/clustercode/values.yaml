@@ -8,7 +8,7 @@ clustercode:
   ffmpegImage:
     registry: docker.io
     repository: jrottenberg/ffmpeg
-    tag: 4.1-alpine
+    tag: 4.3-alpine
   # -- Set additional environment variables to the Operator
   env: []
   # - name: CC__LOG_DEBUG
