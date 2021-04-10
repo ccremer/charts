@@ -7,11 +7,11 @@
 
 ## List of Charts
 
-* [clustercode](clustercode/README.md)
-* [emby](emby/README.md)
-* [fronius-exporter](fronius-exporter/README.md)
-* [kubernetes-zfs-provisioner](kubernetes-zfs-provisioner/README.md)
-* [znapzend](znapzend/README.md)
+* [clustercode](charts/clustercode/README.md)
+* [emby](charts/emby/README.md)
+* [fronius-exporter](charts/fronius-exporter/README.md)
+* [kubernetes-zfs-provisioner](charts/kubernetes-zfs-provisioner/README.md)
+* [znapzend](charts/znapzend/README.md)
 
 ## Development
 
