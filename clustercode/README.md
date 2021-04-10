@@ -1,6 +1,6 @@
 # clustercode
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0-rc2](https://img.shields.io/badge/AppVersion-v2.0.0--rc2-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v2.0.0-rc2](https://img.shields.io/badge/AppVersion-v2.0.0--rc2-informational?style=flat-square)
 
 Movie and Series conversion Operator
 
@@ -19,7 +19,7 @@ This chart **does not include CRDs**.
 Install or update CRDs manually with this command:
 ```bash
 kubectl apply -f https://github.com/ccremer/clustercode/releases/download/v2.0.0-rc2/clustercode-crd.yaml
- ```
+```
 
 ## Source Code
 
@@ -33,7 +33,7 @@ kubectl apply -f https://github.com/ccremer/clustercode/releases/download/v2.0.0
 | clustercode.env | list | `[]` | Set additional environment variables to the Operator |
 | clustercode.ffmpegImage.registry | string | `"docker.io"` |  |
 | clustercode.ffmpegImage.repository | string | `"jrottenberg/ffmpeg"` |  |
-| clustercode.ffmpegImage.tag | string | `"4.1-alpine"` |  |
+| clustercode.ffmpegImage.tag | string | `"4.3-alpine"` |  |
 | clustercode.leaderElectionEnabled | bool | `true` | Specifies whether leader election should be enabled |
 | clustercode.watchNamespace | string | `""` | Specify which namespace to watch for Clustercode resources. If empty, all namespaces will be watched. |
 | fullnameOverride | string | `""` |  |

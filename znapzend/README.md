@@ -1,6 +1,6 @@
 # znapzend
 
-![Version: 0.5.3](https://img.shields.io/badge/Version-0.5.3-informational?style=flat-square) ![AppVersion: v0.20.0](https://img.shields.io/badge/AppVersion-v0.20.0-informational?style=flat-square)
+![Version: 0.5.4](https://img.shields.io/badge/Version-0.5.4-informational?style=flat-square)
 
 Znapzend Helm Chart for automated ZFS snapshot & replication
 
@@ -32,7 +32,7 @@ helm install znapzend ccremer/znapzend
 | metrics.image.tag | string | `"v0.3.2"` | Exporter image tag |
 | metrics.ingress.annotations | object | `{}` |  |
 | metrics.ingress.enabled | bool | `false` | Useful if your Prometheus is outside of the cluster |
-| metrics.ingress.hosts | list | `[]` | See Kubernetes Docs for a guide to setup TLS on Ingress |
+| metrics.ingress.hosts | list | `[]` |  |
 | metrics.ingress.tls | list | `[]` |  |
 | metrics.jobs.register | list | `[]` | String list of datasets that should be registered right at startup |
 | metrics.port | int | `8080` | Container port to bind |
@@ -53,7 +53,7 @@ helm install znapzend ccremer/znapzend
 | securityContext | object | `{"allowPrivilegeEscalation":true,"privileged":true}` | The current image requires to run privileged in order to access ZFS |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
-| serviceAccount.name | string | `""` | If not set and create is true, a name is generated using the fullname template |
+| serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | ssh.config | string | `""` | `ssh_config(5)`-compatible file content to configure SSH options when connecting |
 | ssh.externalSecretName | string | `""` | Set this value if you provide your own secret with SSH config |
 | ssh.identities | object | `{}` | Provide a private key for each SSH identity, see [values.yaml](./values.yaml) for an example |

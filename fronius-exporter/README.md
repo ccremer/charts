@@ -1,6 +1,6 @@
 # fronius-exporter
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![AppVersion: 0.3.0](https://img.shields.io/badge/AppVersion-0.3.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Prometheus Exporter for Fronius Symo Photovoltaics
 
@@ -33,8 +33,8 @@ helm install fronius-exporter ccremer/fronius-exporter
 | imagePullSecrets | list | `[]` | List of image pull secrets if you use a privately hosted image |
 | ingress.annotations | object | `{}` | Additional annotations for the Ingress object |
 | ingress.enabled | bool | `false` | Useful if your Prometheus is outside of the cluster |
-| ingress.hosts | list | `[]` | See Kubernetes Docs for a guide to setup TLS on Ingress |
-| ingress.tls | list | `[]` |  |
+| ingress.hosts | list | `[]` | See Kubernetes Docs for a guide to setup Ingress hosts |
+| ingress.tls | list | `[]` | See Kubernetes Docs for a guide to setup TLS on Ingress |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |
