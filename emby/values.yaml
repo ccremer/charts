@@ -1,0 +1,108 @@
+# Default values for emby.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  # -- Container image registry
+  registry: docker.io
+  # -- Location of the container image
+  repository: emby/embyserver
+  # -- Container image tag
+  tag: "4.6.0.37"
+  # -- Container image pull policy
+  pullPolicy: IfNotPresent
+
+# -- List of image pull secrets if you use a privately hosted image
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and `create` is `true`, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  # -- Service type
+  type: ClusterIP
+  # -- Service http port number
+  httpPort: 8096
+  # -- Service https port number
+  httpsPort: 8920
+  # -- http Node port number if `service.type` is `NodePort`
+  httpNodePort: 0
+  # -- https Node port number if `service.type` is `NodePort`
+  httpsNodePort: 0
+
+persistence:
+  # -- Whether to enable the PVC and mount
+  enabled: false
+  # -- Requested storage size
+  size: 3Gi
+  mountPath: /config
+  # -- PV selector
+  selector: {}
+  # -- Storage Class name of the PV
+  storageClass: ""
+  # -- Additional annotations to add to the PVC
+  annotations: {}
+
+# -- Add custom volume mounts to the deployment
+additionalVolumeMounts: []
+# -- Add custom volumes to the deployment (may need to match `additionalVolumeMounts`)
+additionalVolumes: []
+
+livenessProbe:
+  # -- Whether to enable the liveness probe
+  enabled: true
+readinessProbe:
+  # -- Whether to enable the readiness probe
+  enabled: true
+
+ingress:
+  # -- Control whether ingress is created
+  enabled: false
+  # -- Additional annotations for the Ingress object
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+
+  # -- See Kubernetes Docs for a guide to setup Ingress hosts
+  hosts: []
+  # -- See Kubernetes Docs for a guide to setup TLS on Ingress
+  tls: []
+  #  - secretName: emby-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  limits:
+    memory: 768Mi
+  requests:
+    cpu: 30m
+    memory: 256Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

@@ -1,0 +1,162 @@
+# Default values for znapzend.
+
+# -- Only increase if you have multiple Nodes with AntiAffinity,
+# otherwise it does not make sense to run > 1 replicas on the same node
+replicaCount: 1
+
+image:
+  # -- Znapzend image repository
+  repository: oetiker/znapzend
+  # -- Znapzend image registry
+  registry: docker.io
+  # -- Znapzend image tag (version)
+  tag: v0.20.0
+  pullPolicy: IfNotPresent
+# -- List of image pull secrets if you use a privately hosted image
+imagePullSecrets: []
+
+nameOverride: ""
+fullnameOverride: ""
+
+podSecurityContext: {}
+
+# -- The current image requires to run privileged in order to access ZFS
+securityContext:
+  allowPrivilegeEscalation: true
+  privileged: true
+
+resources:
+  requests:
+    cpu: 30m
+    memory: 30Mi
+  limits:
+    memory: 70Mi
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- A dict with `KEY: VALUE` pairs
+env: {}
+
+znapzend:
+  # -- List of command arguments
+  args:
+    - znapzend
+    - --logto=/dev/stdout
+    - --autoCreation
+  # -- Whether znapzend should reload the `znapzend.backupPlans` after modifying
+  # them. Creates additional RBAC roles for the `serviceAccount.name`
+  reloadPlans: true
+  # -- List of backup plans to create/ensure on startup, see
+  # [values.yaml](./values.yaml) for an example
+  backupPlans: []
+  # - dataset: pool/dataset
+  ##  znapzend.backupPlans[].plan -- A backup plan object
+  #   plan:
+  #     selfResetAfter: 5m # Only effective when `metrics.enabled=true`, optional, default `1h`
+  #     delaySeconds: 600 # Optional, default `0`
+  #     source:
+  #       retention: 1days=>2hours,2weeks=>1days,6months=>1weeks
+  #       recursive: false # Optional, default `false`
+  #     targets:
+  #     - host: target.host
+  #       dataset: backup/dataset
+  #       retention: 1days=>2hours,2weeks=>1days,6months=>1weeks
+  #   custom: | # If you define this field, you can specify your own znapzend-compatible configuration
+  #     recursive=on
+  #     src_plan=1days=>2hours,2weeks=>1days,6months=>1weeks
+  #     tsformat=%Y-%m-%d-%H%M%S
+  #     mbuffer_size=1G
+  #     mbuffer=off
+  #     enabled=on
+
+host:
+  # -- The device on the host which is used by the `zfs` binary within the container
+  zfsDevice: /dev/zfs
+
+ssh:
+  # -- Path where your SSH config and identities get mounted in the container
+  path: /root/.ssh
+  # -- `ssh_config(5)`-compatible file content to configure SSH options when connecting
+  config: ""
+# config: |
+#   Host my-host
+#     IdentityFile ~/.ssh/my-id
+#     User myuser
+
+  # -- Set this value if you provide your own secret with SSH config
+  externalSecretName: ""
+  # -- Provide a private key for each SSH identity, see [values.yaml](./values.yaml) for an example
+  identities: {}
+#   id_ed25519: |
+#     -----BEGIN OPENSSH PRIVATE KEY-----
+#     ...
+#     -----END OPENSSH PRIVATE KEY-----
+
+  # -- List of `{host, pubKey}` dicts where the public key of each host is configured
+  knownHosts: []
+#   - host: my-host
+#     pubKey: ssh-ed25519 AAAAC3NzaC...
+
+metrics:
+  # -- Enable the metrics exporter for Prometheus
+  enabled: true
+  jobs:
+    # -- String list of datasets that should be registered right at startup
+    register: []
+  # -- A dict with `KEY: VALUE` pairs as environment variables for the exporter
+  env: {}
+  # -- Container port to bind
+  port: 8080
+
+  image:
+    # -- Image repository
+    repository: ccremer/znapzend-exporter
+    # -- Image registry
+    registry: docker.io
+    # -- Exporter image tag
+    tag: v0.3.2
+    pullPolicy: IfNotPresent
+
+  service:
+    # -- Whether to enable a Service object for metrics endpoint
+    # if metrics.enabled is true
+    enabled: true
+    type: ClusterIP
+    # -- Port on which the service is reachable
+    port: 8080
+    # -- NodePort if service type is not ClusterIP
+    nodePort: 0
+
+  ingress:
+    # -- Useful if your Prometheus is outside of the cluster
+    enabled: false
+    annotations: {}
+      # kubernetes.io/tls-acme: "true"
+    # -- See Kubernetes Docs for a guide to setup Ingress hosts
+    hosts: []
+    # - host:
+    #   paths: []
+    # -- See Kubernetes Docs for a guide to setup TLS on Ingress
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+  resources:
+    requests:
+      cpu: 20m
+      memory: 20Mi
+    limits:
+      memory: 40Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
