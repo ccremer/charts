@@ -7,8 +7,8 @@ git worktree add "${gh_pages_worktree}" gh-pages
 
 copy_documentation() {
     while read chart; do
-        [[ -d "${gh_pages_worktree}/charts/${chart}" ]] || mkdir -p "${gh_pages_worktree}/charts/${chart}"
-        cp --force "charts/${chart}/README.md" "${gh_pages_worktree}/charts/${chart}/README.md"
+        [[ -d "${gh_pages_worktree}/${chart}" ]] || mkdir "${gh_pages_worktree}/${chart}"
+        cp --force "charts/${chart}/README.md" "charts/${chart}/values.yaml" "${gh_pages_worktree}/${chart}/"
     done
 }
 
