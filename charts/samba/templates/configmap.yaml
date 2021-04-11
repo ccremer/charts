@@ -1,0 +1,17 @@
+{{- if or .Values.samba.rawEnv .Values.samba.shares }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "samba.fullname" . }}
+  labels:
+    {{- include "samba.labels" . | nindent 4 }}
+data:
+{{- range $key, $value := .Values.samba.rawEnv }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}
+{{- range $index, $share := .Values.samba.shares }}
+  {{- with $share }}
+  SHARE{{ $index }}: {{ printf "%s;%s;%s;%s;%s;%s;%s;%s;%s" .name .path (default "" .browsable) (default "" .readonly) (default "" .guest) (default "" .users) (default "" .admins) (default "" .writelist) (default "" .comment) | quote }}
+  {{- end }}
+{{- end }}
+{{- end -}}

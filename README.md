@@ -11,6 +11,7 @@
 * [emby](charts/emby/README.md)
 * [fronius-exporter](charts/fronius-exporter/README.md)
 * [kubernetes-zfs-provisioner](charts/kubernetes-zfs-provisioner/README.md)
+* [samba](charts/samba/README.md)
 * [znapzend](charts/znapzend/README.md)
 
 ## Development
