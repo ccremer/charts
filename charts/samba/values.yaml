@@ -1,0 +1,102 @@
+# Default values for samba.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# -- Be sure to make use of tolerations or affinity rules if you scale higher than 1.
+replicaCount: 1
+
+samba:
+  # -- A dict with KEY: VALUE entries to directly define environment variables.
+  rawEnv: {}
+  # -- A list of users as a convenience wrapper around USER env var(s). See [values.yaml](values.yaml) for an example.
+  users: []
+  # - username: myusername # REQUIRED
+  #   password: mypassword # REQUIRED
+  #   id: 1000 # user id
+  #   group: smbusers # group name
+  #   gid: 1000 # group id
+
+  # -- A list of Samba shares. Convenience wrapper around SHARE env var(s). See [values.yaml](values.yaml) for an example.
+  shares: []
+  # - name: share # is how it's called for clients, REQUIRED
+  #   path: /share # REQUIRED
+  #   browsable: "yes" # default: blank string (uses image default)
+  #   readonly: "yes" # default: blank string (uses image default)
+  #   guest: "yes" # default: blank string (uses image default)
+  #   users: "all" # comma-separated list of allowed users
+  #   admins: "none" # comma-separated list of admin users
+  #   writelist: "" # list of users that can write to a RO share
+  #   comment: "" # description of share
+
+  # -- Container args to pass
+  args: []
+
+image:
+  registry: docker.io
+  repository: dperson/samba
+  pullPolicy: Always
+  # -- Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+persistence:
+  # -- Whether a PVC shall be created
+  enabled: false
+  # -- Size of the PVC
+  size: 8Gi
+  mountPath: /data
+  # -- PV selector
+  selector: {}
+  # -- Storage Class name of the PV
+  storageClass: ""
+  # -- Additional annotations to add to the PVC
+  annotations: {}
+
+  # -- Additional volume mounts, regardless of `enabled`. See [values.yaml](values.yaml) for an example.
+  volumeMounts: []
+  #  - name: myvol
+  #    mountPath: /myvol
+
+  # -- Additional volumes, regardless of `enabled`. See [values.yaml](values.yaml) for an example.
+  volumes: []
+  #  - name: myvol
+  #    emptyDir: {}
+
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  limits:
+    memory: 512Mi
+  requests:
+    cpu: 30m
+    memory: 64Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

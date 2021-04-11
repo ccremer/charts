@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "samba.fullname" . }}
+  labels:
+    {{- include "samba.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "samba.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        configmap.kubernetes.io/checksum: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        secret.kubernetes.io/checksum: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+      {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "samba.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "samba.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            {{- toYaml .Values.samba.args | nindent 12 }}
+          envFrom:
+          {{- if or .Values.samba.rawEnv .Values.samba.shares }}
+            - configMapRef:
+                name: {{ include "samba.fullname" . }}
+          {{- end }}
+          {{- if .Values.samba.users }}
+            - secretRef:
+                name: {{ include "samba.fullname" . }}
+          {{- end }}
+          ports:
+            - name: smb
+              containerPort: 445
+              hostPort: 445
+              protocol: TCP
+            - name: nmb
+              containerPort: 139
+              hostPort: 139
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: smb
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          {{- if .Values.persistence.enabled }}
+            - name: data
+              mountPath: {{ .Values.persistence.mountPath }}
+          {{- end }}
+          {{- with .Values.persistence.volumeMounts }}
+            {{- toYaml .Values.persistence.volumeMounts | nindent 12 }}
+          {{- end }}
+      volumes:
+      {{- if .Values.persistence.enabled }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "samba.fullname" . }}-data
+      {{- end }}
+      {{- with .Values.persistence.volumes }}
+        {{- toYaml .Values.persistence.volumes | nindent 8 }}
+      {{- end }}
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
