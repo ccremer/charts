@@ -194,6 +194,18 @@ entries:
   samba:
   - apiVersion: v2
     appVersion: latest
+    created: "2021-04-25T10:40:15.517318308Z"
+    description: A Helm chart for Samba server
+    digest: 58d4248bd2fcc945c19e0c151f04d7c4fee7f8a010fcf012cdc8bd67865a98db
+    name: samba
+    sources:
+    - https://github.com/dperson/samba
+    type: application
+    urls:
+    - https://github.com/ccremer/charts/releases/download/samba-0.1.1/samba-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-04-11T15:20:32.951080227Z"
     description: A Helm chart for Samba server
     digest: b5ac7d1dba3e171002444194128b7e26985735dd2efad6916f42640fb4554ab0
@@ -391,4 +403,4 @@ entries:
     urls:
     - https://github.com/ccremer/charts/releases/download/znapzend-0.1.0/znapzend-0.1.0.tgz
     version: 0.1.0
-generated: "2021-04-11T15:20:32.951650845Z"
+generated: "2021-04-25T10:40:15.517574109Z"
