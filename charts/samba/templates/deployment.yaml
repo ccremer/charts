@@ -66,7 +66,7 @@ spec:
               mountPath: {{ .Values.persistence.mountPath }}
           {{- end }}
           {{- with .Values.persistence.volumeMounts }}
-            {{- toYaml .Values.persistence.volumeMounts | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
       volumes:
       {{- if .Values.persistence.enabled }}
@@ -75,7 +75,7 @@ spec:
             claimName: {{ include "samba.fullname" . }}-data
       {{- end }}
       {{- with .Values.persistence.volumes }}
-        {{- toYaml .Values.persistence.volumes | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
 
       {{- with .Values.nodeSelector }}
