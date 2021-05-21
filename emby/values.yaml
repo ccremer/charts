@@ -10,7 +10,7 @@ image:
   # -- Location of the container image
   repository: emby/embyserver
   # -- Container image tag
-  tag: "4.6.0.37"
+  tag: "4.6.0.50"
   # -- Container image pull policy
   pullPolicy: IfNotPresent
 
