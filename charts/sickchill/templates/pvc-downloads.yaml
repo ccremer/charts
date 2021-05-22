@@ -1,0 +1,23 @@
+{{- if .Values.persistence.downloads.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "sickchill.fullname" . }}-downloads
+  labels:
+    {{- include "sickchill.labels" . | nindent 4 }}
+  {{- with .Values.persistence.downloads.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.persistence.downloads.size }}
+  storageClassName: {{ .Values.persistence.downloads.storageClass }}
+  {{- with .Values.persistence.downloads.selector }}
+  selector:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}

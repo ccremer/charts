@@ -1,0 +1,24 @@
+{{- if .Values.persistence.shows.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "sickchill.fullname" . }}-shows
+  labels:
+    {{- include "sickchill.labels" . | nindent 4 }}
+  {{- with .Values.persistence.shows.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.persistence.shows.size }}
+  storageClassName: {{ .Values.persistence.shows.storageClass }}
+  {{- with .Values.persistence.shows.selector }}
+  selector:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}
