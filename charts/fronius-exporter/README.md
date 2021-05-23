@@ -1,6 +1,6 @@
 # fronius-exporter
 
-![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Prometheus Exporter for Fronius Symo Photovoltaics
 
@@ -12,6 +12,26 @@ Prometheus Exporter for Fronius Symo Photovoltaics
 helm repo add ccremer https://ccremer.github.io/charts
 helm install fronius-exporter ccremer/fronius-exporter
 ```
+
+## Prometheus Operator
+
+This chart features templates for [Prometheus Operator][prometheus-operator] if desired.
+If you'd like to add additional Prometheus labels to all metrics, you could make use of relabelings:
+
+```yaml
+serviceMonitor:
+  enabled: true
+  metricRelabelings:
+    - targetLabel: site
+      replacement: my-home
+```
+
+<!---
+Common/Useful Link references from values.yaml
+-->
+[resource-units]: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
+[prometheus-operator]: https://github.com/coreos/prometheus-operator
+[prom-relabel-config]: https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
 
 ## Source Code
 
@@ -51,6 +71,11 @@ helm install fronius-exporter ccremer/fronius-exporter
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and `create` is `true`, a name is generated using the fullname template |
+| serviceMonitor.additionalLabels | object | `{}` | Add custom labels to the ServiceMonitor object |
+| serviceMonitor.enabled | bool | `false` | Deploy a ServiceMonitor object for Prometheus. Requires an installed [Prometheus Operator][prometheus-operator]. |
+| serviceMonitor.metricRelabelings | list | `[]` | Add relabeling configs before ingestion, see [RelabelConfig][prom-relabel-config]. |
+| serviceMonitor.namespace | string | `""` | Namespace in which to deploy the ServiceMonitor, defaults to release namespace. |
+| serviceMonitor.scrapeInterval | string | `""` | Override default scrape interval from Prometheus |
 | telegraf.enabled | bool | `false` | Whether to enable Telegraf sidecar for Influxdb |
 | telegraf.globalTags | object | `{}` | A dict with `key: value` to add to `global_tags` config |
 | telegraf.image.registry | string | `"docker.io"` |  |

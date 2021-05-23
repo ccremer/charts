@@ -114,3 +114,15 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+serviceMonitor:
+  # -- Deploy a ServiceMonitor object for Prometheus. Requires an installed [Prometheus Operator][prometheus-operator].
+  enabled: false
+  # -- Namespace in which to deploy the ServiceMonitor, defaults to release namespace.
+  namespace: ""
+  # -- Override default scrape interval from Prometheus
+  scrapeInterval: ""
+  # -- Add relabeling configs before ingestion, see [RelabelConfig][prom-relabel-config].
+  metricRelabelings: []
+  # -- Add custom labels to the ServiceMonitor object
+  additionalLabels: {}
