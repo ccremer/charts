@@ -55,7 +55,8 @@ ssh:
     #     IdentityFile ~/.ssh/id_ed25519
     #     User zfs
 
-  # -- **Required.** Provide a private key for each SSH identity, see values.yaml for an example
+  # -- **Required.** Provide a private key for each SSH identity.
+  # See [values.yaml](./values.yaml) for an example
   identities: {}
 #   id_ed25519: |
 #     -----BEGIN OPENSSH PRIVATE KEY-----
@@ -69,6 +70,12 @@ ssh:
 
 # -- A dict with KEY: VALUE pairs
 env: {}
+
+# -- A dict with `{ip, hostnames array}` to configure custom entries in /etc/hosts.
+# See [values.yaml](./values.yaml) for an example.
+hostAliases: {}
+#  192.168.1.1:
+#    - my-custom-host.name
 
 serviceAccount:
   # -- Specifies whether a service account should be created
