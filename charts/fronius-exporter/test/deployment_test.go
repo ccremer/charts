@@ -13,7 +13,7 @@ var tplDeployment = []string{"templates/deployment.yaml"}
 func Test_Deployment_GivenTimeoutOverridden_ThenRenderNewValue(t *testing.T) {
 	options := &helm.Options{
 		SetValues: map[string]string{
-			"fronius.timeoutSeconds": "3",
+			"exporter.timeoutSeconds": "3",
 		},
 	}
 
