@@ -22,9 +22,9 @@ helm install fronius-exporter ccremer/fronius-exporter
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| fronius.additionalArgs | list | `[]` | Provide additional CLI flags via string array |
-| fronius.timeoutSeconds | int | `5` | Time after which collecting may time out. Should not be higher than the Prometheus scrape interval. |
-| fronius.url | string | `"http://symo.ip.or.hostname/solar_api/v1/GetPowerFlowRealtimeData.fcgi"` | Target URL of Fronius SYMO device. **Required** |
+| exporter.additionalArgs | list | `[]` | Provide additional CLI flags via string array |
+| exporter.symoUrl | string | `"http://symo.ip.or.hostname/solar_api/v1/GetPowerFlowRealtimeData.fcgi"` | Target URL of Fronius SYMO device. **Required** |
+| exporter.timeoutSeconds | int | `5` | Time after which collecting may time out. Should not be higher than the Prometheus scrape interval. |
 | fullnameOverride | string | `""` |  |
 | hostAliases | object | `{}` | A dict with `{ip, hostnames array}` to configure custom entries in /etc/hosts. See [values.yaml](./values.yaml) for an example. |
 | image.pullPolicy | string | `"IfNotPresent"` |  |

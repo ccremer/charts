@@ -19,9 +19,9 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-fronius:
+exporter:
   # -- Target URL of Fronius SYMO device. **Required**
-  url: "http://symo.ip.or.hostname/solar_api/v1/GetPowerFlowRealtimeData.fcgi"
+  symoUrl: "http://symo.ip.or.hostname/solar_api/v1/GetPowerFlowRealtimeData.fcgi"
   # -- Provide additional CLI flags via string array
   additionalArgs: []
   # -- Time after which collecting may time out. Should not be higher than
