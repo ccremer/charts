@@ -1,6 +1,6 @@
 # kubernetes-zfs-provisioner
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square)
 
 Dynamic ZFS persistent volume provisioner for Kubernetes
 
@@ -27,6 +27,7 @@ There are some breaking changes from 0.x to 1.x versions.
 | affinity | object | `{}` |  |
 | env | object | `{}` | A dict with KEY: VALUE pairs |
 | fullnameOverride | string | `""` |  |
+| hostAliases | object | `{}` | A dict with `{ip, hostnames array}` to configure custom entries in /etc/hosts. See [values.yaml](./values.yaml) for an example. |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"quay.io"` | Container image registry |
 | image.repository | string | `"ccremer/zfs-provisioner"` | Location of the container image |
@@ -47,7 +48,7 @@ There are some breaking changes from 0.x to 1.x versions.
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | ssh.config | string | `""` | **Required.** ssh_config(5)-compatible file content to configure SSH options when connecting |
 | ssh.externalSecretName | string | `""` | If SSH secrets are managed externally, specify the name |
-| ssh.identities | object | `{}` | **Required.** Provide a private key for each SSH identity, see values.yaml for an example |
+| ssh.identities | object | `{}` | **Required.** Provide a private key for each SSH identity. See [values.yaml](./values.yaml) for an example |
 | ssh.knownHosts | list | `[]` | **Required.** List of {host, pubKey} dicts where the public key of each host is configured |
 | ssh.mountPath | string | `"/home/zfs/.ssh"` | The path where the SSH config and identities are mounted |
 | storageClass.classes | list | `[]` | Storage classes to create. See [values.yaml](values.yaml) for an example. |

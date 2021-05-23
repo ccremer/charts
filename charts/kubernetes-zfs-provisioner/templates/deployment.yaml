@@ -44,6 +44,16 @@ spec:
               mountPath: {{ .Values.ssh.mountPath }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.hostAliases }}
+      hostAliases:
+      {{- range $ip, $hostnames := . }}
+        - ip: {{ $ip }}
+          hostnames:
+          {{- range . }}
+            - {{ . }}
+          {{- end }}
+      {{- end }}
+      {{- end }}
       volumes:
         {{- with .Values.ssh }}
         - name: ssh
