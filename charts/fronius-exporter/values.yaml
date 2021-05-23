@@ -41,6 +41,12 @@ podAnnotations: {}
 
 podSecurityContext: {}
 
+# -- A dict with `{ip, hostnames array}` to configure custom entries in /etc/hosts.
+# See [values.yaml](./values.yaml) for an example.
+hostAliases: {}
+#  192.168.1.1:
+#    - my-custom-host.name
+
 securityContext: {}
   # capabilities:
   #   drop:

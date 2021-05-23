@@ -1,6 +1,6 @@
 # fronius-exporter
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Prometheus Exporter for Fronius Symo Photovoltaics
 
@@ -26,6 +26,7 @@ helm install fronius-exporter ccremer/fronius-exporter
 | fronius.timeoutSeconds | int | `5` | Time after which collecting may time out. Should not be higher than the Prometheus scrape interval. |
 | fronius.url | string | `"http://symo.ip.or.hostname/solar_api/v1/GetPowerFlowRealtimeData.fcgi"` | Target URL of Fronius SYMO device. **Required** |
 | fullnameOverride | string | `""` |  |
+| hostAliases | object | `{}` | A dict with `{ip, hostnames array}` to configure custom entries in /etc/hosts. See [values.yaml](./values.yaml) for an example. |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"quay.io"` | Container image registry |
 | image.repository | string | `"ccremer/fronius-exporter"` | Location of the container image |

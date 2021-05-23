@@ -47,6 +47,16 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.hostAliases }}
+      hostAliases:
+      {{- range $ip, $hostnames := . }}
+        - ip: {{ $ip }}
+          hostnames:
+          {{- range . }}
+            - {{ . }}
+          {{- end }}
+      {{- end }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
