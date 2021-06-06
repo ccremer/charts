@@ -11,7 +11,7 @@ image:
   # -- Location of the container image
   repository: ccremer/fronius-exporter
   # -- Container image tag
-  tag: "v0.4.0"
+  tag: "v0.5.0"
   pullPolicy: IfNotPresent
 
 # -- List of image pull secrets if you use a privately hosted image
@@ -22,6 +22,8 @@ fullnameOverride: ""
 exporter:
   # -- Target URL of Fronius SYMO device. **Required**
   symoUrl: "http://symo.ip.or.hostname/solar_api/v1/GetPowerFlowRealtimeData.fcgi"
+  # -- Site name of Fronius SYMO that gets added as a static label to all metrics. **Recommended**
+  siteName: ""
   # -- Provide additional CLI flags via string array
   additionalArgs: []
   # -- Time after which collecting may time out. Should not be higher than
