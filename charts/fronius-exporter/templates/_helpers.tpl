@@ -61,3 +61,13 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Container images
+*/}}
+{{- define "fronius-exporter.image" -}}
+{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
+{{- end }}
+{{- define "fronius-exporter.telegrafImage" -}}
+{{ .Values.telegraf.image.registry }}/{{ .Values.telegraf.image.repository }}:{{ .Values.telegraf.image.tag }}
+{{- end }}

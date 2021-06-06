@@ -1,6 +1,6 @@
 # fronius-exporter
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Prometheus Exporter for Fronius Symo Photovoltaics
 
@@ -52,4 +52,13 @@ helm install fronius-exporter ccremer/fronius-exporter
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and `create` is `true`, a name is generated using the fullname template |
+| telegraf.enabled | bool | `true` | Whether to enable Telegraf sidecar for Influxdb |
+| telegraf.image.registry | string | `"docker.io"` |  |
+| telegraf.image.repository | string | `"library/telegraf"` | Telegraf image location |
+| telegraf.image.tag | string | `"1.18-alpine"` | Telegraf image tag |
+| telegraf.influxdb.bucket | string | `"fronius"` | Bucket to write metrics into |
+| telegraf.influxdb.organization | string | `"fronius"` | Organization where the bucket belongs to |
+| telegraf.influxdb.token | string | `""` | Token used to authenticate to InfluxDB |
+| telegraf.influxdb.url | string | `"http://influxdb2"` | URL of an InfluxDB 2 instance |
+| telegraf.interval | string | `"30s"` | Go-style interval in which metrics are pushed to InfluxDB |
 | tolerations | list | `[]` |  |

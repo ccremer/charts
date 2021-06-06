@@ -29,7 +29,7 @@ spec:
         - name: exporter
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: {{ include "fronius-exporter.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
             - --symo.url={{ .Values.exporter.symoUrl }}
@@ -48,6 +48,25 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.telegraf.enabled }}
+        - name: telegraf
+          image: {{ include "fronius-exporter.telegrafImage" . }}
+          resources:
+            limits:
+              cpu: 200m
+              memory: 200Mi
+            requests:
+              cpu: 10m
+              memory: 10Mi
+          volumeMounts:
+            - name: telegraf-config
+              mountPath: /etc/telegraf
+      volumes:
+        - name: telegraf-config
+          secret:
+            secretName: {{ template "fronius-exporter.fullname" . }}
+            defaultMode: 420
+      {{- end }}
       {{- with .Values.hostAliases }}
       hostAliases:
       {{- range $ip, $hostnames := . }}

@@ -30,6 +30,27 @@ exporter:
   # the Prometheus scrape interval.
   timeoutSeconds: 5
 
+telegraf:
+  # -- Whether to enable Telegraf sidecar for Influxdb
+  enabled: true
+  # -- Go-style interval in which metrics are pushed to InfluxDB
+  interval: 30s
+  image:
+    registry: docker.io
+    # -- Telegraf image location
+    repository: library/telegraf
+    # -- Telegraf image tag
+    tag: 1.18-alpine
+  influxdb:
+    # -- URL of an InfluxDB 2 instance
+    url: http://influxdb2
+    # -- Token used to authenticate to InfluxDB
+    token: ""
+    # -- Bucket to write metrics into
+    bucket: fronius
+    # -- Organization where the bucket belongs to
+    organization: fronius
+
 serviceAccount:
   # -- Specifies whether a service account should be created
   create: true
