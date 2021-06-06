@@ -33,6 +33,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
             - --symo.url={{ .Values.exporter.symoUrl }}
+            - --symo.site={{ .Values.exporter.siteName | quote }}
             - --symo.timeout={{ .Values.exporter.timeoutSeconds }}
             {{- range .Values.exporter.additionalArgs }}
             - {{ . }}
