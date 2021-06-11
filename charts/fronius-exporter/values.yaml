@@ -50,6 +50,8 @@ telegraf:
     bucket: fronius
     # -- Organization where the bucket belongs to
     organization: fronius
+  # -- A dict with `key: value` to add to `global_tags` config
+  globalTags: {}
 
 serviceAccount:
   # -- Specifies whether a service account should be created
