@@ -31,7 +31,7 @@ helm install fronius-exporter ccremer/fronius-exporter
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"quay.io"` | Container image registry |
 | image.repository | string | `"ccremer/fronius-exporter"` | Location of the container image |
-| image.tag | string | `"v0.5.0"` | Container image tag |
+| image.tag | string | `"v0.6.0"` | Container image tag |
 | imagePullSecrets | list | `[]` | List of image pull secrets if you use a privately hosted image |
 | ingress.annotations | object | `{}` | Additional annotations for the Ingress object |
 | ingress.enabled | bool | `false` | Useful if your Prometheus is outside of the cluster |
