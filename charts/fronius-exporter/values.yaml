@@ -11,7 +11,7 @@ image:
   # -- Location of the container image
   repository: ccremer/fronius-exporter
   # -- Container image tag
-  tag: "v0.5.0"
+  tag: "v0.6.0"
   pullPolicy: IfNotPresent
 
 # -- List of image pull secrets if you use a privately hosted image
@@ -50,6 +50,8 @@ telegraf:
     bucket: fronius
     # -- Organization where the bucket belongs to
     organization: fronius
+  # -- A dict with `key: value` to add to `global_tags` config
+  globalTags: {}
 
 serviceAccount:
   # -- Specifies whether a service account should be created
