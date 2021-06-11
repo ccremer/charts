@@ -67,6 +67,24 @@ entries:
     version: 0.1.0
   fronius-exporter:
   - apiVersion: v2
+    created: "2021-06-11T19:54:07.355384375Z"
+    description: Prometheus Exporter for Fronius Symo Photovoltaics
+    digest: 8e41827b119dc92e42d1b40dc677c2dbe5988dc8ff212cb80446421783e102f2
+    home: https://github.com/ccremer/fronius-exporter
+    icon: https://www.fronius.com/~/protected-media/images/fronius-logo.png
+    keywords:
+    - fronius
+    - photovoltaic
+    - solar
+    - energy
+    name: fronius-exporter
+    sources:
+    - https://github.com/ccremer/fronius-exporter
+    type: application
+    urls:
+    - https://github.com/ccremer/charts/releases/download/fronius-exporter-0.5.0/fronius-exporter-0.5.0.tgz
+    version: 0.5.0
+  - apiVersion: v2
     created: "2021-06-07T22:44:42.076928799Z"
     description: Prometheus Exporter for Fronius Symo Photovoltaics
     digest: 4d0f6d3e227f1d0dbe2e7a87487b188900734b78b349da5a8d4d5fbead8b81cd
@@ -515,4 +533,4 @@ entries:
     urls:
     - https://github.com/ccremer/charts/releases/download/znapzend-0.1.0/znapzend-0.1.0.tgz
     version: 0.1.0
-generated: "2021-06-07T22:44:42.07707741Z"
+generated: "2021-06-11T19:54:07.355514375Z"
