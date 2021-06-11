@@ -1,5 +1,11 @@
 SHELL := /usr/bin/env bash
 
+MAKEFLAGS += --warn-undefined-variables
+.SHELLFLAGS := -eu -o pipefail -c
+.DEFAULT_GOAL := help
+.DELETE_ON_ERROR:
+.SUFFIXES:
+
 MASTER_BRANCH=master
 SOURCE_README=README.gotmpl
 TARGET_README=README.md
@@ -41,3 +47,11 @@ lint\:vet: ## Run go vet against code
 lint: lint\:fmt lint\:vet ## Invokes the fmt, vet and checks for uncommitted changes
 	@echo 'Check for uncommitted changes ...'
 	git diff --exit-code
+
+.PHONY: lint\:versions
+lint\:versions: ## Checks if chart versions have been changed
+	@echo --- Detecting version bumps in the charts
+	@echo "    If this target fails, one of the listed charts below has not its version updated!"
+	@changed_charts=$$(git diff --dirstat=files,0 origin/master..HEAD -- charts | cut -d '/' -f 2 | uniq) ; \
+	  echo "Charts changed: $$changed_charts" ; echo ;  \
+	  for dir in $$changed_charts; do git diff origin/master..HEAD -- "charts/$${dir}/Chart.yaml" | grep -H --label=$${dir} "+version"; done
