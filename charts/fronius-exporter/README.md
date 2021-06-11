@@ -1,6 +1,6 @@
 # fronius-exporter
 
-![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.5.1](https://img.shields.io/badge/Version-0.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Prometheus Exporter for Fronius Symo Photovoltaics
 
@@ -52,7 +52,7 @@ helm install fronius-exporter ccremer/fronius-exporter
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and `create` is `true`, a name is generated using the fullname template |
-| telegraf.enabled | bool | `true` | Whether to enable Telegraf sidecar for Influxdb |
+| telegraf.enabled | bool | `false` | Whether to enable Telegraf sidecar for Influxdb |
 | telegraf.globalTags | object | `{}` | A dict with `key: value` to add to `global_tags` config |
 | telegraf.image.registry | string | `"docker.io"` |  |
 | telegraf.image.repository | string | `"library/telegraf"` | Telegraf image location |

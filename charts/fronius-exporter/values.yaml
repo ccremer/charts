@@ -32,7 +32,7 @@ exporter:
 
 telegraf:
   # -- Whether to enable Telegraf sidecar for Influxdb
-  enabled: true
+  enabled: false
   # -- Go-style interval in which metrics are pushed to InfluxDB
   interval: 30s
   image:
