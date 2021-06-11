@@ -1,6 +1,6 @@
 # fronius-exporter
 
-![Version: 0.5.1](https://img.shields.io/badge/Version-0.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Prometheus Exporter for Fronius Symo Photovoltaics
 
@@ -23,7 +23,6 @@ helm install fronius-exporter ccremer/fronius-exporter
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
 | exporter.additionalArgs | list | `[]` | Provide additional CLI flags via string array |
-| exporter.siteName | string | `""` | Site name of Fronius SYMO that gets added as a static label to all metrics. **Recommended** |
 | exporter.symoUrl | string | `"http://symo.ip.or.hostname/solar_api/v1/GetPowerFlowRealtimeData.fcgi"` | Target URL of Fronius SYMO device. **Required** |
 | exporter.timeoutSeconds | int | `5` | Time after which collecting may time out. Should not be higher than the Prometheus scrape interval. |
 | fullnameOverride | string | `""` |  |
