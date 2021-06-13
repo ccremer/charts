@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "fronius-stack.fullname" . }}-influxdb-task
+  labels:
+    {{- include "fronius-stack.labels" . | nindent 4 }}
+  annotations:
+    helm.sh/hook: post-install
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+spec:
+  template:
+    metadata:
+      labels:
+        {{- include "fronius-stack.labels" . | nindent 8 }}
+    spec:
+      restartPolicy: Never
+      initContainers:
+        - name: wait-for-influx
+          image: "{{ .Values.influxdb.image.repository }}:{{ .Values.influxdb.image.tag }}"
+          command: ["/bin/sh"]
+          args:
+            - -c
+            - until influx bucket list; do sleep 2; done
+          env:
+            {{ include "fronius-stack.influxdb-env" . | nindent 12 }}
+      containers:
+        - name: post-install-job
+          image: "{{ .Values.influxdb.image.repository }}:{{ .Values.influxdb.image.tag }}"
+          command: ["/bin/sh"]
+          args:
+            - /config/task.sh
+          env:
+            {{ include "fronius-stack.influxdb-env" . | nindent 12 }}
+            - name: INFLUX_BUCKET_NAME
+              value: {{ .Values.archival.bucket }}
+            - name: INFLUX_BUCKET_RETENTION
+              value: {{ .Values.archival.retention }}
+          volumeMounts:
+            - name: scripts
+              mountPath: /config
+      volumes:
+        - name: scripts
+          configMap:
+            name: {{ template "fronius-stack.fullname" . }}-influxdb-task

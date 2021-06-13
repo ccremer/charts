@@ -1,0 +1,24 @@
+{{- if .Values.influxdb.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "fronius-stack.fullname" . }}-influxdb-task
+  labels:
+    {{- include "fronius-stack.labels" . | nindent 4 }}
+data:
+  task.flux: |
+    import "strings"
+
+    option task = {name: "Downsampling Fronius", every: {{ .Values.archival.window }}}
+
+    fromBucket = {{ .Values.influxdb.adminUser.bucket | quote }}
+    targetBucket = {{ .Values.archival.bucket | quote }}
+
+    from(bucket: fromBucket)
+      |> range(start: -task.every)
+      |> filter(fn: (r) => r._measurement =~ /^fronius_.+$/)
+      |> drop(columns: ["url", "host"])
+      |> aggregateWindow(every: task.every, fn: mean, createEmpty: false)
+      |> to(bucket: targetBucket)
+{{ (.Files.Glob "files/influxdb/*.sh").AsConfig | indent 2 }}
+{{- end -}}

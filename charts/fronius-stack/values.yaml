@@ -1,0 +1,44 @@
+# Default values for fronius-stack.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: fronius
+fullnameOverride: ""
+
+influxdb:
+  enabled: true
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      memory: 256Mi
+
+  adminUser:
+    organization: fronius
+    bucket: fronius_live
+    retention_policy: 14d
+
+  persistence:
+    size: 8Gi
+
+  pdb:
+    create: false
+
+fronius:
+  enabled: true
+  nameOverride: exporter
+  telegraf:
+    enabled: true
+    interval: 5s
+    influxdb:
+      url: http://fronius-influxdb
+      token: ""
+      bucket: fronius_live
+    globalTags:
+      site: home
+
+archival:
+  window: 10m
+  bucket: fronius_archive
+  retention: 0s
