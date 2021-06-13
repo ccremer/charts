@@ -42,3 +42,13 @@ archival:
   window: 10m
   bucket: fronius_archive
   retention: 0s
+
+grafana:
+  datasource:
+    enabled: true
+    labels:
+      grafana_datasource: "1"
+  dashboard:
+    enabled: true
+    labels:
+      grafana_dashboard: "1"

@@ -1,0 +1,16 @@
+{{- if .Values.grafana.dashboard.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "fronius-stack.fullname" . }}-dashboard
+  namespace: {{ default .Release.Namespace .Values.grafana.dashboard.namespace }}
+  labels:
+    {{- include "fronius-stack.labels" . | nindent 4 }}
+    {{- toYaml .Values.grafana.dashboard.labels | nindent 4}}
+  {{- if .Values.grafana.dashboard.annotations }}
+  annotations:
+    {{- toYaml .Values.grafana.dashboard.annotations | nindent 4 }}
+  {{- end }}
+data:
+  {{ (.Files.Glob "files/grafana/*.json").AsConfig | nindent 2 }}
+{{- end -}}

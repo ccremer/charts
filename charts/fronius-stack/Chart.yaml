@@ -28,7 +28,7 @@ sources:
 
 dependencies:
   - name: fronius-exporter
-    version: 0.6.0
+    version: 0.7.0
     repository: https://ccremer.github.io/charts
     alias: fronius
     condition: fronius.enabled
