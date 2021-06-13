@@ -21,3 +21,7 @@
 .idea/
 *.tmproj
 .vscode/
+
+# Unit tests
+test/
+*gotmpl*

@@ -30,25 +30,38 @@ fronius:
   nameOverride: exporter
   telegraf:
     enabled: true
+    # -- Interval of sending metrics to InfluxDB.
     interval: 5s
     influxdb:
       url: http://fronius-influxdb
+      # -- The token to connect to InfluxDB, needs to be equal to `influxdb.adminUser.token`.
       token: ""
+      # -- The high-precision bucket name, needs to be equal to `influxdb.adminUser.bucket`.
       bucket: fronius_live
     globalTags:
+      # -- The name of the site or environment.
       site: home
 
 archival:
+  # -- Fixed windows of time in which metrics are averaged.
   window: 10m
+  # -- Name of the archival bucket to create after installation.
   bucket: fronius_archive
+  # -- Retention of the archival bucket. `0s` means forever.
   retention: 0s
 
 grafana:
   datasource:
     enabled: true
+    # -- Override the namespace where the ConfigMap is installed, defaults to release namespace.
+    namespace: ""
+    # -- The labels which the sidecar is filtering for data sources.
     labels:
       grafana_datasource: "1"
   dashboard:
     enabled: true
+    # -- Override the namespace where the ConfigMap is installed, defaults to release namespace.
+    namespace: ""
+    # -- The labels which the sidecar is filtering for dashboards.
     labels:
       grafana_dashboard: "1"

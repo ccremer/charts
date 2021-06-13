@@ -1,6 +1,6 @@
 apiVersion: v2
 name: fronius-stack
-description: A Helm chart for installing fronius-exporter with long-term storage stack
+description: A Helm chart for installing fronius-exporter with long-term storage
 
 # A chart can be either an 'application' or a 'library' chart.
 #
