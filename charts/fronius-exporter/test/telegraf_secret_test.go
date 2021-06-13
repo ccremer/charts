@@ -19,8 +19,8 @@ func Test_TelegrafSecret_WhenDefiningGlobalTags_ThenRenderEachKeyValue(t *testin
 		ValuesFiles: []string{"values/telegraf_1.yaml"},
 	}
 
-	expectedLine1 := "key1 = value1"
-	expectedLine2 := "key2 = value2"
+	expectedLine1 := "key1 = \"value1\""
+	expectedLine2 := "key2 = \"value2\""
 	expectedSection := "[global_tags]"
 	config := "telegraf.conf"
 	secret := renderSecret(t, options, false, tplTelegrafSecret)
