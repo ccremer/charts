@@ -16,8 +16,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1623588976821,
+  "iteration": 1624196932981,
   "links": [],
   "panels": [
     {
@@ -49,8 +48,8 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 12,
-        "w": 12,
+        "h": 14,
+        "w": 22,
         "x": 0,
         "y": 1
       },
@@ -117,7 +116,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_power_load\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> sort(columns: [\"_time\"])\r\n  |> map(fn: (r) => ({_value:r._value * -1.0, _time:r._time,_field:\"Load\"}))",
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_power_load\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({_value:r._value * -1.0, _time:r._time,_field:\"Load\"}))",
           "refId": "Load",
           "resultFormat": "time_series",
           "select": [
@@ -154,7 +153,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_power_photovoltaic\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> sort(columns: [\"_time\"])\r\n  |> keep(columns: [\"_value\", \"_time\"])\r\n  |> set(key: \"_field\", value: \"Photovoltaic\")",
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_power_photovoltaic\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> keep(columns: [\"_value\", \"_time\"])\r\n  |> set(key: \"_field\", value: \"Photovoltaic\")",
           "refId": "Photovoltaics",
           "resultFormat": "time_series",
           "select": [
@@ -191,7 +190,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_power_grid\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> sort(columns: [\"_time\"])\r\n  |> map(fn: (r) => ({_value:r._value, _time:r._time,_field:\"Grid\"}))",
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_power_grid\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({_value:r._value, _time:r._time,_field:\"Grid\"}))",
           "refId": "Grid",
           "resultFormat": "time_series",
           "select": [
@@ -254,6 +253,217 @@
       }
     },
     {
+      "datasource": "${datasource}",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "Photovoltaics"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "Load"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "Grid"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 2,
+        "x": 22,
+        "y": 1
+      },
+      "id": 20,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "7.5.3",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_power_load\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> aggregateWindow(every: 1d, fn: mean, createEmpty: false)\r\n  |> mean()\r\n  |> map(fn: (r) => ({Load: r._value * -1.0}))\r\n",
+          "refId": "Load",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_power_photovoltaic\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> aggregateWindow(every: 1d, fn: mean, createEmpty: false)\r\n  |> mean()\r\n  |> map(fn: (r) => ({Photovoltaics: r._value}))\r\n",
+          "refId": "Photovoltaics",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_power_grid\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> aggregateWindow(every: 1d, fn: mean, createEmpty: false)\r\n  |> mean()\r\n  |> map(fn: (r) => ({Grid: r._value}))\r\n",
+          "refId": "Grid",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Average per day",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -266,10 +476,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 12,
-        "y": 1
+        "h": 8,
+        "w": 22,
+        "x": 0,
+        "y": 15
       },
       "hiddenSeries": false,
       "id": 6,
@@ -322,7 +532,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_autonomy_ratio\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> sort(columns: [\"_time\"])\r\n  |> keep(columns: [\"_value\", \"_time\"])\r\n  |> set(key: \"_field\", value: \"Autonomy\")",
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_autonomy_ratio\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> keep(columns: [\"_value\", \"_time\"])\r\n  |> set(key: \"_field\", value: \"Autonomy\")",
           "refId": "Autonomy",
           "resultFormat": "time_series",
           "select": [
@@ -359,7 +569,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_selfconsumption_ratio\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> sort(columns: [\"_time\"])\r\n  |> keep(columns: [\"_value\", \"_time\"])\r\n  |> set(key: \"_field\", value: \"Self-Consumption\")",
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_selfconsumption_ratio\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> keep(columns: [\"_value\", \"_time\"])\r\n  |> set(key: \"_field\", value: \"Self-Consumption\")",
           "refId": "Self-Consumption",
           "resultFormat": "time_series",
           "select": [
@@ -421,29 +631,15 @@
       }
     },
     {
-      "collapsed": false,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 13
-      },
-      "id": 13,
-      "panels": [],
-      "title": "Energy per day",
-      "type": "row"
-    },
-    {
       "datasource": "${datasource}",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "super-light-yellow",
-            "mode": "fixed"
+            "mode": "continuous-GrYlRd"
           },
+          "decimals": 1,
           "mappings": [],
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -453,30 +649,62 @@
               }
             ]
           },
-          "unit": "watth"
+          "unit": "percentunit"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "Autonomy"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "Self-Consumption"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 14
+        "w": 2,
+        "x": 22,
+        "y": 15
       },
-      "id": 10,
+      "id": 21,
       "options": {
-        "displayMode": "gradient",
-        "orientation": "vertical",
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
           ],
           "fields": "",
-          "limit": 14,
-          "values": true
+          "values": false
         },
-        "showUnfilled": true,
-        "text": {}
+        "text": {},
+        "textMode": "value_and_name"
       },
       "pluginVersion": "7.5.3",
       "targets": [
@@ -495,9 +723,151 @@
               "type": "fill"
             }
           ],
+          "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "import \"strings\"\r\nfrom(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_energy_consumption\" and\r\n    r.site == \"${site}\" and\r\n    r.time_frame == \"day\"\r\n  )\r\n  |> drop(columns: [\"url\", \"host\", \"time_frame\"])\r\n  |> window(every: 24h)\r\n  |> max()\r\n  |> map(fn: (r) => ({_value: r._value, _time: r._time, _field: strings.substring(start: 0, end: 10, v: string(v: r._time))}))",
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_autonomy_ratio\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> aggregateWindow(every: 24h, fn: mean, createEmpty: false)\r\n  |> mean()\r\n  |> map(fn: (r) => ({Autonomy: r._value}))\r\n",
+          "refId": "Autonomy",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_selfconsumption_ratio\" and\r\n    r.site == \"${site}\"\r\n  )\r\n  |> group(columns: [\"site\"])\r\n  |> aggregateWindow(every: 24h, fn: mean, createEmpty: false)\r\n  |> mean()\r\n  |> map(fn: (r) => ({\"Self-Consumption\": r._value}))\r\n",
+          "refId": "Self-Consumption",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Average per day",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 13,
+      "panels": [],
+      "title": "Energy per day",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${datasource}",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 22,
+        "x": 0,
+        "y": 24
+      },
+      "hiddenSeries": false,
+      "id": 10,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "import \"strings\"\r\nfrom(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_energy_consumption\" and\r\n    r.site == \"${site}\" and\r\n    r.time_frame == \"day\"\r\n  )\r\n  |> drop(columns: [\"url\", \"host\", \"time_frame\"])\r\n  |> window(every: 24h)\r\n  |> max()\r\n  |> group(columns: [\"site\"])\r\n  |> map(fn: (r) => ({_value: r._value, _time: r._time, _field: \"Energy per day\"}))",
           "refId": "Energy per day",
           "resultFormat": "time_series",
           "select": [
@@ -517,8 +887,48 @@
           "tags": []
         }
       ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
       "title": "Total Energy per day",
-      "type": "bargauge"
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:877",
+          "format": "watt",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:878",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "datasource": "${datasource}",
@@ -543,9 +953,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 3,
-        "x": 12,
-        "y": 14
+        "w": 2,
+        "x": 22,
+        "y": 24
       },
       "id": 16,
       "options": {
@@ -612,7 +1022,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 32
       },
       "id": 18,
       "panels": [],
@@ -644,10 +1054,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 6,
+        "w": 22,
         "x": 0,
-        "y": 23
+        "y": 33
       },
       "id": 11,
       "options": {
@@ -683,7 +1093,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "import \"strings\"\r\nfrom(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_energy_consumption\" and\r\n    r.site == \"${site}\" and\r\n    r.time_frame == \"year\"\r\n  )\r\n  |> drop(columns: [\"url\", \"host\", \"time_frame\"])\r\n  |> window(every: 1y)\r\n  |> max()\r\n  |> map(fn: (r) => ({_value: r._value, _time: r._time, _field: strings.substring(start: 0, end: 4, v: string(v: r._time))}))",
+          "query": "import \"strings\"\r\nfrom(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_energy_consumption\" and\r\n    r.site == \"${site}\" and\r\n    r.time_frame == \"year\"\r\n  )\r\n  |> drop(columns: [\"url\", \"host\", \"time_frame\"])\r\n  |> window(every: 1y)\r\n  |> max()\r\n  |> group(columns: [\"site\"])\r\n  |> map(fn: (r) => ({_value: r._value, _time: r._time, year: int(v: strings.substring(start: 0, end: 4, v: string(v: r._time)))}))\r\n  |> group(columns: [\"site\"], mode: \"except\")",
           "refId": "Energy per year",
           "resultFormat": "time_series",
           "select": [
@@ -728,10 +1138,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 3,
-        "x": 12,
-        "y": 23
+        "h": 6,
+        "w": 2,
+        "x": 22,
+        "y": 33
       },
       "id": 19,
       "options": {
@@ -792,7 +1202,7 @@
       "type": "stat"
     }
   ],
-  "refresh": "5s",
+  "refresh": false,
   "schemaVersion": 27,
   "style": "dark",
   "tags": [
@@ -842,7 +1252,7 @@
       {
         "allValue": null,
         "datasource": "${datasource}",
-        "definition": "import \"influxdata/influxdb/v1\"\r\nv1.tagValues(\r\n    bucket: \"${bucket}\",\r\n    tag: \"site\",\r\n    predicate: (r) => true,\r\n    start: -1d\r\n)",
+        "definition": "import \"influxdata/influxdb/v1\"\r\nv1.tagValues(\r\n    bucket: \"${bucket}\",\r\n    tag: \"site\",\r\n    predicate: (r) => true,\r\n    start: -180d\r\n)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -851,7 +1261,7 @@
         "multi": false,
         "name": "site",
         "options": [],
-        "query": "import \"influxdata/influxdb/v1\"\r\nv1.tagValues(\r\n    bucket: \"${bucket}\",\r\n    tag: \"site\",\r\n    predicate: (r) => true,\r\n    start: -1d\r\n)",
+        "query": "import \"influxdata/influxdb/v1\"\r\nv1.tagValues(\r\n    bucket: \"${bucket}\",\r\n    tag: \"site\",\r\n    predicate: (r) => true,\r\n    start: -180d\r\n)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
