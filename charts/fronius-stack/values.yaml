@@ -20,7 +20,7 @@ influxdb:
     retention_policy: 14d
 
   persistence:
-    size: 8Gi
+    size: 2Gi
 
   pdb:
     create: false
@@ -43,6 +43,8 @@ fronius:
       site: home
 
 archival:
+  # -- Whether long-term archival is enabled. Note: Disabling archival after installation (when enabled) does not remove the archival bucket.
+  enabled: true
   # -- Fixed windows of time in which metrics are averaged.
   window: 10m
   # -- Name of the archival bucket to create after installation.

@@ -1,3 +1,4 @@
+{{- if and .Values.influxdb.enabled .Values.archival.enabled }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -42,3 +43,4 @@ spec:
         - name: scripts
           configMap:
             name: {{ template "fronius-stack.fullname" . }}-influxdb-task
+{{- end -}}
