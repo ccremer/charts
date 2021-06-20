@@ -3,6 +3,19 @@ entries:
   clustercode:
   - apiVersion: v2
     appVersion: v2.0.0-rc2
+    created: "2021-06-20T18:54:36.850820975Z"
+    description: Movie and Series conversion Operator
+    digest: 7c9178765cbf459a92070555e9a896f56df841059d2b97b1094f208dc33fa0f3
+    home: https://ccremer.github.io/clustercode-docs
+    name: clustercode
+    sources:
+    - https://github.com/ccremer/clustercode
+    type: application
+    urls:
+    - https://github.com/ccremer/charts/releases/download/clustercode-0.1.2/clustercode-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: v2.0.0-rc2
     created: "2021-04-10T16:59:17.257699267Z"
     description: Movie and Series conversion Operator
     digest: 08fc9c47f8a32f6175e982a3e9b09ef235603af53912f763f9736206cc9aabd8
@@ -247,6 +260,29 @@ entries:
     - https://github.com/ccremer/fronius-exporter
     urls:
     - https://github.com/ccremer/charts/releases/download/fronius-exporter-0.1.0/fronius-exporter-0.1.0.tgz
+    version: 0.1.0
+  fronius-stack:
+  - apiVersion: v2
+    created: "2021-06-20T18:54:36.946613609Z"
+    dependencies:
+    - alias: fronius
+      condition: fronius.enabled
+      name: fronius-exporter
+      repository: https://ccremer.github.io/charts
+      version: 0.7.0
+    - alias: influxdb
+      condition: influxdb.enabled
+      name: influxdb2
+      repository: https://helm.influxdata.com
+      version: 2.0.1
+    description: A Helm chart for installing fronius-exporter with long-term storage
+    digest: db5efbf1012e7d0fa6fae8f76071e9aebc6a4fcd91c8db2470d4663b1524d294
+    name: fronius-stack
+    sources:
+    - https://github.com/ccremer/fronius-exporter
+    type: application
+    urls:
+    - https://github.com/ccremer/charts/releases/download/fronius-stack-0.1.0/fronius-stack-0.1.0.tgz
     version: 0.1.0
   kubernetes-zfs-provisioner:
   - apiVersion: v2
@@ -569,4 +605,4 @@ entries:
     urls:
     - https://github.com/ccremer/charts/releases/download/znapzend-0.1.0/znapzend-0.1.0.tgz
     version: 0.1.0
-generated: "2021-06-13T09:05:30.964653982Z"
+generated: "2021-06-20T18:54:36.946854709Z"
