@@ -10,6 +10,7 @@
 * [clustercode](./clustercode/README.md)
 * [emby](./emby/README.md)
 * [fronius-exporter](./fronius-exporter/README.md)
+* [fronius-stack](./fronius-stack/README.md)
 * [kubernetes-zfs-provisioner](./kubernetes-zfs-provisioner/README.md)
 * [samba](./samba/README.md)
 * [znapzend](./znapzend/README.md)
