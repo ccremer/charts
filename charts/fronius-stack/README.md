@@ -74,6 +74,32 @@ The dashboard features some panels that calculate per-day metrics.
 Make sure the Fronius Symo device, InfluxDB and Grafana dashboard are roughly in the same timezone.
 The Fronius Symo API includes counters like "energy per day" that reset at midnight.
 
+## Migrating from netdata plugin
+
+If you have used the fronius plugin that is part of netdata, you can migrate the data to the exporter variant.
+
+As this step is done manually once, it's not automated, but here's roughly how I did it:
+
+1. Install this chart but don't start the exporter and influxdb yet (0 replicas each).
+   Also disable the archival feature for now.
+2. Modify the InfluxDB 2.x StatefulSet, so that you can migrate using the Docker approach.
+   You'd need to set `DOCKER_INFLUXDB_INIT_MODE=upgrade` and add the volume from the old DB.
+   You can now scale the replicas to 1.
+3. Once the InfluxDB 2.x is running, enter its shell and create a new `fronius_archive` bucket from CLI.
+4. You should have now `netdata/autogen`, `fronius_live` and `fronius_archive` bucket.
+   The last 2 should be empty for now.
+5. Migrate & downsample the raw data from `netdata/autogen` bucket using the [scripts provided](files/influxdb/migration).
+   You might need to edit the query a bit if you are deviating from the defaults.
+   You can execute the scripts with `kubectl`, e.g.
+   ```
+   cat migration/<the-file>.flux | kubectl -n fronius exec -i fronius-influxdb-0 -- influx query -o fronius -t $INFLUX_TOKEN
+   ```
+6. Each migration script can take a few minutes.
+   Check the Grafana dashboard if the values make sense.
+7. Scale up the exporter and verify that values are stored in `fronius_live` bucket.
+8. Create the downsampling task for `fronius_archive`, check out the ConfigMap in the Helm chart that would installed on first installation.
+9. Delete the `netdata/autogen` bucket.
+
 <!---
 Common/Useful Link references from values.yaml
 -->
@@ -97,6 +123,7 @@ Common/Useful Link references from values.yaml
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | archival.bucket | string | `"fronius_archive"` | Name of the archival bucket to create after installation. |
+| archival.enabled | bool | `true` | Whether long-term archival is enabled. Note: Disabling archival after installation (when enabled) does not remove the archival bucket. |
 | archival.retention | string | `"0s"` | Retention of the archival bucket. `0s` means forever. |
 | archival.window | string | `"10m"` | Fixed windows of time in which metrics are averaged. |
 | fronius.enabled | bool | `true` |  |
@@ -119,7 +146,7 @@ Common/Useful Link references from values.yaml
 | influxdb.adminUser.retention_policy | string | `"14d"` |  |
 | influxdb.enabled | bool | `true` |  |
 | influxdb.pdb.create | bool | `false` |  |
-| influxdb.persistence.size | string | `"8Gi"` |  |
+| influxdb.persistence.size | string | `"2Gi"` |  |
 | influxdb.resources.limits.memory | string | `"256Mi"` |  |
 | influxdb.resources.requests.cpu | string | `"50m"` |  |
 | influxdb.resources.requests.memory | string | `"128Mi"` |  |
