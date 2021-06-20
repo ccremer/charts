@@ -55,3 +55,10 @@ lint\:versions: ## Checks if chart versions have been changed
 	@changed_charts=$$(git diff --dirstat=files,0 origin/master..HEAD -- charts | cut -d '/' -f 2 | uniq) ; \
 	  echo "Charts changed: $$changed_charts" ; echo ;  \
 	  for dir in $$changed_charts; do git diff origin/master..HEAD -- "charts/$${dir}/Chart.yaml" | grep -H --label=$${dir} "+version"; done
+
+.PHONY: prepare
+prepare: ## Prepare the charts for testing
+	@echo --- Preparing charts
+	@find charts -type f -name Makefile | sed 's|/[^/]*$$||' | xargs -I '%' make -C '%' prepare
+	@echo 'Check for uncommitted changes ...'
+	git diff --exit-code

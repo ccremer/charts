@@ -25,5 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
+      - name: Prepare charts
+        run: make prepare
       - name: Run Chart unit tests
         run: make test
