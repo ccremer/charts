@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1624196932981,
+  "iteration": 1624718409543,
   "links": [],
   "panels": [
     {
@@ -867,7 +867,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "import \"strings\"\r\nfrom(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_energy_consumption\" and\r\n    r.site == \"${site}\" and\r\n    r.time_frame == \"day\"\r\n  )\r\n  |> drop(columns: [\"url\", \"host\", \"time_frame\"])\r\n  |> window(every: 24h)\r\n  |> max()\r\n  |> group(columns: [\"site\"])\r\n  |> map(fn: (r) => ({_value: r._value, _time: r._time, _field: \"Energy per day\"}))",
+          "query": "import \"strings\"\r\nimport \"date\"\r\nfrom(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn:(r) =>\r\n    r._measurement == \"fronius_site_energy_consumption\" and\r\n    r.site == \"${site}\" and\r\n    r.time_frame == \"day\"\r\n  )\r\n  |> drop(columns: [\"url\", \"host\", \"time_frame\"])\r\n  |> window(every: 24h)\r\n  |> max()\r\n  |> group(columns: [\"site\"])\r\n  |> map(fn: (r) => ({_value: r._value, _time: date.truncate(t: r._time, unit: 1d), _field: \"Energy per day\"}))",
           "refId": "Energy per day",
           "resultFormat": "time_series",
           "select": [
@@ -1282,5 +1282,5 @@
   "timezone": "",
   "title": "Fronius Symo",
   "uid": "wTbh9P6Gk",
-  "version": 2
+  "version": 4
 }
