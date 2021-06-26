@@ -11,7 +11,7 @@ image:
   # -- Location of the container image
   repository: ccremer/fronius-exporter
   # -- Container image tag
-  tag: "v0.6.0"
+  tag: v0.6.1
   pullPolicy: IfNotPresent
 
 # -- List of image pull secrets if you use a privately hosted image
@@ -38,7 +38,7 @@ telegraf:
     # -- Telegraf image location
     repository: library/telegraf
     # -- Telegraf image tag
-    tag: 1.18-alpine
+    tag: 1.19-alpine
   influxdb:
     # -- URL of an InfluxDB 2 instance
     url: http://influxdb2

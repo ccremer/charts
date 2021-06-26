@@ -1,6 +1,6 @@
 # fronius-exporter
 
-![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Prometheus Exporter for Fronius Symo Photovoltaics
 
@@ -50,7 +50,7 @@ Common/Useful Link references from values.yaml
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"quay.io"` | Container image registry |
 | image.repository | string | `"ccremer/fronius-exporter"` | Location of the container image |
-| image.tag | string | `"v0.6.0"` | Container image tag |
+| image.tag | string | `"v0.6.1"` | Container image tag |
 | imagePullSecrets | list | `[]` | List of image pull secrets if you use a privately hosted image |
 | ingress.annotations | object | `{}` | Additional annotations for the Ingress object |
 | ingress.enabled | bool | `false` | Useful if your Prometheus is outside of the cluster |
@@ -80,7 +80,7 @@ Common/Useful Link references from values.yaml
 | telegraf.globalTags | object | `{}` | A dict with `key: value` to add to `global_tags` config |
 | telegraf.image.registry | string | `"docker.io"` |  |
 | telegraf.image.repository | string | `"library/telegraf"` | Telegraf image location |
-| telegraf.image.tag | string | `"1.18-alpine"` | Telegraf image tag |
+| telegraf.image.tag | string | `"1.19-alpine"` | Telegraf image tag |
 | telegraf.influxdb.bucket | string | `"fronius"` | Bucket to write metrics into |
 | telegraf.influxdb.organization | string | `"fronius"` | Organization where the bucket belongs to |
 | telegraf.influxdb.token | string | `""` | Token used to authenticate to InfluxDB |
