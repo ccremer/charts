@@ -39,6 +39,8 @@ spec:
           args:
             - --symo.url={{ .Values.exporter.symoUrl }}
             - --symo.timeout={{ .Values.exporter.timeoutSeconds }}
+            - --symo.enable-power-flow={{ .Values.exporter.endpoints.powerFlow }}
+            - --symo.enable-archive={{ .Values.exporter.endpoints.archive }}
             {{- range .Values.exporter.additionalArgs }}
             - {{ . }}
             {{- end }}

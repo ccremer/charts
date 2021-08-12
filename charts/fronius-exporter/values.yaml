@@ -11,7 +11,7 @@ image:
   # -- Location of the container image
   repository: ccremer/fronius-exporter
   # -- Container image tag
-  tag: v0.6.1
+  tag: v0.8.0
   pullPolicy: IfNotPresent
 
 # -- List of image pull secrets if you use a privately hosted image
@@ -21,12 +21,18 @@ fullnameOverride: ""
 
 exporter:
   # -- Target URL of Fronius SYMO device. **Required**
-  symoUrl: "http://symo.ip.or.hostname/solar_api/v1/GetPowerFlowRealtimeData.fcgi"
+  symoUrl: "http://symo.ip.or.hostname"
   # -- Provide additional CLI flags via string array
   additionalArgs: []
   # -- Time after which collecting may time out. Should not be higher than
   # the Prometheus scrape interval.
   timeoutSeconds: 5
+  endpoints:
+    # -- Whether power flow data scraping is enabled.
+    powerFlow: true
+    # -- Whether archive data scraping is enabled.
+    # Note that this request can take a few seconds.
+    archive: true
 
 telegraf:
   # -- Whether to enable Telegraf sidecar for Influxdb
