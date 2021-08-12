@@ -1,6 +1,6 @@
 # fronius-exporter
 
-![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Prometheus Exporter for Fronius Symo Photovoltaics
 
@@ -43,14 +43,16 @@ Common/Useful Link references from values.yaml
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
 | exporter.additionalArgs | list | `[]` | Provide additional CLI flags via string array |
-| exporter.symoUrl | string | `"http://symo.ip.or.hostname/solar_api/v1/GetPowerFlowRealtimeData.fcgi"` | Target URL of Fronius SYMO device. **Required** |
+| exporter.endpoints.archive | bool | `true` | Whether archive data scraping is enabled. Note that this request can take a few seconds. |
+| exporter.endpoints.powerFlow | bool | `true` | Whether power flow data scraping is enabled. |
+| exporter.symoUrl | string | `"http://symo.ip.or.hostname"` | Target URL of Fronius SYMO device. **Required** |
 | exporter.timeoutSeconds | int | `5` | Time after which collecting may time out. Should not be higher than the Prometheus scrape interval. |
 | fullnameOverride | string | `""` |  |
 | hostAliases | object | `{}` | A dict with `{ip, hostnames array}` to configure custom entries in /etc/hosts. See [values.yaml](./values.yaml) for an example. |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"quay.io"` | Container image registry |
 | image.repository | string | `"ccremer/fronius-exporter"` | Location of the container image |
-| image.tag | string | `"v0.6.1"` | Container image tag |
+| image.tag | string | `"v0.8.0"` | Container image tag |
 | imagePullSecrets | list | `[]` | List of image pull secrets if you use a privately hosted image |
 | ingress.annotations | object | `{}` | Additional annotations for the Ingress object |
 | ingress.enabled | bool | `false` | Useful if your Prometheus is outside of the cluster |
