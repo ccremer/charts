@@ -52,6 +52,10 @@
   "tag_resolver": {
     "filter": {
       "pattern": "<from-workflow>"
+    },
+    "transformer": {
+      "pattern": "<from-workflow>",
+      "target": "$1"
     }
   }
 }
