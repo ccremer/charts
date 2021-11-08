@@ -40,6 +40,9 @@
       ]
     }
   ],
+  "ignore_labels": [
+    "ignore"
+  ],
   "template": "${{CATEGORIZED_COUNT}} changes since ${{FROM_TAG}}\n\n${{CHANGELOG}}",
   "label_extractor": [
     {
