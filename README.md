@@ -22,7 +22,7 @@
 Scaffold chart unit tests by copying existing unit tests and place it into a `test` dir within your chart dir.
 Develop your Go unit tests and make sure they run successfully.
 
-To run all test, run `make test`
+To run all test, run `make test`.
 
 ### Documentation
 
@@ -34,4 +34,4 @@ The root README is also generated so that it links to the new chart.
 
 You can generate the chart README.md with `make docs:helm`.
 
-To generate all documentations, run `make docs`
+To generate all documentations, run `make docs`.
