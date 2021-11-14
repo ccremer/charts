@@ -1,9 +1,9 @@
 dependencies:
 - name: fronius-exporter
   repository: https://ccremer.github.io/charts
-  version: 0.8.0
+  version: 0.8.1
 - name: influxdb2
   repository: https://helm.influxdata.com
   version: 2.0.1
-digest: sha256:b64dbb9c97ad992dd54959dcf0e92da0b3f507e6ece3567c6be6b11b10d3e89e
-generated: "2021-08-13T01:01:36.524491539+02:00"
+digest: sha256:c2a8ef2c9e8519232c3d9c14f1cacc0e9bcbadebfe140ebde4b561a6946358b3
+generated: "2021-11-14T10:47:13.91054599Z"
