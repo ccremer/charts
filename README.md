@@ -7,10 +7,12 @@
 
 ## List of Charts
 
-* [clustercode](./clustercode/README.md)
-* [emby](./emby/README.md)
-* [fronius-exporter](./fronius-exporter/README.md)
-* [fronius-stack](./fronius-stack/README.md)
-* [kubernetes-zfs-provisioner](./kubernetes-zfs-provisioner/README.md)
-* [samba](./samba/README.md)
-* [znapzend](./znapzend/README.md)
+| Downloads & Changelog | Chart |
+| --- | --- |
+| [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/clustercode-0.1.2/total)](https://github.com/ccremer/charts/releases/tag/clustercode-0.1.2) | [clustercode](./clustercode/README.md) |
+| [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/emby-0.2.2/total)](https://github.com/ccremer/charts/releases/tag/emby-0.2.2) | [emby](./emby/README.md) |
+| [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/fronius-exporter-0.8.1/total)](https://github.com/ccremer/charts/releases/tag/fronius-exporter-0.8.1) | [fronius-exporter](./fronius-exporter/README.md) |
+| [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/fronius-stack-0.1.3/total)](https://github.com/ccremer/charts/releases/tag/fronius-stack-0.1.3) | [fronius-stack](./fronius-stack/README.md) |
+| [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/kubernetes-zfs-provisioner-1.1.1/total)](https://github.com/ccremer/charts/releases/tag/kubernetes-zfs-provisioner-1.1.1) | [kubernetes-zfs-provisioner](./kubernetes-zfs-provisioner/README.md) |
+| [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/samba-0.1.1/total)](https://github.com/ccremer/charts/releases/tag/samba-0.1.1) | [samba](./samba/README.md) |
+| [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/znapzend-0.5.4/total)](https://github.com/ccremer/charts/releases/tag/znapzend-0.5.4) | [znapzend](./znapzend/README.md) |

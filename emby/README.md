@@ -1,6 +1,6 @@
 # emby
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Emby media server
 
@@ -27,7 +27,7 @@ helm install emby ccremer/emby
 | image.pullPolicy | string | `"IfNotPresent"` | Container image pull policy |
 | image.registry | string | `"docker.io"` | Container image registry |
 | image.repository | string | `"emby/embyserver"` | Location of the container image |
-| image.tag | string | `"4.6.0.50"` | Container image tag |
+| image.tag | string | `"4.7.0.17"` | Container image tag |
 | imagePullSecrets | list | `[]` | List of image pull secrets if you use a privately hosted image |
 | ingress.annotations | object | `{}` | Additional annotations for the Ingress object |
 | ingress.enabled | bool | `false` | Control whether ingress is created |
