@@ -1,6 +1,6 @@
 # kubernetes-zfs-provisioner
 
-![Version: 1.1.1](https://img.shields.io/badge/Version-1.1.1-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square)
 
 Dynamic ZFS persistent volume provisioner for Kubernetes
 
@@ -31,7 +31,7 @@ There are some breaking changes from 0.x to 1.x versions.
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"quay.io"` | Container image registry |
 | image.repository | string | `"ccremer/zfs-provisioner"` | Location of the container image |
-| image.tag | string | `"v1.0.1"` | Container image tag |
+| image.tag | string | `"v1.0.0"` | Container image tag |
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` | Reminder: This has no effect on any PVs, but maybe you want the provisioner pod running on certain nodes. |

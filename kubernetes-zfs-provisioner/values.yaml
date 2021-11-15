@@ -11,7 +11,7 @@ image:
   # -- Container image registry
   registry: quay.io
   # -- Container image tag
-  tag: v1.0.1
+  tag: v1.0.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
