@@ -6,8 +6,11 @@
 [ccremer](https://github.com/ccremer)'s Helm charts repository
 
 ## List of Charts
-{{ range .charts }}
-* [{{ .name }}]({{ .dir }}{{ .name }}/README.md)
+
+| Downloads & Changelog | Chart |
+| --- | --- |
+{{- range .charts }}
+| {{ if .version }}[![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/{{ .name }}-{{ .version }}/total)](https://github.com/ccremer/charts/releases/tag/{{ .name }}-{{ .version }}){{ end }} | [{{ .name }}]({{ .dir }}{{ .name }}/README.md) |
 {{- end -}}
 
 {{ if .masterBranch }}

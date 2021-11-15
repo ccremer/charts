@@ -3,6 +3,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -33,6 +34,7 @@ func main() {
 		charts = append(charts, map[string]string{
 			"name": strings.Split(file, "/")[1],
 			"dir":  chartsDir,
+			"version": extractVersion(file),
 		})
 	}
 	err = t.Execute(f, map[string]interface{}{
@@ -43,4 +45,22 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+}
+
+func extractVersion(filepath string) string {
+	f, err := os.Open(filepath)
+	if err != nil {
+		fmt.Println(err)
+		return ""
+	}
+	defer f.Close()
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Text()
+		if strings.Contains(line, "version: ") {
+			version := strings.TrimPrefix(line, "version: ")
+			return version
+		}
+	}
+	return ""
 }
