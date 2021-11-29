@@ -29,6 +29,19 @@ entries:
     version: 0.1.1
   emby:
   - apiVersion: v2
+    created: "2021-11-29T19:29:08.992611878Z"
+    description: A Helm chart for Emby media server
+    digest: 515345c9c7c57f4bf80fef65bf20bc9a836cb336baf0c5b02a0ca49c23bdeada
+    icon: https://avatars3.githubusercontent.com/u/3607473?s=200&v=4
+    name: emby
+    sources:
+    - https://github.com/MediaBrowser/Emby
+    - https://github.com/MediaBrowser/Emby.Build
+    type: application
+    urls:
+    - https://github.com/ccremer/charts/releases/download/emby-0.2.3/emby-0.2.3.tgz
+    version: 0.2.3
+  - apiVersion: v2
     created: "2021-11-14T10:47:10.587186574Z"
     description: A Helm chart for Emby media server
     digest: 1047a0eae259691ae6572d8b3237b59c67ba96ef395d59affc5605f381fff151
@@ -769,4 +782,4 @@ entries:
     urls:
     - https://github.com/ccremer/charts/releases/download/znapzend-0.1.0/znapzend-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-28T17:18:38.855677388Z"
+generated: "2021-11-29T19:29:08.99290377Z"
