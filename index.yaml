@@ -604,6 +604,26 @@ entries:
     urls:
     - https://github.com/ccremer/charts/releases/download/samba-0.1.0/samba-0.1.0.tgz
     version: 0.1.0
+  stiebeleltron-exporter:
+  - apiVersion: v2
+    created: "2021-12-11T16:08:38.060957764Z"
+    description: Prometheus Exporter for Stiebel Eltron heat pump ISG
+    digest: aa0c4211d7bc0a6dd0617b1e689c4eec6a7e497d0c9f56f5df31f03a529a2990
+    home: https://github.com/ccremer/stiebeleltron-exporter
+    icon: https://www.stiebel-eltron.com/apps/ste/docroot/images/single/logo-stiebel-eltron-red-black.svg
+    keywords:
+    - stiebel eltron
+    - isg
+    - heat pump
+    - exporter
+    - prometheus
+    name: stiebeleltron-exporter
+    sources:
+    - https://github.com/ccremer/stiebeleltron-exporter
+    type: application
+    urls:
+    - https://github.com/ccremer/charts/releases/download/stiebeleltron-exporter-0.1.0/stiebeleltron-exporter-0.1.0.tgz
+    version: 0.1.0
   znapzend:
   - apiVersion: v2
     created: "2021-04-10T16:59:17.677591829Z"
@@ -791,4 +811,4 @@ entries:
     urls:
     - https://github.com/ccremer/charts/releases/download/znapzend-0.1.0/znapzend-0.1.0.tgz
     version: 0.1.0
-generated: "2021-12-11T11:44:44.82030274Z"
+generated: "2021-12-11T16:08:38.061196664Z"
