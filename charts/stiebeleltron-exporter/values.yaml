@@ -1,0 +1,128 @@
+# Default values for stiebeleltron-exporter.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# -- Usually `1` is fine
+replicaCount: 1
+
+image:
+  # -- Container image registry
+  registry: ghcr.io
+  # -- Location of the container image
+  repository: ccremer/stiebeleltron-exporter
+  # -- Container image tag
+  tag: v0.1.0
+  pullPolicy: IfNotPresent
+
+# -- List of image pull secrets if you use a privately hosted image
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+exporter:
+  # -- Target URL of Stiebel Eltron ISG device. **Required**
+  isgUrl: "http://isg.ip.or.hostname"
+  # -- Provide additional CLI flags via string array
+  additionalArgs: []
+  # -- Time after which collecting may time out. Should not be higher than
+  # the Prometheus scrape interval.
+  timeoutSeconds: 5
+
+telegraf:
+  # -- Whether to enable Telegraf sidecar for Influxdb
+  enabled: false
+  # -- Go-style interval in which metrics are pushed to InfluxDB
+  interval: 30s
+  image:
+    registry: docker.io
+    # -- Telegraf image location
+    repository: library/telegraf
+    # -- Telegraf image tag
+    tag: 1.20-alpine
+  influxdb:
+    # -- URL of an InfluxDB 2 instance
+    url: http://influxdb2
+    # -- Token used to authenticate to InfluxDB
+    token: ""
+    # -- Bucket to write metrics into
+    bucket: stiebeleltron
+    # -- Organization where the bucket belongs to
+    organization: stiebeleltron
+  # -- A dict with `key: value` to add to `global_tags` config
+  globalTags: {}
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and `create` is `true`, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+# -- A dict with `{ip, hostnames array}` to configure custom entries in /etc/hosts.
+# See [values.yaml](./values.yaml) for an example.
+hostAliases: {}
+#  192.168.1.1:
+#    - my-custom-host.name
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  # -- Service type
+  type: ClusterIP
+  # -- Service port number
+  port: 8080
+  # -- Node port number if `type` is `NodePort`
+  nodePort: 0
+
+ingress:
+  # -- Useful if your Prometheus is outside of the cluster
+  enabled: false
+  # -- Additional annotations for the Ingress object
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+
+  # -- See Kubernetes Docs for a guide to setup Ingress hosts
+  hosts: []
+  # -- See Kubernetes Docs for a guide to setup TLS on Ingress
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  limits:
+    memory: 64Mi
+  requests:
+    cpu: 20m
+    memory: 32Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+serviceMonitor:
+  # -- Deploy a ServiceMonitor object for Prometheus. Requires an installed [Prometheus Operator][prometheus-operator].
+  enabled: false
+  # -- Namespace in which to deploy the ServiceMonitor, defaults to release namespace.
+  namespace: ""
+  # -- Override default scrape interval from Prometheus
+  scrapeInterval: ""
+  # -- Add relabeling configs before ingestion, see [RelabelConfig][prom-relabel-config].
+  metricRelabelings: []
+  # -- Add custom labels to the ServiceMonitor object
+  additionalLabels: {}
