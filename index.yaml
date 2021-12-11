@@ -454,6 +454,15 @@ entries:
     version: 0.1.0
   kubernetes-zfs-provisioner:
   - apiVersion: v2
+    created: "2021-12-11T11:44:44.820059938Z"
+    description: Dynamic ZFS persistent volume provisioner for Kubernetes
+    digest: 1615a2a57beb18a8f0b8c228245c9533b2f2085183f71a53d1646d5a4845c862
+    icon: https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Openzfs.svg/257px-Openzfs.svg.png
+    name: kubernetes-zfs-provisioner
+    urls:
+    - https://github.com/ccremer/charts/releases/download/kubernetes-zfs-provisioner-1.1.2/kubernetes-zfs-provisioner-1.1.2.tgz
+    version: 1.1.2
+  - apiVersion: v2
     created: "2021-11-14T10:41:03.858497914Z"
     description: Dynamic ZFS persistent volume provisioner for Kubernetes
     digest: 896522afa09fd1c097198d32cc9456f188e0b5ab33736409979d2a584cd70126
@@ -782,4 +791,4 @@ entries:
     urls:
     - https://github.com/ccremer/charts/releases/download/znapzend-0.1.0/znapzend-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-29T19:29:08.99290377Z"
+generated: "2021-12-11T11:44:44.82030274Z"
