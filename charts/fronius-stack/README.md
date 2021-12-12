@@ -1,6 +1,6 @@
 # fronius-stack
 
-![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for installing fronius-exporter with long-term storage
 
@@ -116,7 +116,7 @@ Common/Useful Link references from values.yaml
 | Repository | Name | Version |
 |------------|------|---------|
 | https://ccremer.github.io/charts | fronius(fronius-exporter) | 0.8.1 |
-| https://helm.influxdata.com | influxdb(influxdb2) | 2.0.2 |
+| https://helm.influxdata.com | influxdb(influxdb2) | 2.0.4 |
 
 ## Values
 
