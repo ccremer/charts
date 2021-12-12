@@ -343,6 +343,28 @@ entries:
     version: 0.1.0
   fronius-stack:
   - apiVersion: v2
+    created: "2021-12-12T15:55:30.797250672Z"
+    dependencies:
+    - alias: fronius
+      condition: fronius.enabled
+      name: fronius-exporter
+      repository: https://ccremer.github.io/charts
+      version: 0.8.1
+    - alias: influxdb
+      condition: influxdb.enabled
+      name: influxdb2
+      repository: https://helm.influxdata.com
+      version: 2.0.4
+    description: A Helm chart for installing fronius-exporter with long-term storage
+    digest: ee51ac8d77f78b1c63b8a547c5963b3d84d9385b7d9cb5ebe21bc2cd6382cdb4
+    name: fronius-stack
+    sources:
+    - https://github.com/ccremer/fronius-exporter
+    type: application
+    urls:
+    - https://github.com/ccremer/charts/releases/download/fronius-stack-0.1.5/fronius-stack-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
     created: "2021-11-28T17:18:38.855479984Z"
     dependencies:
     - alias: fronius
@@ -811,4 +833,4 @@ entries:
     urls:
     - https://github.com/ccremer/charts/releases/download/znapzend-0.1.0/znapzend-0.1.0.tgz
     version: 0.1.0
-generated: "2021-12-11T16:08:38.061196664Z"
+generated: "2021-12-12T15:55:30.797680999Z"
