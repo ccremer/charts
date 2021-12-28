@@ -71,22 +71,36 @@ As this step is done manually once, it's not automated, but here's roughly how I
 1. Install this chart but don't start the exporter and influxdb yet (0 replicas each).
    Also disable the archival feature for now.
 2. Modify the InfluxDB 2.x StatefulSet, so that you can migrate using the Docker approach.
-   You'd need to set `DOCKER_INFLUXDB_INIT_MODE=upgrade` and add the volume from the old DB.
-   You can now scale the replicas to 1.
-3. Once the InfluxDB 2.x is running, enter its shell and create a new `stiebeleltron_archive` bucket from CLI.
-4. You should have now `netdata/autogen`, `stiebeleltron_live` and `stiebeleltron_archive` bucket.
+   You'd need to set `DOCKER_INFLUXDB_INIT_MODE=upgrade` and add the volume mounts from the old DB.
+   Set `INFLUXD_ENGINE_PATH=/var/lib/influxdb2/migration` (we appended `migration`, otherwise there will be some permission errors).
+   Set `INFLUXD_BOLT_PATH=/var/lib/influxdb2/migration/influxd.bolt`.
+3. You can now scale the replicas to 1.
+4. Once the InfluxDB 2.x is running and the old DB upgraded, enter its shell and execute the following:
+   ```
+   influx backup /var/lib/influxdb2/backup
+   ```
+5. Exit shell and scale replica to 0.
+6. Reset `DOCKER_INFLUXDB_INIT_MODE`, `INFLUXD_ENGINE_PATH` and `INFLUXD_BOLT_PATH` to default values and set `replicas=1`.
+7. Enter shell again and execute a restore:
+   ```
+   influx bucket delete --name stiebeleltron_live
+   influx restore /var/lib/influxdb2/backup
+   influx bucket create --name stiebeleltron_archive --org stiebeleltron
+   rm -rf /var/lib/influxdb2/migration /var/lib/influxdb2/backup
+   ```
+8. You should have now `netdata/autogen`, `stiebeleltron_live` and `stiebeleltron_archive` bucket.
    The last 2 should be empty for now.
-5. Migrate & downsample the raw data from `netdata/autogen` bucket using the [scripts provided](files/influxdb/migration).
+9. Migrate & downsample the raw data from `netdata/autogen` bucket using the [scripts provided](files/influxdb/migration).
    You might need to edit the query a bit if you are deviating from the defaults.
    You can execute the scripts with `kubectl`, e.g.
    ```
-   cat migration/<the-file>.flux | kubectl -n stiebeleltron exec -i stiebeleltron-influxdb-0 -- influx query -o stiebeleltron -t $INFLUX_TOKEN
+   cat migration/<the-file>.flux | kubectl -n stiebeleltron exec -i stiebeleltron-influxdb-0 -- influx query -o stiebeleltron
    ```
-6. Each migration script can take a few minutes.
+10. Each migration script can take a few minutes.
    Check the Grafana dashboard if the values make sense.
-7. Scale up the exporter and verify that values are stored in `stiebeleltron_live` bucket.
-8. Create the downsampling task for `stiebeleltron_archive`, check out the ConfigMap in the Helm chart that would installed on first installation.
-9. Delete the `netdata/autogen` bucket.
+11. Scale up the exporter and verify that values are stored in `stiebeleltron_live` bucket.
+12. Create the downsampling task for `stiebeleltron_archive`, check out the ConfigMap in the Helm chart that would installed on first installation.
+13. Delete the `netdata/autogen` bucket via CLI.
 
 <!---
 Common/Useful Link references from values.yaml

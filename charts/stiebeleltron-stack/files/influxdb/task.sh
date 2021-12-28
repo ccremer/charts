@@ -10,7 +10,7 @@ fi
 
 echo "listing existing tasks"
 response=$(influx task list)
-if [[ "$response" == *"Downsampling Fronius"* ]]; then
+if [[ "$response" == *"Downsampling Stiebeleltron"* ]]; then
   echo "task exists already, nothing to do"
   exit 0
 fi

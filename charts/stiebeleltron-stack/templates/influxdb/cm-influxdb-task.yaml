@@ -9,7 +9,7 @@ data:
   task.flux: |
     import "strings"
 
-    option task = {name: "Downsampling stiebeleltron", every: {{ .Values.archival.window }}}
+    option task = {name: "Downsampling Stiebeleltron", every: {{ .Values.archival.window }}}
 
     fromBucket = {{ .Values.influxdb.adminUser.bucket | quote }}
     targetBucket = {{ .Values.archival.bucket | quote }}
