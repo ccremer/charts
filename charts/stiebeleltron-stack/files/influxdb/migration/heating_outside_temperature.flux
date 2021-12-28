@@ -1,7 +1,7 @@
 sBucket = "netdata/autogen"
 tBucket = "stiebeleltron_archive"
 sMeasurement = "netdata.heating.stiebeleltron_system.general.outside.outside_temperature"
-tMeasurement = "stiebeleltron_general_temperature_outside"
+tMeasurement = "stiebeleltron_heating_outside_temperature"
 site = "sirius"
 
 from(bucket: sBucket)
