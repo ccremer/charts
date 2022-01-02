@@ -129,7 +129,7 @@ Common/Useful Link references from values.yaml
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://ccremer.github.io/charts | stiebeleltron(stiebeleltron-exporter) | 0.1.0 |
+| https://ccremer.github.io/charts | stiebeleltron(stiebeleltron-exporter) | 0.1.1 |
 | https://helm.influxdata.com | influxdb(influxdb2) | 2.0.4 |
 
 ## Values

@@ -28,7 +28,7 @@ sources:
 
 dependencies:
   - name: stiebeleltron-exporter
-    version: 0.1.0
+    version: 0.1.1
     repository: https://ccremer.github.io/charts
     alias: stiebeleltron
     condition: stiebeleltron.enabled
