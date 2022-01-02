@@ -667,6 +667,29 @@ entries:
     version: 0.1.0
   stiebeleltron-stack:
   - apiVersion: v2
+    created: "2022-01-02T18:31:04.551023606Z"
+    dependencies:
+    - alias: stiebeleltron
+      condition: stiebeleltron.enabled
+      name: stiebeleltron-exporter
+      repository: https://ccremer.github.io/charts
+      version: 0.1.1
+    - alias: influxdb
+      condition: influxdb.enabled
+      name: influxdb2
+      repository: https://helm.influxdata.com
+      version: 2.0.4
+    description: A Helm chart for installing stiebeleltron-exporter with long-term
+      storage
+    digest: 7830d34f1d1c46310fc509eb2bbd522b7023ee86666a508c65fa29341a980080
+    name: stiebeleltron-stack
+    sources:
+    - https://github.com/ccremer/stiebeleltron-exporter
+    type: application
+    urls:
+    - https://github.com/ccremer/charts/releases/download/stiebeleltron-stack-0.1.1/stiebeleltron-stack-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2022-01-02T18:22:05.354568749Z"
     dependencies:
     - alias: stiebeleltron
@@ -876,4 +899,4 @@ entries:
     urls:
     - https://github.com/ccremer/charts/releases/download/znapzend-0.1.0/znapzend-0.1.0.tgz
     version: 0.1.0
-generated: "2022-01-02T18:22:05.354825546Z"
+generated: "2022-01-02T18:31:04.551320208Z"
