@@ -1,0 +1,69 @@
+# Default values for stiebeleltron-stack.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: stiebeleltron
+fullnameOverride: ""
+
+influxdb:
+  enabled: true
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      memory: 256Mi
+
+  adminUser:
+    organization: stiebeleltron
+    bucket: stiebeleltron_live
+    retention_policy: 14d
+
+  persistence:
+    size: 2Gi
+
+  pdb:
+    create: false
+
+stiebeleltron:
+  enabled: true
+  nameOverride: exporter
+  telegraf:
+    enabled: true
+    # -- Interval of sending metrics to InfluxDB.
+    interval: 5s
+    influxdb:
+      url: http://stiebeleltron-influxdb
+      # -- The token to connect to InfluxDB, needs to be equal to `influxdb.adminUser.token`.
+      token: ""
+      # -- The high-precision bucket name, needs to be equal to `influxdb.adminUser.bucket`.
+      bucket: stiebeleltron_live
+    globalTags:
+      # -- The name of the site or environment.
+      site: home
+
+archival:
+  # -- Whether long-term archival is enabled. Note: Disabling archival after installation (when enabled) does not remove the archival bucket.
+  enabled: true
+  # -- Fixed windows of time in which metrics are averaged.
+  window: 10m
+  # -- Name of the archival bucket to create after installation.
+  bucket: stiebeleltron_archive
+  # -- Retention of the archival bucket. `0s` means forever.
+  retention: 0s
+
+grafana:
+  datasource:
+    enabled: true
+    # -- Override the namespace where the ConfigMap is installed, defaults to release namespace.
+    namespace: ""
+    # -- The labels which the sidecar is filtering for data sources.
+    labels:
+      grafana_datasource: "1"
+  dashboard:
+    enabled: true
+    # -- Override the namespace where the ConfigMap is installed, defaults to release namespace.
+    namespace: ""
+    # -- The labels which the sidecar is filtering for dashboards.
+    labels:
+      grafana_dashboard: "1"
