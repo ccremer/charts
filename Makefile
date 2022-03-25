@@ -11,6 +11,8 @@ SOURCE_README=README.gotmpl
 TARGET_README=README.md
 CHARTS_DIR=charts/
 
+go_cmd ?= docker run --rm -v $$(pwd):/go/src -u $$(id -u):$$(id -g) -e GOCACHE=/go/.cache/go-build -w /go/src bitnami/golang go
+
 .PHONY: help
 help: ## Show this help
 	@grep -E -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = "(: ).*?## "}; {gsub(/\\:/,":",$$1)}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
@@ -28,7 +30,7 @@ docs\:helm: ## Creates the Chart READMEs from template and values.yaml files
 
 .PHONY: docs\:readme
 docs\:readme: ## Creates the root README from template
-	@go run readme.go $(SOURCE_README) $(TARGET_README) $(MASTER_BRANCH) $(CHARTS_DIR)
+	@$(go_cmd) run readme.go $(SOURCE_README) $(TARGET_README) $(MASTER_BRANCH) $(CHARTS_DIR)
 
 .PHONY: test
 test: ## Run Chart unit tests

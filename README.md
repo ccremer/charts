@@ -21,6 +21,11 @@
 
 ## Development
 
+### Requirements
+
+* `helm`
+* `docker`
+
 ### Testing
 
 Scaffold chart unit tests by copying existing unit tests and place it into a `test` dir within your chart dir.

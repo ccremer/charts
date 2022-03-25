@@ -1,3 +1,4 @@
+//go:build readme
 // +build readme
 
 package main
@@ -32,8 +33,8 @@ func main() {
 	var charts []map[string]string
 	for _, file := range files {
 		charts = append(charts, map[string]string{
-			"name": strings.Split(file, "/")[1],
-			"dir":  chartsDir,
+			"name":    strings.Split(file, "/")[1],
+			"dir":     chartsDir,
 			"version": extractVersion(file),
 		})
 	}
