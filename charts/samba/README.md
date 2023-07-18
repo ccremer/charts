@@ -35,6 +35,7 @@ Refer to [dperson/samba](https://github.com/dperson/samba) on how to do this.
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
+| persistence.accessMode | string | `"ReadWriteMany"` | Access mode for the PV |
 | persistence.annotations | object | `{}` | Additional annotations to add to the PVC |
 | persistence.enabled | bool | `false` | Whether a PVC shall be created |
 | persistence.mountPath | string | `"/data"` |  |

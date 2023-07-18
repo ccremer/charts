@@ -52,6 +52,8 @@ persistence:
   selector: {}
   # -- Storage Class name of the PV
   storageClass: ""
+  # -- Access mode for the PV
+  accessMode: ReadWriteMany
   # -- Additional annotations to add to the PVC
   annotations: {}
 
