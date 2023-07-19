@@ -16,6 +16,9 @@ samba:
   #   group: smbusers # group name
   #   gid: 1000 # group id
 
+  # -- Name of an existing secret with USER env var(s). Refer to `templates/secret.yaml` for the format.
+  existingSecretName: ""
+
   # -- A list of Samba shares. Convenience wrapper around SHARE env var(s). See [values.yaml](values.yaml) for an example.
   shares: []
   # - name: share # is how it's called for clients, REQUIRED

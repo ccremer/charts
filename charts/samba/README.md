@@ -51,6 +51,7 @@ Refer to [dperson/samba](https://github.com/dperson/samba) on how to do this.
 | resources.requests.cpu | string | `"30m"` |  |
 | resources.requests.memory | string | `"64Mi"` |  |
 | samba.args | list | `[]` | Container args to pass |
+| samba.existingSecretName | string | `""` | Name of an existing secret with USER env var(s). Refer to `templates/secret.yaml` for the format. |
 | samba.rawEnv | object | `{}` | A dict with KEY: VALUE entries to directly define environment variables. |
 | samba.shares | list | `[]` | A list of Samba shares. Convenience wrapper around SHARE env var(s). See [values.yaml](values.yaml) for an example. |
 | samba.users | list | `[]` | A list of users as a convenience wrapper around USER env var(s). See [values.yaml](values.yaml) for an example. |
