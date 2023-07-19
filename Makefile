@@ -11,6 +11,8 @@ SOURCE_README=README.gotmpl
 TARGET_README=README.md
 CHARTS_DIR=charts/
 
+HELMDOCS_VERSION=v1.11.0
+
 go_cmd ?= docker run --rm -v $$(pwd):/go/src -u $$(id -u):$$(id -g) -e GOCACHE=/go/.cache/go-build -w /go/src bitnami/golang go
 
 .PHONY: help
@@ -23,7 +25,7 @@ docs: docs\:helm docs\:readme
 .PHONY: docs\:helm
 docs\:helm: ## Creates the Chart READMEs from template and values.yaml files
 	@echo --- Generating Chart READMEs
-	@docker run --rm -v $$(pwd):/helm-docs -u $$(id -u) jnorwood/helm-docs:v1.5.0 \
+	@docker run --rm -v $$(pwd):/helm-docs -u $$(id -u) jnorwood/helm-docs:${HELMDOCS_VERSION} \
 		--template-files ./.github/helm-docs-header.gotmpl.md \
 		--template-files README.gotmpl.md \
 		--template-files ./.github/helm-docs-footer.gotmpl.md
