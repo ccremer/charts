@@ -5,3 +5,4 @@
 /charts/*/charts
 
 .github/configuration.json
+.github/release-notes.md

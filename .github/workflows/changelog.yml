@@ -25,12 +25,12 @@ jobs:
         # combining possible changelogs of all previous PreReleases in between.
         # PreReleases show a partial changelog since last PreRelease.
         ignorePreReleases: "${{ !contains(github.ref, '-rc') }}"
+        outputFile: .github/release-notes.md
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Update release
-      uses: tubone24/update_release@v1.3.1
+    - name: Update release changelog
+      run: |
+        gh release edit "${{ github.ref }}" --notes-file .github/release-notes.md
       env:
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        body: ${{ steps.build_changelog.outputs.changelog }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
