@@ -23,6 +23,7 @@ jobs:
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.4.0
         env:
+          # Using custom PAT so that the changelog action is triggered
           CR_TOKEN: "${{ secrets.RELEASE_PAT }}"
 
   readme:
