@@ -13,7 +13,7 @@
 | [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/emby-0.2.3/total)](https://github.com/ccremer/charts/releases/tag/emby-0.2.3) | [emby](charts/emby/README.md) |
 | [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/fronius-exporter-0.8.1/total)](https://github.com/ccremer/charts/releases/tag/fronius-exporter-0.8.1) | [fronius-exporter](charts/fronius-exporter/README.md) |
 | [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/fronius-stack-0.1.5/total)](https://github.com/ccremer/charts/releases/tag/fronius-stack-0.1.5) | [fronius-stack](charts/fronius-stack/README.md) |
-| [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/samba-0.1.1/total)](https://github.com/ccremer/charts/releases/tag/samba-0.1.1) | [samba](charts/samba/README.md) |
+| [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/samba-0.2.0/total)](https://github.com/ccremer/charts/releases/tag/samba-0.2.0) | [samba](charts/samba/README.md) |
 | [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/stiebeleltron-exporter-0.1.1/total)](https://github.com/ccremer/charts/releases/tag/stiebeleltron-exporter-0.1.1) | [stiebeleltron-exporter](charts/stiebeleltron-exporter/README.md) |
 | [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/stiebeleltron-stack-0.1.2/total)](https://github.com/ccremer/charts/releases/tag/stiebeleltron-stack-0.1.2) | [stiebeleltron-stack](charts/stiebeleltron-stack/README.md) |
 | [![chart downloads](https://img.shields.io/github/downloads/ccremer/charts/znapzend-0.5.4/total)](https://github.com/ccremer/charts/releases/tag/znapzend-0.5.4) | [znapzend](charts/znapzend/README.md) |

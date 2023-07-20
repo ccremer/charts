@@ -1,6 +1,6 @@
 # samba
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 A Helm chart for Samba server
 
@@ -35,6 +35,7 @@ Refer to [dperson/samba](https://github.com/dperson/samba) on how to do this.
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
+| persistence.accessMode | string | `"ReadWriteMany"` | Access mode for the PV |
 | persistence.annotations | object | `{}` | Additional annotations to add to the PVC |
 | persistence.enabled | bool | `false` | Whether a PVC shall be created |
 | persistence.mountPath | string | `"/data"` |  |
@@ -50,6 +51,7 @@ Refer to [dperson/samba](https://github.com/dperson/samba) on how to do this.
 | resources.requests.cpu | string | `"30m"` |  |
 | resources.requests.memory | string | `"64Mi"` |  |
 | samba.args | list | `[]` | Container args to pass |
+| samba.existingSecretName | string | `""` | Name of an existing secret with USER env var(s). Refer to `templates/secret.yaml` for the format. |
 | samba.rawEnv | object | `{}` | A dict with KEY: VALUE entries to directly define environment variables. |
 | samba.shares | list | `[]` | A list of Samba shares. Convenience wrapper around SHARE env var(s). See [values.yaml](values.yaml) for an example. |
 | samba.users | list | `[]` | A list of users as a convenience wrapper around USER env var(s). See [values.yaml](values.yaml) for an example. |

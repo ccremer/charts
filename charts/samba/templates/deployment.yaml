@@ -42,9 +42,9 @@ spec:
             - configMapRef:
                 name: {{ include "samba.fullname" . }}
           {{- end }}
-          {{- if .Values.samba.users }}
+          {{- if or .Values.samba.users .Values.samba.existingSecretName }}
             - secretRef:
-                name: {{ include "samba.fullname" . }}
+                name: {{ .Values.samba.existingSecretName | default (include "samba.fullname" .) }}
           {{- end }}
           ports:
             - name: smb
