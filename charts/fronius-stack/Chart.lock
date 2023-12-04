@@ -4,6 +4,6 @@ dependencies:
   version: 0.8.1
 - name: influxdb2
   repository: https://helm.influxdata.com
-  version: 2.0.4
-digest: sha256:d28481cd65e601bd158c2ee9f88af5aac95f8db081437d66df9f8c96e61cf180
-generated: "2021-12-11T16:18:04.931331246Z"
+  version: 2.1.2
+digest: sha256:e9bc70640adbaebe09513a9b6df121857ab41295ba2471970cf8b6ae52dc1ad7
+generated: "2023-12-04T17:10:30.898453945Z"
