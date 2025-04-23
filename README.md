@@ -1,3 +1,9 @@
+# No Longer Maintained!
+
+I'm retiring this repository as I have no longer a use for it.
+Either I'm not using all apps anymore or I moved them somewhere else.
+These charts are still here if you need them, but you're encouraged to use something else instead.
+
 # Charts
 
 [![License](https://img.shields.io/github/license/ccremer/charts)](https://github.com/ccremer/charts/blob/master/LICENSE)
